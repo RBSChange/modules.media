@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">	
+	
+	<binding id="cropImageDialog" extends="core.wDialog#wDialog">
+		<implementation>					
+			<field name="mSvgDoc">null</field>
+			<field name="mSizer">null</field>
+			<field name="mOriginalSize">null</field>
+			<field name="mRatio">1</field>
+			<field name="mScale">1</field>
+
+			<field name="mCurrentZone">null</field>
+			<field name="mCaptureCoord">null</field>
+			<field name="mCmpref">null</field>
+			
+			
+			<constructor>
+				<![CDATA[
+				wCore.debug('cropImageDialog.constructor');
+				this.mSvgDoc = this.getElementById('svg-doc');
+				this.mSizer = this.getElementById('sizer');
+				this.mOriginalSize = {w:0, h:0};
+				this.mOrigine = {x:0, x:0};					
+			]]></constructor>
+			
+			<property name="cursorX" readonly="true">
+				<getter><![CDATA[
+					  return parseInt(this.getAttribute('cursor-X', 10));
+				]]></getter>
+			</property>
+			<property name="cursorY" readonly="true">
+				<getter><![CDATA[
+					  return parseInt(this.getAttribute('cursor-Y', 10));
+				]]></getter>
+			</property>
+			
+			<property name="currentAction">
+				<getter><![CDATA[
+					  return this.hasAttribute('current-action') ? this.getAttribute('current-action') : null;
+				]]></getter>
+				<setter><![CDATA[
+					  if (val == null || val == '')
+					  {
+					  		this.removeAttribute('current-action');
+					  }
+					  else
+					  {
+					  		this.setAttribute('current-action', val)
+					  }
+				]]></setter>
+			</property>
+			
+			<method name="onInitialize">
+				<body><![CDATA[
+					this.resizeTo(800, 600);
+					this.setAttribute('cursor-X', '');
+					this.setAttribute('cursor-Y', '');
+					this.currentAction = null;
+					this.loadImage(this.parameters.id);	
+				]]></body>
+			</method>
+			
+			<method name="loadImage">
+				<parameter name="id"/>
+				<body><![CDATA[
+					var me = this;
+					var callBack = function(result) {me.onLoadImage(result);};
+					wCore.executeJSON('media', 'CropDialogJSON', {cmpref:id, lang:Context.W_LANG}, callBack, true);					
+				]]></body>
+			</method>			
+			
+			<method name="onLoadImage">
+				<parameter name="result"/>
+				<body><![CDATA[				
+					wCore.debug(wCore.dump(result));
+					var image = this.getElementById('originalImage');
+					image.setAttribute('src', result.contents.src);
+					this.getElementById('filename').setAttribute('value', result.contents.filename); 
+					var cW = result.contents.width;
+					var cH = result.contents.height;
+					this.mOriginalSize = {w:cW, h:cH};
+					this.mCmpref = result.contents.id;
+					this.setAttribute('img-Info', '&modules.media.bo.dialog.Width; ' + cW + ', &modules.media.bo.dialog.Height; ' + cH + ', &modules.media.bo.dialog.Size; : ' + result.contents.size);
+							
+					var sizer = this.mSizer;
+					this.mRatio = cW / cH;
+					this.mScale = Math.min(750 / cW, 1);
+					this.mOrigine = sizer.boxObject;
+					
+					if (this.mScale < 1)
+					{
+						cW = 750;
+						cH = cW / this.mRatio
+					}
+					
+					var sY =  450 / cH;
+					if (sY < 1)
+					{
+						cH = 450;
+						cW = cH * this.mRatio;
+						this.mScale *= sY;
+					}
+					
+					sizer.setAttribute("width", cW);
+					this.mSvgDoc.setAttribute("width", cW);
+					image.setAttribute("width", cW);
+					
+					sizer.setAttribute("height", cH);
+					this.mSvgDoc.setAttribute("height", cH);
+					image.setAttribute("height", cH);
+					
+					var me = this;
+					this.mSvgDoc.addEventListener('mousemove', function(event) {me.onMouseMove(event)}, true);
+					this.mSvgDoc.addEventListener('mousedown', function(event) {me.onMouseDown(event)}, true);
+					this.mSvgDoc.addEventListener('mouseup', function(event) {me.onMouseUp(event)}, true);
+					
+					this.getElementById('override').addEventListener('CheckboxStateChange', function(event) {me.onOverrideChange(event)}, true);
+					
+				]]></body>
+			</method>				
+			
+			<method name="onOk">
+				<body><![CDATA[
+					this.getElementById('ok').disabled = true;
+					var params = {cmpref: this.mCmpref};
+					params.override = this.getElementById('override').checked ? 'true' : 'false'
+					params.filename = this.getElementById('filename').value;
+					
+					var scale = 1 / this.mScale;			
+					params.x = parseInt(this.mCurrentZone.getAttribute('x'), 10) * scale;
+					params.y = parseInt(this.mCurrentZone.getAttribute('y'), 10) * scale;
+					params.h = parseInt(this.mCurrentZone.getAttribute('height'), 10) * scale;
+					params.w = parseInt(this.mCurrentZone.getAttribute('width'), 10) * scale;
+					params.scale = scale;
+					
+					var me = this;
+					var callBack = function(result) {me.onCropped(result);};
+					wCore.executeJSON('media', "Crop", params, callBack, true);									
+				]]></body>
+			</method>
+			
+			<method name="onCropped">
+				<parameter name="result"/>
+				<body><![CDATA[
+					this.sender.refresh();
+					this.controller.closeModalDialog(true);										
+				]]></body>
+			</method>
+			
+			<method name="onOverrideChange">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var elem = this.getElementById('override');
+					this.getElementById('override-data').collapsed = elem.checked;
+				]]></body>
+			</method>
+			
+			<method name="getEventCoord">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var coord =  {x:event.clientX - this.mOrigine.x, y:event.clientY - this.mOrigine.y};
+					this.setAttribute('cursor-X', Math.round(coord.x / this.mScale));
+					this.setAttribute('cursor-Y', Math.round(coord.y / this.mScale));	
+					return coord;
+				]]></body>
+			</method>
+			
+			<method name="getRectCoord">
+				<parameter name="zone"/>
+				<body><![CDATA[
+					var coord =  {  x: parseInt(zone.getAttribute('x'), 10),
+									y: parseInt(zone.getAttribute('y'), 10),
+									width: parseInt(zone.getAttribute('width'), 10),
+									height: parseInt(zone.getAttribute('height'), 10)};	
+					return coord;
+				]]></body>
+			</method>
+						
+			<method name="onMouseDown">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var coord = this.getEventCoord(event);			
+					this.mCaptureCoord = {x: coord.x, y: coord.y, dx:0, dy:0};
+					
+					if (this.mCurrentZone == null)
+					{
+						this.currentAction = 'createzone';
+						this.mCurrentZone = this.createRectZone();
+						this.mCurrentZone.setAttribute('anonid', 'z0');
+						this.mCurrentZone.setAttribute('x', this.mCaptureCoord.x);
+						this.mCurrentZone.setAttribute('y', this.mCaptureCoord.y);
+						this.mSvgDoc.appendChild(this.mCurrentZone);
+					} 
+					else if (event.originalTarget.localName == 'rect')
+					{
+						this.currentAction = 'move';
+						this.mCaptureCoord.original = this.getRectCoord(this.mCurrentZone);
+					}
+					else if (event.originalTarget.localName == 'circle')
+					{
+						var gripInfos = event.originalTarget.getAttribute('anonid').split('-');
+						this.currentAction = 'resize-' + gripInfos[1];
+						this.mCaptureCoord.original = this.getRectCoord(this.mCurrentZone);
+					}
+					else
+					{
+						this.currentAction = 'createzone';
+					}	
+				]]></body>
+			</method>
+			
+			<method name="onMouseMove">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var coord = this.getEventCoord(event);
+					if (this.mCaptureCoord != null)
+					{
+						this.mCaptureCoord.dx = coord.x -  this.mCaptureCoord.x;
+						this.mCaptureCoord.dy = coord.y -  this.mCaptureCoord.y;
+							
+						if (this.mCurrentZone)
+						{							
+							switch(this.currentAction)
+							{
+								case 'createzone':	
+									if (this.mCaptureCoord.dx < 0)
+									{
+										this.mCurrentZone.setAttribute('x', this.mCaptureCoord.x + this.mCaptureCoord.dx);
+									}
+									else
+									{
+										this.mCurrentZone.setAttribute('x', this.mCaptureCoord.x);
+									}
+									this.mCurrentZone.setAttribute('width', Math.abs(this.mCaptureCoord.dx));
+			
+									if (this.mCaptureCoord.dy < 0)
+									{
+										this.mCurrentZone.setAttribute('y', this.mCaptureCoord.y + this.mCaptureCoord.dy);
+									}
+									else
+									{
+										this.mCurrentZone.setAttribute('y', this.mCaptureCoord.y);
+									}
+									this.mCurrentZone.setAttribute('height', Math.abs(this.mCaptureCoord.dy));
+									break;
+								case 'move':									
+									var o = this.mCaptureCoord.original;									
+									this.mCurrentZone.setAttribute('x',  o.x + this.mCaptureCoord.dx);
+									this.mCurrentZone.setAttribute('y',  o.y + this.mCaptureCoord.dy);
+									this.createRectGrippy(this.mCurrentZone);
+									break;
+								case 'resize-gmr':
+									var o = this.mCaptureCoord.original;
+									if (o.width + this.mCaptureCoord.dx < 0)
+									{
+										this.mCurrentZone.setAttribute('width',  0);
+									} 
+									else
+									{
+										this.mCurrentZone.setAttribute('width',  o.width + this.mCaptureCoord.dx);
+									}
+									this.createRectGrippy(this.mCurrentZone);
+									break;	
+								case 'resize-gbm':
+									var o = this.mCaptureCoord.original;
+									if (o.height + this.mCaptureCoord.dy < 0)
+									{
+										this.mCurrentZone.setAttribute('height',  0);
+									} 
+									else
+									{
+										this.mCurrentZone.setAttribute('height',  o.height + this.mCaptureCoord.dy);
+									}
+									this.createRectGrippy(this.mCurrentZone);
+									break;	
+									
+								case 'resize-gml':
+									var o = this.mCaptureCoord.original;
+									if (o.width - this.mCaptureCoord.dx < 0)
+									{
+										this.mCurrentZone.setAttribute('x', o.x + o.width);
+										this.mCurrentZone.setAttribute('width',  0);
+									} 
+									else
+									{
+										this.mCurrentZone.setAttribute('x', o.x + this.mCaptureCoord.dx);
+										this.mCurrentZone.setAttribute('width',  o.width - this.mCaptureCoord.dx);
+									}
+									this.createRectGrippy(this.mCurrentZone);
+									break;	
+								case 'resize-gtm':
+									var o = this.mCaptureCoord.original;
+									if (o.height - this.mCaptureCoord.dy < 0)
+									{
+										this.mCurrentZone.setAttribute('y', o.y + o.height);
+										this.mCurrentZone.setAttribute('height',  0);
+									} 
+									else
+									{
+										this.mCurrentZone.setAttribute('y', o.y + this.mCaptureCoord.dy);
+										this.mCurrentZone.setAttribute('height',  o.height - this.mCaptureCoord.dy);
+									}
+									this.createRectGrippy(this.mCurrentZone);
+									break;																
+							}	
+						}
+					}
+				]]></body>
+			</method>
+			
+			<method name="onMouseUp">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var coord = this.getEventCoord(event);
+					
+					this.currentAction = null;
+					this.mCaptureCoord = null;
+					this.mCurrentZone.setAttribute('cursor', 'move');
+					this.createRectGrippy(this.mCurrentZone);
+					this.getElementById('ok').disabled = false;
+				]]></body>
+			</method>
+			
+
+			<method name="createRectZone">
+				<parameter name="event"/>
+				<body><![CDATA[
+					var zone = document.createElementNS("http://www.w3.org/2000/svg", "rect");  				
+					zone.setAttribute('fill', 'black');
+					zone.setAttribute('opacity', '0.5');				
+					zone.setAttribute('style', 'stroke:green;stroke-width:1px');				
+					return zone;
+				]]></body>
+			</method>
+			
+			<method name="createGrippy">
+				<parameter name="name"/>
+				<parameter name="zone"/>
+				<body><![CDATA[	
+					var id = zone.getAttribute('anonid') + '-' + name;
+					var grippy = this.getElementById(id);
+					if (grippy == null)
+					{
+						grippy = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+						grippy.setAttribute('anonid', id);
+						grippy.setAttribute('r', '6');
+						grippy.setAttribute('fill', 'lime');
+						grippy.setAttribute('style', 'fill-opacity: 0.3; stroke: black; stroke-opacity: 0.3;');
+						
+						var cursname = {gml:'e-resize', gmr:'w-resize', gtm:'s-resize', gbm:'n-resize'};
+						grippy.setAttribute('cursor', cursname[name]);
+						zone.parentNode.appendChild(grippy);
+						
+						var me = this;
+						grippy.addEventListener('mouseover', function(event) {me.onGrippyOver(event)}, true);
+						grippy.addEventListener('mouseout', function(event) {me.onGrippyOut(event)}, true);
+					}
+					return grippy;
+				]]></body>
+			</method>
+			
+			<method name="onGrippyOver">
+				<parameter name="event"/>
+				<body><![CDATA[
+					event.originalTarget.setAttribute('fill', 'yellow');				
+				]]></body>
+			</method>							
+
+			<method name="onGrippyOut">
+				<parameter name="event"/>
+				<body><![CDATA[
+					event.originalTarget.setAttribute('fill', 'lime');
+				]]></body>
+			</method>		
+								
+			<method name="createRectGrippy">
+				<parameter name="rectZone"/>
+				<body><![CDATA[
+					try
+					{
+						var x = parseInt(rectZone.getAttribute('x'), 10);
+						var y = parseInt(rectZone.getAttribute('y'), 10);
+						var w = parseInt(rectZone.getAttribute('width'), 10);
+						var h = parseInt(rectZone.getAttribute('height'), 10);
+						
+						var gml = this.createGrippy('gml', rectZone); 				 			
+						gml.setAttribute('cx', x);
+						gml.setAttribute('cy', Math.round(y + h / 2));
+						
+						var gmr = this.createGrippy('gmr', rectZone);					
+						gmr.setAttribute('cx', x + w);
+						gmr.setAttribute('cy', Math.round(y + h / 2));
+						
+						var gtm = this.createGrippy('gtm', rectZone);					
+						gtm.setAttribute('cx', Math.round(x + w / 2));
+						gtm.setAttribute('cy', y);
+						
+						var gbm = this.createGrippy('gbm', rectZone);					
+						gbm.setAttribute('cx', Math.round(x + w / 2));
+						gbm.setAttribute('cy', y + h);
+					}
+					catch (e)
+					{
+						wCore.error('createRectGrippy', [rectZone], e);
+					}
+				]]></body>
+			</method>			
+											
+		</implementation>
+		<xbl:content xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+					xmlns:html="http://www.w3.org/1999/xhtml" 
+					xmlns:xbl="http://www.mozilla.org/xbl">
+			<vbox flex="1">
+				<hbox class="dialog-header">
+					<label value="&amp;modules.media.bo.actions.Crop;" class="dialog-title" />
+					<spacer flex="1" />
+					<vbox pack="center">
+						<toolbarbutton height="16" width="16" change:icon="delete/small" oncommand="onCancel();" tooltiptexts="&amp;modules.uixul.bo.dialog.Cancel;" />
+					</vbox>
+				</hbox>
+				<vbox flex="1">
+					<hbox height="30" align="center" pack="start">
+						<checkbox anonid="override" value="true" label="&amp;modules.media.bo.dialog.Override;"/>
+						<hbox anonid="override-data" align="center">
+							<label value="&amp;modules.media.bo.dialog.FilenameLabel;"/>
+							<textbox anonid="filename" value="" size="50" />								
+						</hbox>	
+																					
+					</hbox>
+					<hbox align="center" pack="start">
+						<label xbl:inherits="value=img-Info"/>
+						<label value="&amp;modules.media.bo.dialog.Coordinate;" style="padding-left: 20px;"/>
+						<label value="x:" style="padding-left: 5px;" /><label xbl:inherits="value=cursor-X" width="30" style="border: 1px solid black;"/>
+						<label value="y:" style="padding-left: 5px;" /><label xbl:inherits="value=cursor-Y" width="30" style="border: 1px solid black;"/>							
+					</hbox>
+					<vbox pack="start" align="start" style="background-color: #ebebeb;" flex="1">
+						<stack width="750" height="450" anonid="sizer">
+							<image  src="about:blank" anonid="originalImage"/>
+							<svg:svg xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+								anonid="svg-doc" style="cursor:crosshair;">
+								<svg:defs>
+									<svg:circle id="grippy" r="6" fill="lime" style="fill-opacity: 0.3; stroke: black; stroke-opacity: 0.3;" />
+								</svg:defs>								
+							</svg:svg>
+						</stack>
+						<spacer />
+					</vbox>
+				</vbox>
+				<hbox align="center" pack="start">
+					<button change:icon="check/small" disabled="true" anonid="ok" 
+						oncommand="onOk()" label="&amp;modules.media.bo.actions.Crop;" />
+					<button change:icon="delete/small"
+						oncommand="onCancel()" label="&amp;modules.uixul.bo.dialog.Cancel;" />
+				</hbox>
+			</vbox>
+		</xbl:content>
+	</binding>
+</bindings>

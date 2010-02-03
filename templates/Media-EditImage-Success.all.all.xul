@@ -1,0 +1,569 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<style tal:replace="cssInclusion" />
+<window i18n:attributes="title &modules.uixul.bo.richtext.image.Edit-title;"
+        orient="vertical"
+	    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	    onload="init();">
+
+	<script tal:replace="scriptInclusion" />
+
+	<script type="text/javascript"><![CDATA[
+
+	    var param = null;
+        var infos = ${infos};
+        var languages = {${languages}};
+        var host = '${HOST}';
+
+        function init()
+        {
+
+	    	window.resizeBy(20, 5);
+
+            param = wToolkit.getDialogParam();
+
+            wToolkit.setDialogReturnValue(false);
+
+            var altInput = document.getElementById("alt");
+            if (param.node && param.node.hasAttribute("alt"))
+            {
+                altInput.value = param.node.getAttribute("alt");
+                altInput.enable();
+            }
+            else
+            {
+                altInput.value = infos.alt;
+                altInput.enable();
+            }
+
+            var langInput = document.getElementById("lang");
+            for (i in languages)
+            {
+                if (languages[i].substr(0, 1) == "!")
+            	{
+            	   langInput.addItem(i, languages[i].substr(1), null, true);
+            	}
+            	else
+            	{
+            	   langInput.addItem(i, languages[i], null, false);
+            	}
+            }
+
+            if (param.node && param.node.hasAttribute("lang"))
+            {
+                langInput.value = param.node.getAttribute("lang");
+            }
+            else
+            {
+                langInput.value = param.lang;
+            }
+            
+            var zoomInput = document.getElementById("zoom");
+            if (param.node && param.node.hasAttribute("zoom"))
+            {
+            	zoomInput.checked = "true" == param.node.getAttribute("zoom");
+            }
+            else
+            {
+            	zoomInput.checked = false;
+            }
+
+            var widthInput = document.getElementById("width");
+            var heightInput = document.getElementById("height");
+
+            if (param.node && param.node.hasAttribute("format"))
+            {
+                document.getElementById("format").value = param.node.getAttribute("format");
+
+                widthInput.value = infos.width;
+                widthInput.disable();
+
+                heightInput.value = infos.height;
+                heightInput.disable();
+            }
+            else
+            {
+                if (param.node && param.node.style && param.node.style.width)
+                {
+                    widthInput.value = parseInt(param.node.style.width);
+                    widthInput.enable();
+                }
+                else if (param.node && param.node.hasAttribute("width") && param.node.getAttribute("width"))
+                {
+                    widthInput.value = parseInt(param.node.getAttribute("width"));
+                    widthInput.enable();
+                }
+                else
+                {
+                    widthInput.value = infos.width;
+                    widthInput.enable();
+                }
+
+                if (param.node && param.node.style && param.node.style.height)
+                {
+                    heightInput.value = parseInt(param.node.style.height);
+                    heightInput.enable();
+                }
+                else if (param.node && param.node.hasAttribute("height") && param.node.getAttribute("height"))
+                {
+                    heightInput.value = parseInt(param.node.getAttribute("height"));
+                    heightInput.enable();
+                }
+                else
+                {
+                    heightInput.value = infos.height;
+                    heightInput.enable();
+                }
+
+                resetFormat();
+            }
+
+            if (param.node && param.node.style && param.node.hasAttribute("class"))
+            {
+                var classes = param.node.getAttribute("class").split(" ");
+
+                if (in_array("floatLeft", classes))
+                {
+                    document.getElementById("wrap").selectedIndex = 1;
+                }
+                else if (in_array("floatRight", classes))
+                {
+                    document.getElementById("wrap").selectedIndex = 2;
+                }
+                else if (in_array("float-left", classes))
+                {
+                    document.getElementById("wrap").selectedIndex = 1;
+                }
+                else if (in_array("float-right", classes))
+                {
+                    document.getElementById("wrap").selectedIndex = 2;
+                }
+                else
+                {
+                    document.getElementById("wrap").selectedIndex = 0;
+                }
+            }
+            else
+            {
+                document.getElementById("wrap").selectedIndex = 0;
+            }
+
+            if (param.node && param.node.style && (param.node.style.verticalAlign == "top"))
+            {
+                document.getElementById("align").selectedIndex = 1;
+            }
+            else if (param.node && param.node.style && (param.node.style.verticalAlign == "middle"))
+            {
+                document.getElementById("align").selectedIndex = 2;
+            }
+            else if (param.node && param.node.style && (param.node.style.verticalAlign == "bottom"))
+            {
+                document.getElementById("align").selectedIndex = 3;
+            }
+            else
+            {
+                document.getElementById("align").selectedIndex = 0;
+            }
+
+            document.getElementById("wizard").submit = function ()
+	    {
+                this.revalidate();
+			    if (this.isValid)
+				{
+				    urlParameters = {module: "media", action: "Display", cmpref: infos.id, lang: document.getElementById("lang").value, alt: ""};
+
+				    param.node.setAttribute("lang", document.getElementById("lang").value);
+                    param.node.setAttribute("xml:lang", document.getElementById("lang").value);
+
+                    var alt = document.getElementById("alt").value;
+                    param.node.setAttribute("alt", alt);
+
+                    param.node.removeAttribute("style");
+
+                    if (document.getElementById("format").value && (document.getElementById("format").value != "null"))
+                    {
+                        param.node.setAttribute("format", document.getElementById("format").value);
+                        urlParameters.format = document.getElementById("format").value;
+                        urlParameters.width = '';
+                        urlParameters.height = '';                                                
+                        param.node.removeAttribute("width");
+                        param.node.removeAttribute("height");
+                    }
+                    else
+                    {
+                        param.node.removeAttribute("format");
+                        param.node.setAttribute("style", "width: " + document.getElementById("width").value + "px; height: " + document.getElementById("height").value + "px;");
+                        urlParameters.format = '';
+                        urlParameters.width = document.getElementById("width").value;
+                        urlParameters.height = document.getElementById("height").value;                        
+                        param.node.setAttribute("width", urlParameters.width);
+                        param.node.setAttribute("height", urlParameters.height);
+                    }
+                    
+                    if (document.getElementById("zoom").checked)
+                    {
+                    	param.node.setAttribute("zoom", "true");
+                    }
+                    else
+                    {
+                    	param.node.setAttribute("zoom", "false");
+                    }
+
+                    var url = "xul_controller.php?";
+
+                    var firstParameter = true;
+
+                    for (var i in urlParameters)
+                    {
+                        if (firstParameter)
+                        {
+                            firstParameter = false;
+                        }
+                        else
+                        {
+                            url += "&";
+                        }
+
+                        url += i + "=" + encodeURIComponent(urlParameters[i]);
+                    }
+
+                    var classes = ["image"];
+
+                    switch (document.getElementById("wrap").value)
+                    {
+                        case "left":
+                            classes.push("float-left");
+                            break;
+
+                        case "right":
+                            classes.push("float-right");
+                            break;
+                    }
+
+                    param.node.setAttribute("class", classes.join(" "));
+
+                    switch (document.getElementById("align").value)
+                    {
+                        case "top":
+                            param.node.style.verticalAlign = "top";
+                            break;
+
+                        case "middle":
+                            param.node.style.verticalAlign = "middle";
+                            break;
+
+                        case "bottom":
+                            param.node.style.verticalAlign = "bottom";
+                            break;
+
+                        default:
+                            param.node.style.verticalAlign = "";
+                            break;
+                    }
+                    
+                    param.node.setAttribute("src", url);
+
+                    if (param.editor)
+                    {
+                    	param.editor.modificationSaved = false;
+                    }
+					
+					if (param.richtext 
+                    && param.richtext.blockHandler 
+                    && param.richtext.blockHandler.block 
+                    && param.richtext.blockHandler.block.layout 
+                    && param.richtext.blockHandler.block.layout.editor)
+                  	{
+                      	param.richtext.blockHandler.block.layout.editor.modificationSaved = false;
+                    }
+
+                    if (param.richtext && param.richtext.resize)
+                    {
+                        param.richtext.resize();
+                    }
+
+                    wToolkit.setDialogReturnValue(true);
+
+    				window.close();
+				}
+            };
+        }
+
+        function initRecap()
+        {
+            var langInput = document.getElementById("lang");
+            for (i in languages)
+            {
+                if (i == langInput.value)
+                {
+                    var langValue = languages[i];
+                }
+            }
+
+            document.getElementById("recap-alt").setAttribute("value", document.getElementById("alt").value);
+            if (document.getElementById("format").value && (document.getElementById("format").value != "null"))
+            {
+                document.getElementById("recap-size").setAttribute("value", document.getElementById("undefined-size").getAttribute("value"));
+                document.getElementById("recap-format").setAttribute("value", document.getElementById("format").input_field.selectedItem.label);
+            }
+            else
+            {
+                document.getElementById("recap-size").setAttribute("value", document.getElementById("width").value + ' x ' + document.getElementById("height").value);
+                document.getElementById("recap-format").setAttribute("value", document.getElementById("none-format").getAttribute("value"));
+            }
+            document.getElementById("recap-lang").setAttribute("value", langValue);
+            var zoomElem = document.getElementById("zoom");
+            var zoomValue = ((zoomElem.checked) ? document.getElementById("yes-zoom").value : document.getElementById("no-zoom").value);
+            document.getElementById("recap-zoom").setAttribute("value", zoomValue);
+            document.getElementById("recap-wrap").setAttribute("value", document.getElementById("wrap").selectedItem.label);
+            document.getElementById("recap-align").setAttribute("value", document.getElementById("align").selectedItem.label);
+        }
+
+        function resetAlt()
+        {
+            var altInput = document.getElementById("alt");
+            altInput.value = infos.alt;
+            altInput.enable();
+        }
+
+        function resetSize()
+        {
+            var widthInput = document.getElementById("width");
+            widthInput.value = infos.width;
+            widthInput.enable();
+
+            var heightInput = document.getElementById("height");
+            heightInput.value = infos.height;
+            heightInput.enable();
+
+            resetFormat();
+        }
+
+        function setHeightFromWidth()
+        {
+            var widthInput = document.getElementById("width");
+            var heightInput = document.getElementById("height");
+
+            heightInput.value = Math.floor(widthInput.value * (infos.height / infos.width));
+            heightInput.enable();
+
+            resetFormat();
+        }
+
+        function setWidthFromHeight()
+        {
+            var widthInput = document.getElementById("width");
+            var heightInput = document.getElementById("height");
+
+            widthInput.value = Math.floor(heightInput.value * (infos.width / infos.height));
+            widthInput.enable();
+
+            resetFormat();
+        }
+
+        function resetFormat()
+        {
+            var formatInput = document.getElementById("format");
+
+            formatInput.value = "null";
+        }
+
+        function toggleSize()
+        {
+            var formatInput = document.getElementById("format");
+            var widthInput = document.getElementById("width");
+            var heightInput = document.getElementById("height");
+
+            if (formatInput.value != "null")
+            {
+                widthInput.disable();
+                heightInput.disable();
+            }
+            else
+            {
+                widthInput.enable();
+                heightInput.enable();
+            }
+        }
+	]]></script>
+
+	<vbox id="container">
+
+    <wcontroller>
+
+    	<wwizard debug="true" i18n:attributes="title &modules.uixul.bo.richtext.image.Edit-title;" width="450px" id="wizard" standalone="true">
+
+    		<wwizardpanel
+    			panelId="welcome"
+                i18n:attributes="title &modules.uixul.bo.richtext.image.Edit-headerLabel;"
+    			change:icon="photo_scenery/big shadow">
+
+    			<vbox>
+
+        			<groupbox>
+
+        			    <caption i18n:attributes="label &modules.uixul.bo.richtext.image.Edit-Mandatory;"/>
+
+        			    <grid>
+                    		<columns>
+                    			<column />
+                    			<column />
+                    		</columns>
+                    		<rows>
+                    		   <row align="center">
+                    			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-AltLabel;" />
+                    			    <hbox align="center">
+                        				<wtextbox name="alt" id="alt">
+                        				    <constraint name="blank">false</constraint>
+                        					<constraint name="maxSize">60</constraint>
+                        				</wtextbox>
+                        				<toolbarbutton change:icon="undo/small shadow" i18n:attributes="tooltiptext &modules.uixul.bo.richtext.image.Edit-original;" oncommand="resetAlt()" />
+                        		    </hbox>
+                    		   </row>
+
+                    		   <row align="center">
+                        		   <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-SizeLabel;" />
+                        		   <hbox align="center">
+                        			    <wtextbox name="width" id="width" size="4" oninput="setHeightFromWidth()">
+                        				    <constraint name="blank">false</constraint>
+                        					<constraint name="integer">true</constraint>
+                        					<constraint name="maxSize">4</constraint>
+                        					<constraint name="min">1</constraint>
+                        				</wtextbox>
+                        				<label style="font-weight: bold">x</label>
+                            		    <wtextbox name="height" id="height" size="4" oninput="setWidthFromHeight()">
+                        				    <constraint name="blank">false</constraint>
+                        					<constraint name="integer">true</constraint>
+                        					<constraint name="maxSize">4</constraint>
+                        					<constraint name="min">1</constraint>
+                        				</wtextbox>
+                        				<toolbarbutton change:icon="undo/small shadow" i18n:attributes="tooltiptext &modules.uixul.bo.richtext.image.Edit-original;" oncommand="resetSize()" />
+                        		   </hbox>
+                               </row>
+
+            			       <row align="center">
+                        			<label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-LangLabel;" />
+                    				<wcombobox name="lang" id="lang">
+                    					<constraint name="blank">false</constraint>
+                    				</wcombobox>
+                    		   </row>
+                    	    </rows>
+            		    </grid>
+
+        		    </groupbox>
+
+        		    <groupbox>
+
+        			    <caption i18n:attributes="label &modules.uixul.bo.richtext.image.Edit-Optional;"/>
+
+        			    <grid>
+                    		<columns>
+                    			<column />
+                    			<column />
+                    		</columns>
+                    		<rows>
+
+                    		   <row align="center">
+                        			<label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-FormatLabel;" />
+                    				<wcombobox name="format" id="format" lang="fr" list-id="modules_media/formats" onchange="toggleSize()">
+                                    </wcombobox>
+                               </row>
+
+                               <row align="center">
+                        			<label i18n:attributes="value &modules.uixul.bo.richtext.ImageflowLabel;" />
+
+                                    <radiogroup orient="horizontal" id="wrap">
+                                      <radio value="null" i18n:attributes="label &modules.uixul.bo.richtext.Imageflownone;"/>
+                                      <radio value="left" i18n:attributes="label &modules.uixul.bo.richtext.Imageflowleft;" change:icon="src image_wrap_right/small shadow"/>
+                                      <radio value="right" i18n:attributes="label &modules.uixul.bo.richtext.Imageflowright;" change:icon="src image_wrap_left/small shadow"/>
+                                    </radiogroup>
+                               </row>
+
+                               <row align="center">
+                        			<label i18n:attributes="value &modules.uixul.bo.richtext.ImagealignLabel;" />
+
+                                    <radiogroup orient="horizontal" id="align">
+                                      <radio value="null" i18n:attributes="label &modules.uixul.bo.richtext.Imagealignnone;"/>
+                                      <radio value="top" i18n:attributes="label &modules.uixul.bo.richtext.Imagetop;" change:icon="src image_text_top/small shadow"/>
+                                      <radio value="middle" i18n:attributes="label &modules.uixul.bo.richtext.Imagemiddle;" change:icon="src image_text_middle/small shadow"/>
+                                      <radio value="bottom" i18n:attributes="label &modules.uixul.bo.richtext.Imagebottom;" change:icon="src image_text_bottom/small shadow"/>
+                                    </radiogroup>
+                               </row>
+
+            		           <wcheckbox id="zoom" name="zoom" value="yes" i18n:attributes="label &modules.uixul.bo.richtext.image.zoom;" />
+
+                    	    </rows>
+            		    </grid>
+
+        		    </groupbox>
+
+        	    </vbox>
+
+    		</wwizardpanel>
+
+    		<wwizardpanel
+    			panelId="congratulations"
+    			i18n:attributes="title &modules.uixul.bo.richtext.image.Edit-recapLabel;"
+    			change:icon="check/big shadow">
+
+    			<behaviour>
+
+    				<onShow><![CDATA[
+        				initRecap();
+    			    ]]></onShow>
+
+    			</behaviour>
+
+    			<label id="yes-zoom" i18n:attributes="value &modules.uixul.bo.general.Yes;" collapsed="true" />
+    			<label id="no-zoom" i18n:attributes="value &modules.uixul.bo.general.No;" collapsed="true" />
+    			<label id="undefined-size" i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-size-undefined;" collapsed="true" />
+    			<label id="none-format" i18n:attributes="value &modules.uixul.bo.general.None;" collapsed="true" />
+
+    			<grid>
+            		<columns>
+            			<column />
+            			<column />
+            		</columns>
+            		<rows>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-AltLabel;" />
+            			    <label id="recap-alt" />
+            		    </row>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-SizeLabel;" />
+            			    <label id="recap-size" />
+            		    </row>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-FormatLabel;" />
+            			    <label id="recap-format" />
+            		    </row>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.Edit-LangLabel;" />
+            			    <label id="recap-lang" />
+            		    </row>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.ImageflowLabel;" />
+            			    <label id="recap-wrap" />
+            		    </row>
+            		    <row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.ImagealignLabel;" />
+            			    <label id="recap-align" />
+            		    </row>
+            			<row>
+            			    <label i18n:attributes="value &modules.uixul.bo.richtext.image.ZoomLabel;" />
+            			    <label id="recap-zoom" />
+            		    </row>
+            	    </rows>
+    		    </grid>
+
+    			<description i18n:translate="&modules.uixul.bo.wizard.Submit-desc;" style="margin-top: 15px; font-weight: bold;" />
+
+    		</wwizardpanel>
+
+    	</wwizard>
+
+    </wcontroller>
+
+	</vbox>
+
+</window>

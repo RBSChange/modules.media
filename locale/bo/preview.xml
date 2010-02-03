@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="label">
+    <locale lang="fr">intitulé</locale>
+    <locale lang="en">label</locale>
+    <locale lang="de">Name</locale>
+  </entity>
+  <entity id="title">
+    <locale lang="fr">contenu alternatif</locale>
+    <locale lang="en">alternate content</locale>
+    <locale lang="de">Alternativinhalt</locale>
+  </entity>
+  <entity id="description">
+    <locale lang="fr">description</locale>
+    <locale lang="en">description</locale>
+    <locale lang="de">Beschreibung</locale>
+  </entity>
+  <entity id="credit">
+    <locale lang="fr">crédit</locale>
+    <locale lang="en">credit</locale>
+    <locale lang="de">Kredit</locale>
+  </entity>
+  <entity id="type">
+    <locale lang="fr">type</locale>
+    <locale lang="en">type</locale>
+    <locale lang="de">Typ</locale>
+  </entity>
+  <entity id="width">
+    <locale lang="fr">largeur</locale>
+    <locale lang="en">width</locale>
+    <locale lang="de">Breite</locale>
+  </entity>
+  <entity id="height">
+    <locale lang="fr">hauteur</locale>
+    <locale lang="en">height</locale>
+    <locale lang="de">Höhe</locale>
+  </entity>
+  <entity id="size">
+    <locale lang="fr">taille</locale>
+    <locale lang="en">size</locale>
+    <locale lang="de">Grösse</locale>
+  </entity>
+  <entity id="download">
+    <locale lang="fr">télécharger</locale>
+    <locale lang="en">download</locale>
+    <locale lang="de">herunterladen</locale>
+  </entity>
+</localization>

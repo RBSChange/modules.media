@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="Override">
+    <locale lang="fr">Ecraser l'image originale</locale>
+    <locale lang="en">Override original image</locale>
+  </entity>
+  <entity id="Filename">
+    <locale lang="fr">Nom de l'image</locale>
+    <locale lang="en">Image name</locale>
+  </entity>
+  <entity id="coordinate">
+    <locale lang="fr">Coordonnés</locale>
+    <locale lang="en">coordinate</locale>
+  </entity>
+  
+  <entity id="width">
+    <locale lang="fr">Largeur</locale>
+    <locale lang="en">width</locale>
+  </entity> 
+ 
+  <entity id="height">
+    <locale lang="fr">Hauteur</locale>
+    <locale lang="en">height</locale>
+  </entity> 
+  
+  <entity id="size">
+    <locale lang="fr">taille</locale>
+    <locale lang="en">size</locale>
+  </entity>
+  
+  <entity id="CropEmptySelection">
+    <locale lang="fr">Veuillez sélectionnez une zone de recadrage.</locale>
+    <locale lang="en">Please select a non-empty cropping zone.</locale>
+  </entity>   
+</localization>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlrewriting>
+	<rules>
+		<rule redirection="media/DisplayMediaDescription">
+			<template>media/description/$label,$cmpref.html</template>
+			<parameters>
+				<parameter name="cmpref" format="[0-9]+" forwardTo="cmpref" />
+			</parameters>
+		</rule>
+	</rules>
+</urlrewriting>

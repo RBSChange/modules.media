@@ -1,0 +1,40 @@
+<bindings   xmlns="http://www.mozilla.org/xbl"
+            xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:xbl="http://www.mozilla.org/xbl"
+            xmlns:html="http://www.w3.org/1999/xhtml"
+            xmlns:change="http://www.rbs-change.eu/change-4.2/taglib/phptal">
+    <binding id="wImageToolbar" extends="layout.wBlockToolbar#wBaseBlockToolbar">
+        <implementation>
+            <method name="applyBlockSize">
+                <body><![CDATA[
+                    var _func = "applyBlockSize";
+                    var _args = [];
+                    try
+                    {
+                        var imgWidth = 0;
+                        var imgElements = this.blockHandler.getElementsByTagName("img");
+                        for (var i = 0; i < imgElements.length; i++)
+                        {
+                        	var width = window.getComputedStyle(imgElements[i], null).width;
+                            imgWidth += parseInt(width);
+                        }
+                        imgWidth += (4 * (imgElements.length - 1));
+                        this.setBlockAttribute('blockwidth', null, imgWidth);
+                        this.editor.getElementById('widthTextbox').value = imgWidth;
+                    }
+                    catch (e)
+                    {
+                        this.error(_func, _args, e);
+                    }
+                ]]></body>
+            </method>
+        </implementation>
+
+        <xbl:content xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:html="http://www.w3.org/1999/xhtml" orient="vertical">
+            <toolbar anonid="toolbar" flex="1">
+                <toolbarbutton image="{HttpHost}/icons/small/arrow_left_green.png" label="&modules.media.bo.general.ImageSetBlockWidth;" oncommand="applyBlockSize();" />
+            </toolbar>
+        </xbl:content>
+    </binding>
+</bindings>

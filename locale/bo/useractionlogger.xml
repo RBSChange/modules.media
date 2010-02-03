@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="insert-media">
+    <locale lang="fr">Création du média {documentlabel} </locale>
+  </entity>
+  <entity id="log-insert-media">
+    <locale lang="fr">Créer un média</locale>
+  </entity>
+  <entity id="insert-securemedia">
+    <locale lang="fr">Création du média sécurisé {documentlabel} </locale>
+  </entity>
+  <entity id="log-insert-securemedia">
+    <locale lang="fr">Créer un média sécurisé</locale>
+  </entity>
+  <entity id="update-media">
+    <locale lang="fr">Mise à jour du média {documentlabel} </locale>
+  </entity>
+  <entity id="log-update-media">
+    <locale lang="fr">Modifier un média</locale>
+  </entity>
+  <entity id="update-securemedia">
+    <locale lang="fr">Mise à jour du média sécurisé {documentlabel} </locale>
+  </entity>
+  <entity id="log-update-securemedia">
+    <locale lang="fr">Modifier un média sécurisé</locale>
+  </entity>
+  <entity id="updatetranslation-media">
+    <locale lang="fr">Traduction du média {documentlabel} en [{lang}]  </locale>
+  </entity>
+  <entity id="log-updatetranslation-media">
+    <locale lang="fr">Traduire un média</locale>
+  </entity>
+  <entity id="updatetranslation-securemedia">
+    <locale lang="fr">Traduction du média sécurisé{documentlabel} en [{lang}]  </locale>
+  </entity>
+  <entity id="log-updatetranslation-securemedia">
+    <locale lang="fr">Traduire un média sécurisé</locale>
+  </entity>
+  <entity id="delete-media">
+    <locale lang="fr">Suppression du média {documentlabel} </locale>
+  </entity>
+  <entity id="log-delete-media">
+    <locale lang="fr">Supprimer un média</locale>
+  </entity>
+  <entity id="delete-securemedia">
+    <locale lang="fr">Suppression du média sécurisé {documentlabel} </locale>
+  </entity>
+  <entity id="log-delete-securemedia">
+    <locale lang="fr">Supprimer un média sécurisé</locale>
+  </entity>
+  <entity id="deletelocalization-media">
+    <locale lang="fr">Suppression de la traduction [{lang}] du média {documentlabel} </locale>
+  </entity>
+  <entity id="log-deletelocalization-media">
+    <locale lang="fr">Supprimer une traduction de média</locale>
+  </entity>
+  <entity id="deletelocalization-securemedia">
+    <locale lang="fr">Suppression de la traduction [{lang}] du média sécurisé {documentlabel} </locale>
+  </entity>
+  <entity id="log-deletelocalization-securemedia">
+    <locale lang="fr">Supprimer une traduction de média sécurisé</locale>
+  </entity>
+  <entity id="move-media">
+    <locale lang="fr">Déplacement du média {documentlabel}</locale>
+  </entity>
+  <entity id="log-move-media">
+    <locale lang="fr">Déplacer un média</locale>
+  </entity>
+  <entity id="move-securemedia">
+    <locale lang="fr">Déplacement du média sécurisé {documentlabel}</locale>
+  </entity>
+  <entity id="log-move-securemedia">
+    <locale lang="fr">Déplacer un média sécurisé</locale>
+  </entity>
+  <entity id="activate-media">
+    <locale lang="fr">Activation du média {documentlabel}</locale>
+  </entity>
+  <entity id="log-activate-media">
+    <locale lang="fr">Activer un média</locale>
+  </entity>
+  <entity id="activate-securemedia">
+    <locale lang="fr">Activation du média sécurisé {documentlabel}</locale>
+  </entity>
+  <entity id="log-activate-securemedia">
+    <locale lang="fr">Activer un média sécurisé</locale>
+  </entity>
+  <entity id="deactivated-media">
+    <locale lang="fr">Désactivation du média {documentlabel}</locale>
+  </entity>
+  <entity id="log-deactivated-media">
+    <locale lang="fr">Désactiver un média</locale>
+  </entity>
+  <entity id="deactivated-securemedia">
+    <locale lang="fr">Désactivation du média sécurisé {documentlabel}</locale>
+  </entity>
+  <entity id="log-deactivated-securemedia">
+    <locale lang="fr">Désactiver un média sécurisé</locale>
+  </entity>
+  <entity id="reactivate-media">
+    <locale lang="fr">Réactivation du média {documentlabel}</locale>
+  </entity>
+  <entity id="log-reactivate-media">
+    <locale lang="fr">Réactiver un média</locale>
+  </entity>
+  <entity id="reactivate-securemedia">
+    <locale lang="fr">Réactivation du média sécurisé {documentlabel}</locale>
+  </entity>
+  <entity id="log-reactivate-securemedia">
+    <locale lang="fr">Réactiver un média sécurisé</locale>
+  </entity>
+  <entity id="transform-media">
+    <locale lang="fr">Transformation du média {documentlabel} en média sécurisé</locale>
+  </entity>
+  <entity id="log-transform-media">
+    <locale lang="fr">log-transform-media</locale>
+  </entity>
+  <entity id="transform-securemedia">
+    <locale lang="fr">Transformation du média sécurisé {documentlabel} en média</locale>
+  </entity>
+  <entity id="log-transform-securemedia">
+    <locale lang="fr">log-transform-securemedia</locale>
+  </entity>
+  <entity id="dropfile-media">
+    <locale lang="fr">Dépose du média {documentlabel} dans le dossier {destinationlabel}</locale>
+  </entity>
+  <entity id="log-dropfile-media">
+    <locale lang="fr">Déposer un média</locale>
+  </entity>
+  <entity id="crop-media">
+    <locale lang="fr">Recadrage du média {documentlabel}</locale>
+  </entity>
+  <entity id="log-crop-media">
+    <locale lang="fr">Recadrer un média</locale>
+  </entity>
+  <entity id="crop-securemedia">
+    <locale lang="fr">Recadrage du média sécurisé {documentlabel}</locale>
+  </entity>
+  <entity id="log-crop-securemedia">
+    <locale lang="fr">Recadrer un média sécurisé</locale>
+  </entity>
+  <entity id="insert-folder">
+    <locale lang="fr">Création du dossier {documentlabel}</locale>
+  </entity>
+  <entity id="log-insert-folder">
+    <locale lang="fr">Créer un dossier</locale>
+  </entity>
+  <entity id="update-folder">
+    <locale lang="fr">Modification du dossier {documentlabel}</locale>
+  </entity>
+  <entity id="log-update-folder">
+    <locale lang="fr">Modifier un dossier</locale>
+  </entity>
+  <entity id="delete-folder">
+    <locale lang="fr">Suppression du dossier {documentlabel}</locale>
+  </entity>
+  <entity id="log-delete-folder">
+    <locale lang="fr">Supprimer un dossier</locale>
+  </entity>
+<entity id="move-systemfolder"><locale lang="fr">move.systemfolder {destinationlabel} {documentlabel}</locale></entity><entity id="log-move-systemfolder"><locale lang="fr">log-move-systemfolder</locale></entity><entity id="saveredirectinfo-securemedia"><locale lang="fr">saveredirectinfo.securemedia {lang} {documentlabel}</locale></entity><entity id="log-saveredirectinfo-securemedia"><locale lang="fr">log-saveredirectinfo-securemedia</locale></entity></localization>

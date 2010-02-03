@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">	
+	
+	<binding id="cPreviewImgUrl" extends="layout.cDocumentEditor#cProperty">
+		<implementation>					
+			<method name="setValue">
+				<parameter name="val" />
+				<body><![CDATA[
+					if (val)
+					{
+						this.setAttribute("value", val.image);
+						this.setAttribute("docid", val.id);
+						this.setAttribute("doclang", val.lang);
+						this.removeAttribute("hidden");
+					}
+					else
+					{
+						this.removeAttribute("value");
+						this.setAttribute("hidden", true);
+					}
+				]]></body>
+			</method>	
+			
+			<method name="download">
+				<body><![CDATA[			
+					var documentId   = this.getAttribute("docid");
+					var documentLang = this.getAttribute("doclang");
+					wToolkit.openlink('media', 'BoDisplay', {cmpref: documentId, lang: documentLang, forceDownload: true});
+				]]></body>
+			</method>	
+		</implementation>
+		<content>
+			<xul:hbox style="padding-bottom:5px">
+				<xul:label class="label" xbl:inherits="value=label" />
+				<xul:label class="label separator" value=":" />
+				<xul:hbox pack="start" align="start">
+					<xul:image xbl:inherits="src=value" style="max-height: 128px; max-width: 128px" /><xul:spacer width="10" />
+					<xul:label class="text-link" onclick="document.getBindingParent(this).download()" 
+						value="&amp;modules.media.bo.doceditor.property.Previewimgurl-download;"/>
+				</xul:hbox>	
+			</xul:hbox>			
+		</content>
+	</binding>
+	
+	<binding id="cMediaUsages" extends="layout.cDocumentEditor#cProperty">
+		<implementation>					
+			<method name="setValue">
+				<parameter name="val" />
+				<body><![CDATA[
+					var lst = document.getAnonymousElementByAttribute(this, "anonid", "lstdoc");
+					while (lst.lastChild) {lst.removeChild(lst.lastChild)}
+					
+					if (val)
+					{
+						for (var i = 0; i < val.length; i++)
+						{
+							var label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:label");
+							lst.appendChild(label);
+							label.value = val[i];
+						}
+						this.removeAttribute("hidden");
+					}
+					else
+					{
+						this.setAttribute("hidden", true);
+					}
+				]]></body>
+			</method>	
+		</implementation>
+		<content>
+			<xul:hbox>
+				<xul:label class="label" xbl:inherits="value=label" />
+				<xul:label class="label separator" value=":" />
+				<xul:vbox anonid="lstdoc">				
+				</xul:vbox>
+			</xul:hbox>			
+		</content>
+	</binding>	
+	
+	
+	
+	<binding id="wMediaModuleList" extends="widgets.cNavigation#cModuleThumbnailList">
+		<implementation>
+			<field name="mUploadCount">0</field>
+			
+			<method name="onDragEnter">
+				<parameter name="event" />		
+				<body><![CDATA[
+					wCore.debug('wMediaModuleList.onDragEnter');		
+					this.mDropData = null;
+					var dropNodeInfo = event.dataTransfer.mozGetDataAt("application/json-documentidtype-array", 0);
+					if (dropNodeInfo)
+					{
+						wCore.debug('wMediaModuleList.document');
+						var dropNode = wCore.parseJSON(dropNodeInfo);
+						var dropItemData = {id:dropNode[0][0], modelName: this._convertTypeToModel(dropNode[0][1]), ids:[]};
+						for (var i = 0; i < dropNode.length; i++)
+						{
+							dropItemData.ids.push(dropNode[i][0]);
+						} 
+						this.dragFeedBack = {dropOn : -1, dropAfter: -1, dropBefore : -1, action: null, dropItemData: dropItemData};
+						event.preventDefault();
+					}
+					else if (event.dataTransfer.types.contains('application/x-moz-file'))
+					{
+						wCore.debug('wMediaModuleList.files');
+						var dropItemData = {id:-1, modelName: 'modules_media/media', ids:[-1]};
+						this.dragFeedBack = {dropOn : -1, dropAfter: -1, dropBefore : -1, action: null, dropItemData: dropItemData};
+						event.preventDefault();
+					}
+					else
+					{
+						this.dragFeedBack = null;
+					}
+				]]></body>	
+			</method>			
+	
+			<method name="onDrop">
+				<parameter name="event" />			
+				<body><![CDATA[
+					wCore.debug('onDrop');
+					var dragFeedBack = this.mDropData;
+					this.mDropData = null;
+					
+					if (dragFeedBack == null)
+					{
+						event.preventDefault();
+						return;
+					}
+
+					
+					var dropInfo = {cmpref:dragFeedBack.dropItemData.ids, action: dragFeedBack.action};
+					var view = this.tree.view;
+					var tn;
+					if (dragFeedBack.dropOn < 0)
+					{
+						dropInfo.parentid  = this.mBaseItemData.id;
+						if (dragFeedBack.dropBefore != -1)
+						{
+							 tn = view.getItemAtIndex(dragFeedBack.dropBefore);
+							 dropInfo.beforeid = tn.itemData.id;
+						}
+						else if (dragFeedBack.dropAfter != -1)
+						{
+							 tn = view.getItemAtIndex(dragFeedBack.dropAfter);
+							 dropInfo.afterid = tn.itemData.id;
+						}	
+					}
+					else
+					{
+						tn = view.getItemAtIndex(dragFeedBack.dropOn);
+						dropInfo.parentid  = tn.itemData.id;
+					}
+					if (dragFeedBack.dropItemData.id == -1)
+					{
+						dropInfo.dt = event.dataTransfer;
+						this.executeDropFileCommand(dropInfo);
+					}
+					else
+					{
+						this.executeDropCommand(dropInfo);
+					}
+					event.preventDefault();
+				]]></body>	
+			</method>	
+			
+			<method name="executeDropFileCommand">
+				<parameter name="dropInfo" />
+				<body><![CDATA[
+					wCore.debug('executeDropFileCommand');
+					var dt = dropInfo.dt;
+					var file = null;
+					var parameters = {lang: Context.W_LANG, cmpref: dropInfo.parentid};
+					if (dropInfo.beforeid) {parameters.beforeid = dropInfo.beforeid;}
+					if (dropInfo.afterid) {parameters.afterid = dropInfo.afterid;}
+					
+					for (var i = 0; i < dt.mozItemCount; i++)
+					{
+						file = dt.mozGetDataAt("application/x-moz-file", i);
+  						if (file instanceof Components.interfaces.nsIFile)
+  						{
+							this.startUploadFile(file, parameters);
+						}							
+					}					
+				]]></body>
+			</method>
+			
+			<method name="startUploadFile">
+				<parameter name="nsIFile" />
+				<parameter name="parameters" />
+				<body><![CDATA[
+					try
+                    {
+                    	if (this.mUploadCount === 0)
+                    	{
+							this.disabled = true;
+						}
+						this.mUploadCount++;
+                     	this.getModule().getController().alert('Envoi de ' + nsIFile.leafName + '...');       	        	
+                    	wCore.debug('startUploadFile : ' + nsIFile.path);
+               	
+        				var muxInput = Components.classes["@mozilla.org/io/multiplex-input-stream;1"].createInstance(Components.interfaces.nsIMultiplexInputStream);
+        				var tmp = null;
+        				var fileInput = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
+        				fileInput.init(nsIFile, 0x01, 0444, tmp);
+        				var fileContent = Components.classes["@mozilla.org/network/buffered-input-stream;1"].createInstance(Components.interfaces.nsIBufferedInputStream);
+        				fileContent.init(fileInput, 4096);
+        				var headerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+        				
+        				var headerContent = new String();
+        				headerContent += "\r\n";
+        				headerContent += "--111222111\r\nContent-disposition: form-data;name=\"addfile\"\r\n\r\n1";
+        				headerContent += "\r\n" + "--111222111\r\n";
+        				headerContent += "Content-disposition: form-data;name=\"filename\";filename=\"" + nsIFile.leafName + "\"\r\n";
+        				headerContent += "Content-Type: application/octet-stream\r\n";
+        				headerContent += "Content-Length: " + nsIFile.fileSize + "\r\n\r\n";
+        				headerInput.setData(headerContent, headerContent.length);
+        				
+        				var footerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+        				var footerContent = new String("\r\n--111222111--\r\n");
+        				footerInput.setData(footerContent, footerContent.length);
+        				
+        				muxInput.appendStream(headerInput);
+        				muxInput.appendStream(fileContent);
+        				muxInput.appendStream(footerInput);
+        				
+        				var requestUrl = wCore.buildeServerUrl('media', 'DropFile', parameters)
+        				wCore.debug('startUploadFile.sendTo : ' + requestUrl);
+        				var req = new XMLHttpRequest();
+						req.open('POST', requestUrl, true);
+						var me = this;
+						req.onreadystatechange = function (aEvt) 
+						{  
+							if (req.readyState == 4) {me.onUplodedFile(req);}  
+						};
+						req.setRequestHeader("Content-Length", (muxInput.available()-2));
+						req.setRequestHeader("Content-Type", "multipart/form-data; boundary=111222111");
+    				    req.send(muxInput);
+    				}
+    				catch (e)
+                    {
+                        wCore.error("startUploadFile", [nsIFile], e);
+                        this.mUploadCount--;
+                    	if (this.mUploadCount === 0)
+                    	{
+							this.disabled = false;
+							this.refreshOnDrop();
+						}
+                    }
+                ]]></body>
+			</method>
+			
+			<method name="onUplodedFile">
+				<parameter name="req" />
+				<body><![CDATA[
+					this.mUploadCount--;
+					try
+                    {    
+						var result = wCore.parseJSON(req.responseText);
+                    	if (result.status == 'OK')
+                    	{
+                    		this.getModule().getController().alert(result.contents.label + ' envoyer.');
+                    	}
+                    	else
+                    	{
+                    		this.getModule().getController().alert(result.contents.errorMessage);
+                    	}
+    				}
+    				catch (e)
+                    {
+                        wCore.error("onUplodedFile", [req], e);
+                    }
+                    
+                	if (this.mUploadCount === 0)
+                	{
+						this.disabled = false;
+						this.refreshOnDrop();
+					}
+                ]]></body>
+             </method>	
+             
+             <method name="refreshOnDrop">
+             	<body><![CDATA[
+             		this.getModule().getController().alert('Envoi terminé.');
+             		this.loadNode(this.mBaseItemData.id, this.mBaseItemData.modelName)
+                ]]></body>
+             </method>	             				
+		</implementation>
+	</binding>
+</bindings>

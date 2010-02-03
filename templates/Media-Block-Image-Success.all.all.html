@@ -1,0 +1,2 @@
+<a tal:condition="configuration/getUrl" href="${configuration/getUrl}"><img change:media="document image; format configuration/getFormat; max-width configuration/getCustomWidth; max-height configuration/getCustomHeight; zoom configuration/getZoom" /></a>
+<img tal:condition="not: configuration/getUrl" change:media="document image; format configuration/getFormat; max-width configuration/getCustomWidth; max-height configuration/getCustomHeight; zoom configuration/getZoom" />

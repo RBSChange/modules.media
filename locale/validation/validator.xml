@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localization>
+	<entity id="Mimetype.message">
+		<locale lang="fr">Le fichier "{field}" n'est pas de type valide. Le type supporté est : "{allowedMimes}".</locale>
+	</entity>
+</localization>

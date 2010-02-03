@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localization>
+	<entity id="fieldsgroup.file-update">
+		<locale lang="fr">Mise à jour du fichier</locale>
+	</entity>
+  
+	<entity id="field.new-file">
+		<locale lang="fr">Nouveau fichier</locale>
+	</entity>
+  
+	<entity id="property.mimetype">
+		<locale lang="fr">Mime type</locale>
+	</entity>
+  
+	<entity id="property.size">
+		<locale lang="fr">Taille</locale>
+	</entity>
+  
+	<entity id="property.previewimgurl">
+		<locale lang="fr">Apercu</locale>
+	</entity>
+	<entity id="property.previewimgurl-download">
+		<locale lang="fr">Telecharger...</locale>
+	</entity>  
+  
+	<entity id="section.usages">
+		<locale lang="fr">Utilisation</locale>
+	</entity> 
+  
+	<entity id="property.mediausages">
+		<locale lang="fr">liste des documents</locale>
+	</entity>
+  
+	<entity id="property.mediausages-not-found">
+		<locale lang="fr">Media non utilisé</locale>
+	</entity>
+	<entity id="property.mediausages-error">
+		<locale lang="fr">Document n°{num} introuvale</locale>
+	</entity> 
+</localization>
+  

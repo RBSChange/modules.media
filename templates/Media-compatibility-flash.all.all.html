@@ -1,0 +1,19 @@
+<object
+classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"  codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
+tal:attributes="width width; height height; id id;"
+align="middle">
+    <param name="allowScriptAccess" value="sameDomain" />
+<param name="movie" tal:attributes="value data;" />
+    <param name="quality" value="high" />
+<span tal:on-error="" tal:condition="transparent" tal:omit-tag="">
+<param name="wmode" value="transparent" />
+</span>
+    <embed
+        tal:attributes="src data; width width; height height; name id;"
+        quality="high"
+        align="middle"
+        allowScriptAccess="sameDomain"
+        type="application/x-shockwave-flash"
+        pluginspage="http://www.macromedia.com/go/getflashplayer" />
+<div tal:content="alt"/>
+</object>

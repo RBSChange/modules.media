@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<module>
+		<enabled>true</enabled>
+		<visible>true</visible>
+		<icon>media</icon>
+	</module>
+	<project>
+		<entry name="fileinfo_magic_file_path">/usr/share/misc/magic</entry>
+		<!--
+		TODO: permit this kind of declarations in module.xml
+		<secureMediaStrategyClass>
+			<entry name="default">media_DisplaySecuremediaDefaultStrategy</entry>
+		</secureMediaStrategyClass>
+		 -->
+	</project>
+</config>

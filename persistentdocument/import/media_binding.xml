@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+	<binding fileName="modules/generic/persistentdocument/import/generic_binding.xml" />
+
+	<binding name="preferences" className="media_PreferencesScriptDocumentElement" />
+	<binding name="mediapreferences" className="media_PreferencesScriptDocumentElement" />
+
+	<binding name="media" className="media_MediaScriptDocumentElement" />
+	<binding name="securemedia" className="media_SecuremediaScriptDocumentElement" />
+
+	<binding name="tmpfile" className="media_TmpfileScriptDocumentElement" />
+	<binding name="file" className="media_FileScriptDocumentElement" />
+	<binding name="fileusage" className="media_FileusageScriptDocumentElement" />
+</script>

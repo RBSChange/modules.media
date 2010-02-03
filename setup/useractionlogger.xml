@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+  <binding fileName="modules/useractionlogger/persistentdocument/import/useractionlogger_binding.xml"/>
+  <actiondef modulename="media" actionname="insert.media" label="modules.media.bo.useractionlogger.insert-media"/>
+  <actiondef modulename="media" actionname="insert.securemedia" label="modules.media.bo.useractionlogger.insert-securemedia"/>
+  <actiondef modulename="media" actionname="update.media" label="modules.media.bo.useractionlogger.update-media"/>
+  <actiondef modulename="media" actionname="update.securemedia" label="modules.media.bo.useractionlogger.update-securemedia"/>
+  <actiondef modulename="media" actionname="updatetranslation.media" label="modules.media.bo.useractionlogger.updatetranslation-media"/>
+  <actiondef modulename="media" actionname="updatetranslation.securemedia" label="modules.media.bo.useractionlogger.updatetranslation-securemedia"/>
+  <actiondef modulename="media" actionname="delete.media" label="modules.media.bo.useractionlogger.delete-media"/>
+  <actiondef modulename="media" actionname="delete.securemedia" label="modules.media.bo.useractionlogger.delete-securemedia"/>
+  <actiondef modulename="media" actionname="deletelocalization.media" label="modules.media.bo.useractionlogger.deletelocalization-media"/>
+  <actiondef modulename="media" actionname="deletelocalization.securemedia" label="modules.media.bo.useractionlogger.deletelocalization-securemedia"/>
+  <actiondef modulename="media" actionname="move.media" label="modules.media.bo.useractionlogger.move-media"/>
+  <actiondef modulename="media" actionname="move.securemedia" label="modules.media.bo.useractionlogger.move-securemedia"/>
+  <actiondef modulename="media" actionname="activate.media" label="modules.media.bo.useractionlogger.activate-media"/>
+  <actiondef modulename="media" actionname="activate.securemedia" label="modules.media.bo.useractionlogger.activate-securemedia"/>
+  <actiondef modulename="media" actionname="deactivated.media" label="modules.media.bo.useractionlogger.deactivated-media"/>
+  <actiondef modulename="media" actionname="deactivated.securemedia" label="modules.media.bo.useractionlogger.deactivated-securemedia"/>
+  <actiondef modulename="media" actionname="reactivate.media" label="modules.media.bo.useractionlogger.reactivate-media"/>
+  <actiondef modulename="media" actionname="reactivate.securemedia" label="modules.media.bo.useractionlogger.reactivate-securemedia"/>
+  <actiondef modulename="media" actionname="transform.media" label="modules.media.bo.useractionlogger.transform-media"/>
+  <actiondef modulename="media" actionname="transform.securemedia" label="modules.media.bo.useractionlogger.transform-securemedia"/>
+  <actiondef modulename="media" actionname="dropfile.media" label="modules.media.bo.useractionlogger.dropfile-media"/>
+  <actiondef modulename="media" actionname="crop.media" label="modules.media.bo.useractionlogger.crop-media"/>
+  <actiondef modulename="media" actionname="crop.securemedia" label="modules.media.bo.useractionlogger.crop-securemedia"/>
+  <actiondef modulename="media" actionname="insert.folder" label="modules.media.bo.useractionlogger.insert-folder"/>
+  <actiondef modulename="media" actionname="update.folder" label="modules.media.bo.useractionlogger.update-folder"/>
+  <actiondef modulename="media" actionname="delete.folder" label="modules.media.bo.useractionlogger.delete-folder"/>
+  <actiondef modulename="media" actionname="move.folder" label="modules.media.bo.useractionlogger.move-folder"/>
+  <actiondef modulename="media" actionname="move.systemfolder" label="modules.media.bo.useractionlogger.move-systemfolder"/>
+  <actiondef modulename="media" actionname="saveredirectinfo.securemedia" label="modules.media.bo.useractionlogger.saveredirectinfo-securemedia"/>
+</script>

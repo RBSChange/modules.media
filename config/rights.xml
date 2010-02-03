@@ -1,0 +1,79 @@
+<rights>
+	<actions>
+		<document name="rootfolder">
+			<action name="DropFile" />
+		</document>
+		<document name="folder">
+			<action name="DropFile" />			
+		</document>		
+		<document name="media">
+			<action name="Transform" />
+			<action name="CropDialog" />
+			<action name="Crop" />		
+		</document>		
+		<document name="securemedia">
+			<action name="Transform" />
+			<action name="CropDialog" />
+			<action name="Crop" />
+		</document>		
+		<action name="DownloadMedia" />
+		<action name="SecureMediaDisplay" />
+		<action name="BoDisplay" />
+	</actions>
+	<roles>
+		<role name="Admin">
+			<permission name="*" />
+			<permission name="LoadPermissions.*" />
+			<permission name="SavePermissions.*" />
+			<permission name="GetPreferencesDocument" />
+			<permission name="EditLocale" />
+		</role>
+		<role name="Writer" extend="Guest">
+			<permission name="Order" />
+			<permission name="Move.*" />
+			<permission name="Load.*" />
+			<permission name="Rename.*" />
+			<permission name="PutInTrash.*" />
+			<permission name="Delete.*" />
+			<permission name="Insert.media" />
+			<permission name="Insert.securemedia" />
+			<permission name="Insert.folder" />
+			<permission name="Update.*" />
+			<permission name="Activate.*" />
+			<permission name="Transform.media" />
+			<permission name="Transform.securemedia" />
+			<permission name="DownloadMedia" />
+			<permission name="BoDisplay" />
+			<permission name="Crop.*" />
+			<permission name="CropDialog.*" />
+			<permission name="DropFile.*" />
+			<permission name="SaveRedirectInfo" />
+		</role>
+		<role name="Translator" extend="Guest">
+			<permission name="Load.*" />
+			<permission name="LoadForTranslation.*" />
+			<permission name="UpdateTranslation.*" />
+			<permission name="DownloadMedia" />
+			<permission name="BoDisplay" />
+			<permission name="SaveRedirectInfo" />
+		</role>
+		<role name="Validator" extend="Guest">
+			<permission name="Load.*" />
+			<permission name="Activate.*" />
+			<permission name="Cancel.*" />
+			<permission name="Deactivated.*" />
+			<permission name="ReActivate.*" />
+			<permission name="DownloadMedia" />
+			<permission name="BoDisplay" />
+		</role>
+		<role name="Guest" extend="User">
+			<permission name="Enabled" />
+		</role>
+		<role name="User">
+			<permission name="List.*" />
+		</role>		
+		<frontendrole name="SecureMediaDisplay">
+			<permission name="SecureMediaDisplay" />
+		</frontendrole>
+	</roles>
+</rights>

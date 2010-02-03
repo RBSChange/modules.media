@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scripts>
+	<script name="modules.media.lib.js.jquery-lightbox">
+		<dependencies>
+			<dependency name="modules.website.lib.js.jquery" />
+		</dependencies>
+	</script>
+	<script name="modules.media.lib.js.jquery-fancybox">
+		<dependencies>
+			<dependency name="modules.website.lib.js.jquery" />
+		</dependencies>
+	</script>
+	<script name="modules.website.lib.js.objectswap" />
+	<script name="modules.media.lib.frontoffice">
+		<dependencies>
+			<dependency name="modules.website.lib.js.jquery" />
+			<dependency name="modules.media.lib.js.jquery-fancybox" />
+			<!-- TODO: use http://code.google.com/p/swfobject/ instead of objectswap ? -->
+			<dependency name="modules.website.lib.js.objectswap" />
+		</dependencies>
+	</script>
+</scripts>

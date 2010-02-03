@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blocks>
+	<block type="modules_media_media" hidden="true" 
+		 label="&amp;modules.media.bo.blocks.Media;">
+	</block>
+	
+	<block type="modules_media_image" hidden="true" 
+		 label="&amp;modules.media.bo.blocks.Image;">
+		<parameters>
+			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
+			<parameter name="customWidth" type="String" />
+			<parameter name="customHeight" type="String" />
+			<parameter name="zoom" type="Boolean" default-value="true" />
+			<parameter name="url" type="String">
+				<constraints>url:true</constraints>
+			</parameter>
+		</parameters>
+		<xul>
+			<javascript>
+				<constructor><![CDATA[
+					var fields = this.getFields();
+					var me = this;
+					fields['format'].addEventListener('fieldChanged', function(event) {me.onFormatChange(event)}, true)
+				]]></constructor>
+				
+				<method name="onFormatChange">
+					<body><![CDATA[
+					var fields = this.getFields();
+					if (fields['format'].value != '')
+					{
+						this.getElementByAnonId('customWidth_cnt').collapsed = true;
+						this.getElementByAnonId('customHeight_cnt').collapsed = true;
+					}
+					else
+					{
+						this.getElementByAnonId('customWidth_cnt').collapsed = false;
+						this.getElementByAnonId('customHeight_cnt').collapsed = false;
+					}
+					]]></body>
+				</method>
+				
+			</javascript>
+		</xul>
+	</block>
+	
+	<block type="modules_media_flash" hidden="true" 
+		 label="&amp;modules.media.bo.blocks.Flash;">
+		<parameters>
+			<parameter name="transparent" type="Boolean" default-value="true" />
+		</parameters>
+	</block>
+</blocks>

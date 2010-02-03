@@ -1,0 +1,11 @@
+.preview{
+	width: 64px;
+}
+.thumbnail{
+	max-width: 128px;
+	max-height: 128px;
+}
+.minithumbnail{
+	max-width: 64px;
+	max-height: 64px;
+}

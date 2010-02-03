@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<localization>
+  <entity id="Zoom-click-to-close">
+    <locale lang="fr">cliquez pour fermer</locale>
+    <locale lang="en">click to close</locale>
+    <locale lang="de">Klicken um zu schliessen</locale>
+  </entity>
+  <entity id="Zoom-original">
+    <locale lang="fr">format original</locale>
+    <locale lang="en">original format</locale>
+    <locale lang="de">Original Format</locale>
+  </entity>
+  <entity id="media-descriptionPage-title">
+    <locale lang="fr">Description du média "{title}" du site "{websiteTitle}"</locale>
+  </entity>
+</localization>

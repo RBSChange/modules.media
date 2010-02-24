@@ -80,7 +80,7 @@
 	</binding>	
 	
 	
-	
+
 	<binding id="wMediaModuleList" extends="widgets.cNavigation#cModuleThumbnailList">
 		<implementation>
 			<field name="mUploadCount">0</field>
@@ -88,12 +88,12 @@
 			<method name="onDragEnter">
 				<parameter name="event" />		
 				<body><![CDATA[
-					wCore.debug('wMediaModuleList.onDragEnter');		
+					//wCore.debug('wMediaModuleList.onDragEnter');		
 					this.mDropData = null;
 					var dropNodeInfo = event.dataTransfer.mozGetDataAt("application/json-documentidtype-array", 0);
 					if (dropNodeInfo)
 					{
-						wCore.debug('wMediaModuleList.document');
+						//wCore.debug('wMediaModuleList.document');
 						var dropNode = wCore.parseJSON(dropNodeInfo);
 						var dropItemData = {id:dropNode[0][0], modelName: this._convertTypeToModel(dropNode[0][1]), ids:[]};
 						for (var i = 0; i < dropNode.length; i++)
@@ -101,26 +101,77 @@
 							dropItemData.ids.push(dropNode[i][0]);
 						} 
 						this.dragFeedBack = {dropOn : -1, dropAfter: -1, dropBefore : -1, action: null, dropItemData: dropItemData};
-						event.preventDefault();
 					}
 					else if (event.dataTransfer.types.contains('application/x-moz-file'))
 					{
-						wCore.debug('wMediaModuleList.files');
+						//wCore.debug('wMediaModuleList.files');
 						var dropItemData = {id:-1, modelName: 'modules_media/media', ids:[-1]};
 						this.dragFeedBack = {dropOn : -1, dropAfter: -1, dropBefore : -1, action: null, dropItemData: dropItemData};
-						event.preventDefault();
 					}
 					else
 					{
+						event.dataTransfer.effectAllowed = 'none';
 						this.dragFeedBack = null;
 					}
+					event.preventDefault();
 				]]></body>	
-			</method>			
-	
+			</method>	
+					
+			<method name="onDragOver">
+				<parameter name="event" />			
+				<body><![CDATA[
+					if (!this.dragFeedBack) 
+					{
+						event.dataTransfer.effectAllowed = 'none';
+						event.preventDefault();
+						return;
+					}
+					
+					var tree = this.tree;
+					var rowIndex = tree.treeBoxObject.getRowAt(event.clientX, event.clientY);					
+							
+					var currentDragFeedBack = this.dragFeedBack;
+					var dropItemData = currentDragFeedBack.dropItemData; 
+					var dragFeedBack = this.getDragFeedBack(rowIndex, event.clientY);
+					
+					var itemData = (dragFeedBack.dropOn < 0) ? this.mBaseItemData : tree.view.getItemAtIndex(dragFeedBack.dropOn).itemData;
+					if (!itemData || itemData.id  == dropItemData.id) 
+					{
+						this.cleanDragFeedBack();
+						event.dataTransfer.effectAllowed = 'none';
+						event.preventDefault();
+						return;					
+					}
+
+					currentDragFeedBack.action = this.getDropAction(itemData, dropItemData);	
+					if (!currentDragFeedBack.action)
+					{
+						event.dataTransfer.effectAllowed = 'none';
+					}
+														
+					if (currentDragFeedBack.dropOn != dragFeedBack.dropOn)
+					{
+						this.cleanDragFeedBack();
+						if (currentDragFeedBack.action) { this.applyDragFeedBack(dragFeedBack);}	
+					}
+					else if (currentDragFeedBack.dropBefore != dragFeedBack.dropBefore ||
+							 currentDragFeedBack.dropAfter != dragFeedBack.dropAfter)
+					{
+						this.cleanDragFeedBack();
+						if (currentDragFeedBack.action)
+						{ 
+							this.applyDragFeedBack(dragFeedBack);
+						}
+					}						
+													
+					event.preventDefault();
+				]]></body>	
+			</method>
+							
 			<method name="onDrop">
 				<parameter name="event" />			
 				<body><![CDATA[
-					wCore.debug('onDrop');
+					//wCore.debug('onDrop');
 					var dragFeedBack = this.mDropData;
 					this.mDropData = null;
 					
@@ -130,7 +181,6 @@
 						return;
 					}
 
-					
 					var dropInfo = {cmpref:dragFeedBack.dropItemData.ids, action: dragFeedBack.action};
 					var view = this.tree.view;
 					var tn;
@@ -169,7 +219,7 @@
 			<method name="executeDropFileCommand">
 				<parameter name="dropInfo" />
 				<body><![CDATA[
-					wCore.debug('executeDropFileCommand');
+					//wCore.debug('executeDropFileCommand');
 					var dt = dropInfo.dt;
 					var file = null;
 					var parameters = {lang: Context.W_LANG, cmpref: dropInfo.parentid};

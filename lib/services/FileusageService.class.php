@@ -143,7 +143,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 		{
 			$documentPropertyNames = array();
 			$xhtmlPropertyNames = array();
-			foreach ($model->getPropertiesInfos() as $propertyName => $propertyInfos) 
+			foreach ($model->getEditablePropertiesInfos() as $propertyName => $propertyInfos) 
 			{
 				if ($propertyInfos->getType() == f_persistentdocument_PersistentDocument::PROPERTYTYPE_XHTMLFRAGMENT)
 				{

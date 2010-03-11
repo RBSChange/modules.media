@@ -238,7 +238,7 @@ class media_ResizerFormatter
 			$finalClassName = Injection::getFinalClassName($originalClass);
 			if ($originalClass === $finalClassName)
 			{
-				if (!extension_loaded('imagick'))
+				if (extension_loaded('imagick'))
 				{
 					$finalClassName = 'media_ImagickResizerFormatter';
 				}

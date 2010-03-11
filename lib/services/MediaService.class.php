@@ -194,12 +194,7 @@ class media_MediaService extends media_FileService
 			case 'image/png':
 				return MediaHelper::EXTENSION_PNG;
 			case 'image/gif':
-				$info = $document->getInfo();
-				if (!isset($info['isGifAnim']))
-				{
-					return MediaHelper::EXTENSION_GIF;
-				}
-				break;
+				return MediaHelper::EXTENSION_GIF;
 		}
 		return false;
 	}

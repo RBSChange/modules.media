@@ -25,15 +25,7 @@ class media_FormatterHelper
 				throw new Exception("Unable to read : $fileName");
 			}
 			
-			if (self::isFormatable($fileName))
-			{
-				$image = self::imagickResize($fileName, $format);
-				self::saveImagik($image, $formattedFileName);
-			}
-			else
-			{
-				self::linkToOriginal($fileName, $formattedFileName);
-			}
+			media_ResizerFormatter::getInstance()->resize($fileName, $formattedFileName, $format);
 			
 			MediaHelper::outputHeader($formattedFileName, $media, false);
 			readfile($formattedFileName);
@@ -53,15 +45,7 @@ class media_FormatterHelper
 		$formattedFileName = self::buildFormattedResourcePath($inputFileName, $format);
 		if ($inputFileName !== $formattedFileName)
 		{
-			if (self::isFormatable($inputFileName))
-			{
-				$image = self::imagickResize($inputFileName, $format);
-				self::saveImagik($image, $formattedFileName);
-			}
-			else
-			{
-				self::linkToOriginal($inputFileName, $formattedFileName);
-			}
+			media_ResizerFormatter::getInstance()->resize($inputFileName, $formattedFileName, $format);
 		}
 		return $formattedFileName;
 	}
@@ -79,11 +63,13 @@ class media_FormatterHelper
 	{
 		if (is_readable($filename))
 		{
-			if (!is_null($format) && self::isFormatable($filename))
+			if ($format !== null)
 			{
 				$resourcePath = self::buildFormattedResourcePath($filename, $format);
-				$image = self::imagickResize($filename, $format);
-				self::saveImagik($image, $resourcePath);
+				if ($resourcePath !== $filename)
+				{
+					media_ResizerFormatter::getInstance()->resize($filename, $resourcePath, $format);
+				}
 			}
 			else
 			{
@@ -91,10 +77,9 @@ class media_FormatterHelper
 			}
 			
 			MediaHelper::outputHeader($resourcePath, $document, $forceDownload);
-			
 			readfile($resourcePath);
 			
-			if ($resourcePath !== $filename)
+			if ($transient && $resourcePath !== $filename)
 			{
 				unlink($resourcePath);
 			}
@@ -146,33 +131,6 @@ class media_FormatterHelper
 					break;
 			}
 		}
-	}
-	
-	/**
-	 * 
-	 * @param String $fileName
-	 */
-	private static function isFormatable($fileName)
-	{
-		try
-		{
-			$image = new Imagick($fileName);
-			switch ($image->getImageFormat())
-			{
-				case 'PNG' :
-				case 'JPG' :
-				case 'JPEG' :
-					return true;
-				case 'GIF' :
-					return $image->getNumberImages() == 1;
-			}
-		}
-		catch (Exception $e)
-		{
-			Framework::exception($e);
-			//Invalid image format
-		}
-		return false;
 	}
 	
 	public static function buildFormattedResourcePath($filename, $format)
@@ -249,34 +207,74 @@ class media_FormatterHelper
 		
 		return implode(',', $keys);
 	}
-		
-	/**
-	 * @param string $fileName
-	 * @return Imagick
-	 */
-	private static function imagickResize($fileName, $sizeInfo)
-	{
-		$image = new Imagick($fileName);
-		$finalSize = self::computeImageSize($image->getImageWidth(), $image->getImageHeight(), $sizeInfo);
-		$width = $finalSize['width'];
-		$height = $finalSize['height'];
-		$image->thumbnailImage($width, $height, true);
-		return $image;
-	}
 	
 	private static function linkToOriginal($originalFileName, $formattedFileName)
 	{
 		f_util_FileUtils::mkdir(dirname($formattedFileName));
 		symlink($originalFileName, $formattedFileName);
 	}
-	
-	private static function saveImagik($imagik, $formattedFileName)
+}
+
+class media_ResizerFormatter
+{
+	protected function __construct()
 	{
-		f_util_FileUtils::mkdir(dirname($formattedFileName));
-		$imagik->writeImage($formattedFileName);
 	}
 	
-	private static function computeImageSize($orginalWidth, $originalHeight, $format)
+	/**
+	 * the singleton instance
+	 * @var media_ResizerFormatter
+	 */
+	private static $instance = null;
+	
+	/**
+	 * @return media_ResizerFormatter
+	 */
+	public static function getInstance()
+	{
+		if (self::$instance === null)
+		{
+			$originalClass = get_class();
+			$finalClassName = Injection::getFinalClassName($originalClass);
+			if ($originalClass === $finalClassName)
+			{
+				if (!extension_loaded('imagick'))
+				{
+					$finalClassName = 'media_ImagickResizerFormatter';
+				}
+				else if (extension_loaded('gd'))
+				{
+					$finalClassName = 'media_GDResizerFormatter';
+				}
+			}
+			self::$instance = new $finalClassName();
+		}
+		return self::$instance;
+	}
+	
+	/**
+	 * @param string $inputFileName
+	 * @param string $formattedFileName
+	 * @param array $formatSizeInfo
+	 * @return boolean true if resized
+	 */
+	public function resize($inputFileName, $formattedFileName, $formatSizeInfo)
+	{
+		if (Framework::isDebugEnabled())
+		{
+			Framework::debug("NO library installed for resizing $inputFileName to " . str_replace("\n", "", var_export($formatSizeInfo, true)));
+		}
+		$this->linkToOriginal($inputFileName, $formattedFileName);
+		return false;
+	}
+	
+	protected function linkToOriginal($originalFileName, $formattedFileName)
+	{
+		f_util_FileUtils::mkdir(dirname($formattedFileName));
+		symlink($originalFileName, $formattedFileName);
+	}
+	
+	protected function computeImageSize($orginalWidth, $originalHeight, $format)
 	{
 		
 		$resourceWidth = $orginalWidth;
@@ -322,6 +320,218 @@ class media_FormatterHelper
 		$resourceWidth = round($resourceWidth);
 		$resourceHeight = round($resourceHeight);
 		
-		return array('width' => min($resourceWidth, $orginalWidth), 'height' => min($resourceHeight, $originalHeight));
+		return array(min($resourceWidth, $orginalWidth), min($resourceHeight, $originalHeight));
 	}
 }
+
+class media_ImagickResizerFormatter extends media_ResizerFormatter
+{
+	/**
+	 * @param string $inputFileName
+	 * @param string $formattedFileName
+	 * @param array $formatSizeInfo
+	 * @return boolean true if resized
+	 */
+	public function resize($inputFileName, $formattedFileName, $formatSizeInfo)
+	{
+		try
+		{
+			$formatable = false;
+			$imagik = new Imagick($inputFileName);
+			switch ($imagik->getImageFormat())
+			{
+				case 'PNG' :
+				case 'JPG' :
+				case 'JPEG' :
+				case 'GIF' :
+					$formatable = true;
+					break;
+			}
+			
+			if ($formatable === true && $imagik->getImageWidth() > 0)
+			{			
+				list ($width, $height) = $this->computeImageSize($imagik->getImageWidth(), $imagik->getImageHeight(), $formatSizeInfo);
+				if ($width != $imagik->getImageWidth() || $height != $imagik->getImageHeight())
+				{
+					if ($imagik->getNumberImages() > 1)
+					{
+						$vi = $imagik->getVersion();
+						if ($vi['versionNumber'] >= 1591) //ImageMagick 6.3.7 
+						{
+							$imagik = $imagik->coalesceImages();
+							foreach ($imagik as $frame) 
+							{
+							   $frame->thumbnailImage($width, $height, true);
+							}
+							f_util_FileUtils::mkdir(dirname($formattedFileName));
+							$imagik->writeImages($formattedFileName, true);
+							return true;
+						}
+						else
+						{
+							if (Framework::isInfoEnabled())
+							{
+								Framework::info(__METHOD__ . ' Unable to resize animated gif with ' . $vi['versionString']);
+							}
+						}
+					}
+					else
+					{
+						$imagik->thumbnailImage($width, $height, true);	
+						f_util_FileUtils::mkdir(dirname($formattedFileName));
+						$imagik->writeImage($formattedFileName);
+						return true;
+					}
+				}
+			}
+		}
+		catch (Exception $e)
+		{
+			Framework::exception($e);
+		}
+		$this->linkToOriginal($inputFileName, $formattedFileName);
+		return false;
+	}
+}
+
+class media_GDResizerFormatter extends media_ResizerFormatter
+{
+	/**
+	 * @param string $inputFileName
+	 * @param string $formattedFileName
+	 * @param array $formatSizeInfo
+	 * @return boolean true if resized
+	 */
+	public function resize($inputFileName, $formattedFileName, $formatSizeInfo)
+	{
+		try
+		{
+			$extension = f_util_FileUtils::getFileExtension($inputFileName);
+			switch (strtolower($extension))
+			{
+				case 'gif' :
+					$sizeInfo = getimagesize($inputFileName);
+					if ($sizeInfo[0] > 0)
+					{
+						list ($width, $height) = $this->computeImageSize($sizeInfo[0], $sizeInfo[1], $formatSizeInfo);
+						if ($width == $sizeInfo[0] && $height == $sizeInfo[1])
+						{
+							break;
+						}
+						if ($this->isGifAnim($inputFileName))
+						{
+							break;
+						}
+						$imageSrc = imagecreatefromgif($inputFileName);
+						$colorTransparent = imagecolortransparent($imageSrc);
+						$imageFormatted = imagecreate($width, $height);
+						imagepalettecopy($imageFormatted, $imageSrc);
+						imagefill($imageFormatted, 0, 0, $colorTransparent);
+						imagecolortransparent($imageFormatted, $colorTransparent);
+						imagecopyresized($imageFormatted, $imageSrc, 0, 0, 0, 0, $width, $height, $sizeInfo[0], $sizeInfo[1]);
+						
+						f_util_FileUtils::mkdir(dirname($formattedFileName));
+						imagegif($imageFormatted, $formattedFileName);
+						return true;
+					}
+					break;
+				case 'png' :
+					$sizeInfo = getimagesize($inputFileName);
+					if ($sizeInfo[0] > 0)
+					{
+						list ($width, $height) = $this->computeImageSize($sizeInfo[0], $sizeInfo[1], $formatSizeInfo);
+						if ($width == $sizeInfo[0] && $height == $sizeInfo[1])
+						{
+							break;
+						}
+						$imageSrc = imagecreatefrompng($inputFileName);
+						$imageFormatted = imagecreatetruecolor($width, $height);
+						imageAlphaBlending($imageFormatted, false);
+						imageSaveAlpha($imageFormatted, true);
+						imagecopyresampled($imageFormatted, $imageSrc, 0, 0, 0, 0, $width, $height, $sizeInfo[0], $sizeInfo[1]);
+						
+						f_util_FileUtils::mkdir(dirname($formattedFileName));
+						imagepng($imageFormatted, $formattedFileName);
+						return true;
+					}
+					break;
+				case 'jpg' :
+				case 'jpeg' :
+					$sizeInfo = getimagesize($inputFileName);
+					if ($sizeInfo[0] > 0)
+					{
+						list ($width, $height) = $this->computeImageSize($sizeInfo[0], $sizeInfo[1], $formatSizeInfo);
+						if ($width == $sizeInfo[0] && $height == $sizeInfo[1])
+						{
+							break;
+						}
+						$imageSrc = imagecreatefromjpeg($inputFileName);
+						$imageFormatted = imagecreatetruecolor($width, $height);
+						imagecopyresampled($imageFormatted, $imageSrc, 0, 0, 0, 0, $width, $height, $sizeInfo[0], $sizeInfo[1]);
+						
+						f_util_FileUtils::mkdir(dirname($formattedFileName));
+						imagejpeg($imageFormatted, $formattedFileName, 90);
+						return true;
+					}
+					break;
+			}
+		}
+		catch (Exception $e)
+		{
+			Framework::exception($e);
+		}
+		$this->linkToOriginal($inputFileName, $formattedFileName);
+		return false;
+	}
+	
+	/**
+	 * Return TRUE if the given file is an animated GIF.
+	 * @param string $filePath
+	 * @return boolean
+	 */
+	private function isGifAnim($filePath)
+	{
+		$isGifAnim = false;
+		if (is_readable($filePath))
+		{
+			$gifContent = file_get_contents($filePath);
+			$contentPosition = 0;
+			$frameCount = 0;
+			while ($frameCount < 2)
+			{
+				$firstHeader = strpos($gifContent, "\x00\x21\xF9\x04", $contentPosition);
+				if ($firstHeader === false)
+				{
+					break;
+				}
+				else
+				{
+					$contentPosition = $firstHeader + 1;
+					$secondHeader = strpos($gifContent, "\x00\x2C", $contentPosition);
+					
+					if ($secondHeader === false)
+					{
+						break;
+					}
+					else
+					{
+						if ($firstHeader + 8 == $secondHeader)
+						{
+							$frameCount ++;
+						}
+						
+						$contentPosition = $secondHeader + 1;
+					}
+				}
+			}
+			
+			if ($frameCount > 1)
+			{
+				$isGifAnim = true;
+			}
+		}
+		
+		return $isGifAnim;
+	}
+}
+

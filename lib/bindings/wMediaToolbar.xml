@@ -4,7 +4,7 @@
             xmlns:xbl="http://www.mozilla.org/xbl"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns:change="http://www.rbs-change.eu/change-4.2/taglib/phptal">
-    <binding id="wImageToolbar" extends="layout.wBlockToolbar#wBaseBlockToolbar">
+    <binding id="wImageToolbar" extends="layout.cLayoutToolbars#wBaseBlockToolbar">
         <implementation>
             <method name="applyBlockSize">
                 <body><![CDATA[

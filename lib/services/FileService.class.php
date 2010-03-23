@@ -192,6 +192,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			}
 		}
 		$mime = null;
+		
 		if (self::$hasFileInfo)
 		{
 			// FIXME: is FILEINFO_MIME_ENCODING something util for navigator ?
@@ -207,7 +208,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			$finfo = finfo_open($finfoMode, self::$magicFile);
 			if ($finfo === false)
 			{
-				Framework::error("Could not open magic file " . self::$magicFile . " . Check your configuration");
+				Framework::info("Could not open magic file " . self::$magicFile . " . update your [modules/media/fileinfo_magic_file_path] configuration");
 				self::$hasFileInfo = false;
 			}
 			else
@@ -216,18 +217,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 				finfo_close($finfo);
 			}
 		}
-		if ($mime === null && function_exists("mime_content_type"))
+		
+	
+		if ($mime === null && function_exists('mime_content_type'))
 		{
 			$mime = mime_content_type($path);
 		}
-		else
+			
+		if (f_util_StringUtils::isEmpty($mime) || $mime === 'application/octet-stream')
 		{
-			// TODO: something by extension ?
-		}
-		
-		if (f_util_StringUtils::isEmpty($mime))
-		{
-			$mime = "application/octet-stream";
+			$mime = MediaHelper::getMimeTypeByExtension(f_util_FileUtils::getFileExtension($path));
 		}
 		else
 		{

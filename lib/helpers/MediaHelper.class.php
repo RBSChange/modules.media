@@ -1017,6 +1017,30 @@ class MediaHelper
 	}
 
 	/**
+	 * @param string $extension
+	 * @return string
+	 */
+	public static function getMimeTypeByExtension($extension)
+	{
+		switch (strtolower($extension))
+		{
+			case 'gif': 
+				return 'image/gif';
+			case 'jpg':
+			case 'jpeg':
+				return 'image/jpeg';
+			case 'png':
+				return 'image/png';
+			case 'pdf':
+				return 'application/pdf';
+			case 'flv':
+				return 'video/x-flv';
+			case 'swf':	
+				return 'application/x-shockwave-flash';
+		}
+		return 'application/octet-stream';
+	}
+	/**
 	 * Get the URL of a server icon.
 	 *
 	 * @param string $name

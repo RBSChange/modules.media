@@ -35,12 +35,12 @@ class media_MediaScriptDocumentElement extends import_ScriptDocumentElement
             $fileName = basename($ressourcePath);
             $properties['filename'] = $fileName;
             $properties['mediatype'] = MediaHelper::getMediaTypeByFilename($fileName);
+            $extention = f_util_FileUtils::getFileExtension($fileName, true);
             if (!isset($properties['label']))
             {
-                $extention = f_util_FileUtils::getFileExtension($fileName, true);
                 $properties['label'] = str_replace($extention, '', $fileName); 
             }
-            $this->tmpFileName = f_util_FileUtils::getTmpFile('ImportedFile');
+            $this->tmpFileName = tempnam(null, 'ImportedFile') . $extention; 
             copy($ressourcePath, $this->tmpFileName);
             $properties['newFileName'] = $this->tmpFileName;
             unset($properties['path']);

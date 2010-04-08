@@ -4,7 +4,7 @@
  */
 class MediaHelper
 {
-	const ICON_PATH = '/icons';
+	const ICON_PATH = '/changeicons';
 	const ORIGINAL_PATH = '/media/original/';
 	const FORMATTED_PATH = '/media/formatted/';
 	const BACK_STATIC_PATH = '/media/backoffice/';
@@ -1067,6 +1067,14 @@ class MediaHelper
 		}
 		return LinkHelper::getUIRessourceLink(self::ICON_PATH . '/' . $format .$layout . '/'. $name. $extension)->getUrl();
 	}
+	
+	/**
+	 * @return string
+	 */
+	public static function getIconBaseUrl()
+	{
+		return Framework::getUIBaseUrl() . self::ICON_PATH;
+	}
 
 	/**
 	 * Get the URL of a webapp static media.
@@ -1148,7 +1156,7 @@ class MediaHelper
 		$filename = str_replace('//', '/', self::ROOT_MEDIA_PATH . $filename);
 		// corrects some ugly old paths
 		$filename = str_replace('media/media', 'media', $filename);
-		return f_util_FileUtils::buildWebappPath($filename);
+		return f_util_FileUtils::buildWebeditPath($filename);
 	}
 
 	public static function getFormatPropertiesByName($format, $id = null)
@@ -1172,7 +1180,7 @@ class MediaHelper
 		{
 			return self::$formats[$key];
 		}
-		$cacheFile = f_util_FileUtils::buildWebappPath('www', 'cache', 'mediaformat', basename($key));
+		$cacheFile = f_util_FileUtils::buildCachePath('mediaformat', basename($key));
 		f_util_FileUtils::mkdir(dirname($cacheFile));
 		if (!file_exists($cacheFile))
 		{

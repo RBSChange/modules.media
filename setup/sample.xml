@@ -3,9 +3,9 @@
 	<binding fileName="modules/media/persistentdocument/import/media_binding.xml" />
 	<rootfolder module="media">
 		<folder label="Exemple de media">
-			<media path="framework/builder/webapp/media/backoffice/logo_change_only.png" label="RBS Change 4"/>
+			<media path="framework/builder/home/media/backoffice/logo_change_only.png" label="RBS Change 4"/>
 			<folder label="Logos">
-				<media path="framework/builder/webapp/media/backoffice/change.png" label="Logo RBS Change 4"/>
+				<media path="framework/builder/home/media/backoffice/change.png" label="Logo RBS Change 4"/>
 			</folder>
 		</folder>
 	</rootfolder>

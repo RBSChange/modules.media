@@ -33,7 +33,7 @@
 
         <xbl:content xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" xmlns:xbl="http://www.mozilla.org/xbl" xmlns:html="http://www.w3.org/1999/xhtml" orient="vertical">
             <toolbar anonid="toolbar" flex="1">
-                <toolbarbutton image="{HttpHost}/icons/small/arrow_left_green.png" label="&modules.media.bo.general.ImageSetBlockWidth;" oncommand="applyBlockSize();" />
+                <toolbarbutton image="{IconsBase}/small/arrow_left_green.png" label="&modules.media.bo.general.ImageSetBlockWidth;" oncommand="applyBlockSize();" />
             </toolbar>
         </xbl:content>
     </binding>

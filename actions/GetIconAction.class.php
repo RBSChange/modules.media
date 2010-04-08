@@ -12,17 +12,30 @@ class media_GetIconAction extends f_action_BaseAction
 	public function _execute($context, $request)
 	{
 		$icon = $request->getParameter('icon');
-		$expectedPath = f_util_FileUtils::buildWebappPath('www', 'icons', $icon);
-		if (file_exists($expectedPath))
+		if ( Framework::hasConfiguration('modules/media/icons/library') && f_util_StringUtils::isNotEmpty($icon))
 		{
-			$iconPath = $expectedPath; 
+			$iconPath = f_util_FileUtils::buildAbsolutePath(Framework::getConfiguration('modules/media/icons/library'),  $icon);
+			if (is_readable($iconPath))
+			{
+				/*
+				$to = f_util_FileUtils::buildWebeditPath('changeicons' , $icon);
+				f_util_FileUtils::mkdir(dirname($to));
+				f_util_FileUtils::cp($iconPath, $to);
+				*/
+				MediaHelper::outputHeader($iconPath);
+				readfile($iconPath);
+				return; 
+			}
 		}
-		else 
+		if (Framework::isInfoEnabled())
 		{
-			$iconPath = f_util_FileUtils::buildAbsolutePath('/usr/share/pear/rbs/webedit4/libs/icons-1.0',  $icon);
+			Framework::info(__METHOD__ . ' ICON not found : ' .$_SERVER["SCRIPT_URI"]);
 		}
-		MediaHelper::outputHeader($iconPath);
-		readfile($iconPath);
+	 	if (!headers_sent())  
+	 	{
+	 		header('Status: 404 File Not Found');
+	 	}
+	 	return; 
 	}
 	
 	/**

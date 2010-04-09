@@ -185,10 +185,10 @@ class media_FileService extends f_persistentdocument_DocumentService
 	{
 		if (self::$hasFileInfo === null)
 		{
-			self::$hasFileInfo = extension_loaded("fileinfo");
+			self::$hasFileInfo = function_exists('finfo_open');
 			if (self::$hasFileInfo)
 			{
-				self::$magicFile = Framework::getConfigurationValue("modules/media/fileinfo_magic_file_path", "/usr/share/file/magic");
+				self::$magicFile = Framework::getConfigurationValue("modules/media/fileinfo_magic_file_path", "/usr/share/file/magic");				
 			}
 		}
 		$mime = null;
@@ -205,8 +205,8 @@ class media_FileService extends f_persistentdocument_DocumentService
 			{
 				$finfoMode = FILEINFO_MIME;
 			}
-			$finfo = finfo_open($finfoMode, self::$magicFile);
-			if ($finfo === false)
+			$finfo = @finfo_open($finfoMode, self::$magicFile);
+			if (!$finfo)
 			{
 				Framework::info("Could not open magic file " . self::$magicFile . " . update your [modules/media/fileinfo_magic_file_path] configuration");
 				self::$hasFileInfo = false;

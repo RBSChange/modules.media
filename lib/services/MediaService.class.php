@@ -286,11 +286,12 @@ class media_MediaService extends media_FileService
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $forModuleName
+	 * @param array $allowedSections
 	 * @return array
 	 */
-	public function getResume($document, $forModuleName)
+	public function getResume($document, $forModuleName, $allowedSections = null)
 	{
-		$data = parent::getResume($document, $forModuleName);
+		$data = parent::getResume($document, $forModuleName, $allowedSections);
 		
 		if ($document->isContextLangAvailable())
 		{

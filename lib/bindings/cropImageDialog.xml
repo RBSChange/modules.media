@@ -22,7 +22,7 @@
 				this.mSvgDoc = this.getElementById('svg-doc');
 				this.mSizer = this.getElementById('sizer');
 				this.mOriginalSize = {w:0, h:0};
-				this.mOrigine = {x:0, x:0};					
+				this.mOrigine = {x:0, y:0};					
 			]]></constructor>
 			
 			<property name="cursorX" readonly="true">

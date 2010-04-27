@@ -30,6 +30,7 @@ class MediaHelper
 	const IMAGE_GIF = 'gif';
 
 	const TYPE_IMAGE = 'image';
+	const TYPE_AUDIO = 'audio';
 	const TYPE_PDF = 'pdf';
 	const TYPE_DOC = 'doc';
 	const TYPE_DOCX = 'docx';
@@ -1007,7 +1008,14 @@ class MediaHelper
 			case 'flv':
 				$type = self::TYPE_VIDEO;
 				break;
-
+				
+			case 'mp3':
+			case 'wav':
+			case 'aif':
+			case 'ogg':	
+			case 'aac':
+				$type = self::TYPE_AUDIO;
+				break;
 			default:
 				$type = self::TYPE_GENERIC;
 				break;
@@ -1037,6 +1045,8 @@ class MediaHelper
 				return 'video/x-flv';
 			case 'swf':	
 				return 'application/x-shockwave-flash';
+			case 'mp3':
+				return 'audio/mpeg';
 		}
 		return 'application/octet-stream';
 	}

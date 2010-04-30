@@ -21,8 +21,7 @@ class media_DisplayAction extends f_action_BaseAction
 		{
 			//Invalid Media
         	Framework::exception($e);
-        	$HTTP_Header= new HTTP_Header();
-			$HTTP_Header->sendStatusCode(404);
+        	f_web_http_Header::setStatus(404);
 			return View::NONE;
 		}
 		

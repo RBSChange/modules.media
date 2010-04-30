@@ -22,8 +22,7 @@ class media_GenerateFormatedAction extends f_action_BaseAction
         catch (Exception $e)
         {
         	Framework::exception($e);
-        	$HTTP_Header= new HTTP_Header();
-			$HTTP_Header->sendStatusCode(404);
+        	f_web_http_Header::setStatus(404);
         }
         return View::NONE;
     }

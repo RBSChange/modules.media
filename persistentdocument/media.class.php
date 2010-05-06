@@ -6,25 +6,7 @@
 class media_persistentdocument_media extends media_persistentdocument_mediabase implements indexer_IndexableDocument
 {
 	/**
-	 * Get the indexable document
-	 *
-	 * @return indexer_IndexedDocument
-	 */
-	public function getIndexedDocument()
-	{
-		$indexedDoc = new indexer_IndexedDocument();
-		$indexedDoc->setId($this->getId());
-		$indexedDoc->setDocumentModel('modules_media/media');
-		$indexedDoc->setLabel($this->getLabel());
-		$indexedDoc->setLang(RequestContext::getInstance()->getLang());
-		$indexedDoc->setText($this->getTextForIndexer());
-		$indexedDoc->setStringField('mediaType', $this->getMediatype());
-		return $indexedDoc;
-	}
-	
-	/**
 	 * @see media_persistentdocument_mediabase::getBackofficeIndexedDocument()
-	 *
 	 * @return indexer_IndexedDocument
 	 */
 	public function getBackofficeIndexedDocument()
@@ -159,5 +141,22 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 	public function setI18ntmpfile($val)
 	{
 		$this->setTmpfile($val);
+	}
+
+	// Deprecated method.
+	
+	/**
+	 * @deprecated no front indexation on medias. 
+	 */
+	public function getIndexedDocument()
+	{
+		$indexedDoc = new indexer_IndexedDocument();
+		$indexedDoc->setId($this->getId());
+		$indexedDoc->setDocumentModel('modules_media/media');
+		$indexedDoc->setLabel($this->getLabel());
+		$indexedDoc->setLang(RequestContext::getInstance()->getLang());
+		$indexedDoc->setText($this->getTextForIndexer());
+		$indexedDoc->setStringField('mediaType', $this->getMediatype());
+		return $indexedDoc;
 	}
 }

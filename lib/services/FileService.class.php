@@ -450,9 +450,14 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	public final function generateDownloadUrl($document, $lang = null, $parameters = array())
 	{
-		$parameters['cmpref'] = $document->getId();
 		$lang = ($lang == null) ? RequestContext::getInstance()->getLang() : $lang;
+		$url = website_UrlRewritingService::getInstance()->getDocumentUrl($document, $lang, $parameters);
+		if ($url !== null)
+		{
+			return $url;
+		}			
 		$parameters['lang'] = $lang;
+		$parameters['cmpref'] = $document->getId();
 		return LinkHelper::getActionUrl('media', 'Display', $parameters);
 	}
 	

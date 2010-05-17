@@ -29,12 +29,9 @@ class media_GetIconAction extends f_action_BaseAction
 		}
 		if (Framework::isInfoEnabled())
 		{
-			Framework::info(__METHOD__ . ' ICON not found : ' .$_SERVER["SCRIPT_URI"]);
+			Framework::info(__METHOD__ . ' ICON not found : ' . $_SERVER['REQUEST_URI']);
 		}
-	 	if (!headers_sent())  
-	 	{
-	 		header('Status: 404 File Not Found');
-	 	}
+		f_web_http_Header::setStatus(404);
 	 	return; 
 	}
 	

@@ -311,7 +311,7 @@
 						var result = wCore.parseJSON(req.responseText);
                     	if (result.status == 'OK')
                     	{
-                    		this.getModule().getController().alert(result.contents.label + ' envoyer.');
+                    		this.getModule().getController().alert(result.contents.label + ' OK!');
                     	}
                     	else
                     	{

@@ -140,72 +140,49 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		$lang = self::getLang($media);
 		$title = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
 		$alt = f_Locale::translate(self::LOCALE_PATH.'Download;') . ' ' . htmlspecialchars(strip_tags($title));
-		$html = '<a href="' . self::getUrl($media, $lang).'"';
+		$html = '<a';
 		
+		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');
 		if ($addcmpref)
 		{
-			$html .= ' cmpref="' . $media->getId() . '"';
+			$attrs['cmpref'] = '"' . $media->getId() . '"';
 		}
-		
-		// class attribute
-		$html .= ' class="link';
-		if ($class !== null)
+
+		if (f_util_StringUtils::isNotEmpty($class))
 		{
-			$html .= ' '.$class;
+			$attrs['class'] = '"link download ' . $class . '"';
 		}
-		$html .= '"';
-		// end class attribute
+		else
+		{
+			$attrs['class'] = '"link download"';
+		}
 		
-		$html .= ' alt="' . $alt . '"';
-		$html .= ' title="' . $alt . '"';
-		$html .= self::getAdditionnalAttributes($media, $class);
+		$attrs['alt'] = '"' . $alt . '"';
+		$attrs['title'] = '"' . $alt . '"';
+		
+		if (!$addcmpref)
+		{
+			$attrs = array_merge($attrs, self::getAdditionnalAttributes($media, $class));
+		}
+		
+		foreach ($attrs as $attrName => $attrValue) 
+		{
+			$html .= ' ' . $attrName .'=' . $attrValue;
+		}
 		$html .= '>' . $title . "</a>";
 		return $html;
 	}
 	
-	
-	private static $additionnalAttributesBuilders;
-
-	/**
-	 * @param media_persistentdocument_media $media
-	 * @param String $class
-	 * @return String
-	 */
-	static function getAdditionnalAttributes($media, $class)
+	private function getAdditionnalAttributes($media, $class)
 	{
-		if (self::$additionnalAttributesBuilders === null)
+		$additionnalAttributes = array();
+		foreach (MediaHelper::getAdditionnalDownloadAttributes($media, $class) as $attrName => $attrValue)
 		{
-			$builderNames = Framework::getConfiguration("modules/media/additionnalDownloadAttributesBuilders", false);
-			$builders = array();
-			if ($builderNames !== false)
-			{
-				foreach ($builderNames as $builderName)
-				{
-					if (f_util_ClassUtils::classExists($builderName))
-					{
-						$builders[] = new $builderName();
-					}
-					else
-					{
-						throw new ConfigurationException("Bad modules/media/additionnalDownloadAttributesBuilders : class $builderName does not exists");
-					}
-				}
-			}
-			
-			self::$additionnalAttributesBuilders = $builders;
-		}
-		
-		$additionnalAttributes = "";
-		foreach (self::$additionnalAttributesBuilders as $builder)
-		{
-			$attrs = $builder->getAttributes($media, $class);
-			foreach ($attrs as $attrName => $attrValue)
-			{
-				$additionnalAttributes .= " ".$attrName."=\"".htmlspecialchars($attrValue, ENT_COMPAT, "UTF-8")."\"";
-			}
+			$additionnalAttributes[$attrName] = '"' .htmlspecialchars($attrValue, ENT_COMPAT, "UTF-8").'"';
 		}
 		return $additionnalAttributes;
 	}
+
 
 	public static function getUrl($media, $lang)
 	{
@@ -213,7 +190,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		{
 			return '#';
 		}
-		return htmlentities(media_FileService::getInstance()->generateDownloadUrl($media, $lang));
+		return htmlspecialchars(media_FileService::getInstance()->generateDownloadUrl($media, $lang), ENT_COMPAT, "UTF-8");
 	}
 }
 

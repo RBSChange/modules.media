@@ -151,6 +151,13 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
     	return false;
     }
 
+    public function addDownloadAttributes(&$attributes)
+    {
+    	$class = isset($attributes['class']) ? $attributes['class'] : null;
+    	$attrs = MediaHelper::getAdditionnalDownloadAttributes($this, $class);
+    	$attributes = array_merge($attributes, $attrs);
+    }
+    
  	/**
  	 * @return string
  	 */

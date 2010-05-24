@@ -1556,4 +1556,43 @@ class MediaHelper
 			throw $e;
 		}
 	}
+	
+	private static $additionnalAttributesBuilders;
+
+	/**
+	 * @param media_persistentdocument_media $media
+	 * @param String $class
+	 * @return array
+	 */
+	static function getAdditionnalDownloadAttributes($media, $class)
+	{
+		if (self::$additionnalAttributesBuilders === null)
+		{
+			$builderNames = Framework::getConfiguration("modules/media/additionnalDownloadAttributesBuilders", false);
+			$builders = array();
+			if ($builderNames !== false)
+			{
+				foreach ($builderNames as $builderName)
+				{
+					if (f_util_ClassUtils::classExists($builderName))
+					{
+						$builders[] = new $builderName();
+					}
+					else
+					{
+						throw new ConfigurationException("Bad modules/media/additionnalDownloadAttributesBuilders : class $builderName does not exists");
+					}
+				}
+			}
+			
+			self::$additionnalAttributesBuilders = $builders;
+		}
+		
+		$additionnalAttributes = array();
+		foreach (self::$additionnalAttributesBuilders as $builder)
+		{
+			$additionnalAttributes = array_merge($additionnalAttributes, $builder->getAttributes($media, $class));
+		}
+		return $additionnalAttributes;
+	}
 }

@@ -60,10 +60,9 @@ class media_DisplayAction extends f_action_BaseAction
 
 		if (!$request->hasParameter(MediaHelper::FORCEDOWNLOAD_ATTRIBUTE))
 		{
-			$apacheHeaders = apache_request_headers();
-			if (isset($apacheHeaders['If-Modified-Since']))
+			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
 			{
-				$ifModifiedSince = preg_replace('/;.*$/', '', $apacheHeaders['If-Modified-Since']);
+				$ifModifiedSince = preg_replace('/;.*$/', '', $_SERVER['HTTP_IF_MODIFIED_SINCE']);
 				if ($ifModifiedSince && ($ifModifiedSince == gmdate("D, d M Y H:i:s", filemtime($filename)) . " GMT"))
 				{
 					header('HTTP/1.1 304 Not Modified');

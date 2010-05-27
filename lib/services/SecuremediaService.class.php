@@ -54,7 +54,7 @@ class media_SecuremediaService extends media_MediaService
 	 * @param string $lang
 	 * @param array $parameters
 	 */
-	public function generateUrl($document, $lang, $parameters)
+	public function generateUrl($document, $lang = null, $parameters = array())
 	{
 		return $this->generateDownloadUrl($document, $lang, $parameters);
 	}

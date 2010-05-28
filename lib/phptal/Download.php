@@ -193,13 +193,3 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		return htmlspecialchars(media_FileService::getInstance()->generateDownloadUrl($media, $lang), ENT_COMPAT, "UTF-8");
 	}
 }
-
-interface f_DownloadAttributeBuilder
-{
-	/**
-	 * @param f_persistentdocument_PersistentDocument $media
-	 * @param String $class
-	 * @return array<String, String>
-	 */
-	function getAttributes($media, $class);
-}

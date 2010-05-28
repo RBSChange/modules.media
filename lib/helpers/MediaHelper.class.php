@@ -1596,3 +1596,13 @@ class MediaHelper
 		return $additionnalAttributes;
 	}
 }
+
+interface f_DownloadAttributeBuilder
+{
+	/**
+	 * @param f_persistentdocument_PersistentDocument $media
+	 * @param String $class
+	 * @return array<String, String>
+	 */
+	function getAttributes($media, $class);
+}

@@ -12,6 +12,6 @@
 	
 	<systemfolder module="media" relatedmodule="website">
 		<media path="modules/media/setup/logo_rbs.gif" label="Logo RBS"/>
-		<media path="modules/media/setup/logo CHANGE.png"/>
+		<media path="modules/media/setup/logo_CHANGE.png" label="Logo RBS Change" />
 	</systemfolder>
 </script>

@@ -22,16 +22,23 @@ class media_InsertJSONAction extends generic_InsertJSONAction
 		$propertiesValue = array();
 		foreach ($propertiesNames as $propertyName)
 		{
-			if ($propertyName === 'tmpfile') {continue;}
-
+			if ($propertyName === 'tmpfile')
+			{
+				continue;
+			}
+			
 			if ($request->hasParameter($propertyName))
 			{
 				$propertiesValue[$propertyName] = $request->getParameter($propertyName);
-			}			
-		}		
+			}
+		}
 		uixul_DocumentEditorService::getInstance()->importFieldsData($document, $propertiesValue);
 		$parentNodeId = intval($request->getParameter(K::PARENT_ID_ACCESSOR));
-		if ($parentNodeId <= 0) { $parentNodeId = null; }
+		if ($parentNodeId <= 0)
+		{
+			$parentNodeId = null;
+		}
+		$document->setPublicationstatus('ACTIVE');
 		$documentService->save($document);
 		if ($parentNodeId)
 		{

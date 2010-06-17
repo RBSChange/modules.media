@@ -40,7 +40,7 @@ class media_MediaScriptDocumentElement extends import_ScriptDocumentElement
             {
                 $properties['label'] = str_replace($extention, '', $fileName); 
             }
-            $this->tmpFileName = tempnam(null, 'ImportedFile') . $extention; 
+            $this->tmpFileName = f_util_FileUtils::getTmpFile('ImportedFile') . $extention; 
             copy($ressourcePath, $this->tmpFileName);
             $properties['newFileName'] = $this->tmpFileName;
             unset($properties['path']);

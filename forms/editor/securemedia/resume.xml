@@ -1,30 +1,28 @@
 <?xml version="1.0"?>
-<panel>	
+<panel>
 	<section name="properties" linkedtab="properties" labeli18n="modules.uixul.bo.doceditor.section.Properties" image="{IconsBase}/small/edit-properties.png">
-		<property name="label" labeli18n="modules.uixul.bo.doceditor.property.Label"/>
-		<property name="author" labeli18n="modules.uixul.bo.doceditor.property.Author"/>
-		<property name="creationdate" labeli18n="modules.uixul.bo.doceditor.property.Creationdate"/>
+		<property name="label" labeli18n="modules.uixul.bo.doceditor.property.Label" />
+		<property name="author" labeli18n="modules.uixul.bo.doceditor.property.Author" />
+		<property name="creationdate" labeli18n="modules.uixul.bo.doceditor.property.Creationdate" />
 	</section>
-		
-	<section name="content" 
-		labeli18n="modules.uixul.bo.doceditor.section.Content" 
-		image="{IconsBase}/small/shadow/contract.png">
+
+	<section name="content" labeli18n="modules.uixul.bo.doceditor.section.Content" image="{IconsBase}/small/page-content.png">
 		<property name="mimetype" labeli18n="modules.media.bo.doceditor.property.Mimetype" />
 		<property name="size" labeli18n="modules.media.bo.doceditor.property.Size" />
+		<property name="width" labeli18n="modules.media.bo.doceditor.property.Width" />
+		<property name="height" labeli18n="modules.media.bo.doceditor.property.Height" />
 		<property name="previewimgurl" labeli18n="modules.media.bo.doceditor.property.Previewimgurl" />
 	</section>
-	
-	<section name="usages" 
-		labeli18n="modules.media.bo.doceditor.section.Usages" 
-		image="{IconsBase}/small/shadow/replace.png">
+
+	<section name="usages" labeli18n="modules.media.bo.doceditor.section.Usages" image="{IconsBase}/small/search.png">
 		<property name="mediausages" labeli18n="modules.media.bo.doceditor.property.Mediausages" />
 	</section>
-										
+
 	<section name="publication" linkedtab="publication" labeli18n="modules.uixul.bo.doceditor.section.Publication" image="{IconsBase}/small/status.png">
-		<property name="status" labeli18n="modules.uixul.bo.doceditor.property.Status"/>
+		<property name="status" labeli18n="modules.uixul.bo.doceditor.property.Status" />
 	</section>
-	
+
 	<section name="localization" linkedtab="localization" labeli18n="modules.uixul.bo.doceditor.section.Localization" image="{IconsBase}/small/translate.png">
-		<property name="languages" type="langs" labeli18n="modules.uixul.bo.doceditor.property.Languages"/>
-	</section>			
+		<property name="languages" type="langs" labeli18n="modules.uixul.bo.doceditor.property.Languages" />
+	</section>
 </panel>

@@ -309,13 +309,16 @@ class media_MediaService extends media_FileService
 			$rc->beginI18nWork($lang);
 			$info = $document->getInfo();
 			$data['content'] = array(
-				'mimetype' => $document->getMimetype() ,
-				'size' => $info['size'],
-			);			
+				'mimetype' => $document->getMimetype(),
+				'size' => $info['size']
+			);
 			
 			$data['content']['previewimgurl'] = array('id' => $document->getId(), 'lang' => $lang);
 			if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
 			{
+				$pixelsLabel = f_Locale::translateUI('&modules.media.doceditor.pixels;');
+				$data['content']['width'] = $info['width'].' '.$pixelsLabel;
+				$data['content']['height'] = $info['height'].' '.$pixelsLabel;
 				$data['content']['previewimgurl']['image'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
 					->setQueryParameter('cmpref', $document->getId())
 					->setQueryParameter('max-height', 128)

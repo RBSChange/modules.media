@@ -9,6 +9,8 @@
 	<section name="content" labeli18n="modules.uixul.bo.doceditor.section.Content" image="{IconsBase}/small/page-content.png">
 		<property name="mimetype" labeli18n="modules.media.bo.doceditor.property.Mimetype" />
 		<property name="size" labeli18n="modules.media.bo.doceditor.property.Size" />
+		<property name="width" labeli18n="modules.media.bo.doceditor.property.Width" />
+		<property name="height" labeli18n="modules.media.bo.doceditor.property.Height" />
 		<property name="previewimgurl" labeli18n="modules.media.bo.doceditor.property.Previewimgurl" />
 	</section>
 

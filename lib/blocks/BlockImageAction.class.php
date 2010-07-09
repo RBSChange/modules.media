@@ -15,7 +15,13 @@ class media_BlockImageAction extends website_BlockAction
 	 */
 	public function getCacheKeyParameters($request)
 	{
-		$keys = array($this->findParameterValue(K::COMPONENT_ID_ACCESSOR), $this->findParameterValue('format'));
+		$keys = array('cmpref' => $this->findParameterValue(K::COMPONENT_ID_ACCESSOR));
+		$cfg = $this->getConfiguration();
+		$params = array("format", "customWidth", "customHeight", "zoom", "url");
+		foreach ($params as $paramName)
+		{
+			$keys[$paramName] = $cfg->getConfigurationParameter($paramName);
+		}
 	    $keys['lang'] = $this->getLang();
 		return $keys;
 	}

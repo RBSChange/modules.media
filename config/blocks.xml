@@ -14,13 +14,23 @@
 			<parameter name="url" type="String">
 				<constraints>url:true</constraints>
 			</parameter>
+			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
 		</parameters>
 		<xul>
 			<javascript>
 				<constructor><![CDATA[
 					var fields = this.getFields();
 					var me = this;
-					fields['format'].addEventListener('fieldChanged', function(event) {me.onFormatChange(event)}, true)
+					fields.format.addEventListener('fieldChanged', function(event) {
+						me.onFormatChange(event);
+					}, true);
+					fields.documenturl.addEventListener('fieldChanged', function(event) {
+						fields.url.disabled = fields.documenturl.value != '';
+					}, true);
+					
+					this.addEventListener('gridValuesUpdated', function(event) {
+						fields.url.disabled = fields.documenturl.getAttribute('initialvalue') != '';
+					}, true);
 				]]></constructor>
 				
 				<method name="onFormatChange">

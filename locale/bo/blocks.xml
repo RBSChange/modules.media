@@ -40,6 +40,12 @@
   <entity id="image.url-help">
     <locale lang="fr">saisissez une adresse (URL) pour générer un lien vers cette adresse. Ceci désactivera la fonctionalité zoom.</locale>
   </entity>
+  <entity id="image.documenturl">
+    <locale lang="fr">lien vers un document</locale>
+  </entity>
+  <entity id="image.documenturl-help">
+    <locale lang="fr">sélectionnez le document de votre choix pour générer un lien vers ce document. Ceci désactivera la fonctionalité zoom.</locale>
+  </entity>
   <entity id="flash">
     <locale lang="fr">animation flash</locale>
     <locale lang="de">Flash Animation</locale>

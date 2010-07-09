@@ -6,7 +6,13 @@ class media_BlockImageAction extends website_BlockAction
 	 */	
 	public function getCacheDependencies()
 	{
-		return array("modules_media/media");
+		$deps = array($this->findParameterValue("cmpref"));
+		$docUrlId = $this->getConfiguration()->getDocumentUrlId();
+		if (f_util_StringUtils::isNotEmpty($docUrlId))
+		{
+			$deps[] = $docUrlId;
+		}
+		return $deps;
 	}
 	
 	/**
@@ -15,9 +21,9 @@ class media_BlockImageAction extends website_BlockAction
 	 */
 	public function getCacheKeyParameters($request)
 	{
-		$keys = array('cmpref' => $this->findParameterValue(K::COMPONENT_ID_ACCESSOR));
+		$keys = array('cmpref' => $this->findParameterValue("cmpref"));
 		$cfg = $this->getConfiguration();
-		$params = array("format", "customWidth", "customHeight", "zoom", "url");
+		$params = array("format", "customWidth", "customHeight", "zoom", "url", "documenturl");
 		foreach ($params as $paramName)
 		{
 			$keys[$paramName] = $cfg->getConfigurationParameter($paramName);
@@ -36,6 +42,12 @@ class media_BlockImageAction extends website_BlockAction
 	public function execute($request, $response)
 	{
 		$configuration = $this->getConfiguration();
+		$documentURL = $configuration->getDocumentUrlSafe();
+		if ($documentURL != null)
+		{
+			$url = LinkHelper::getDocumentUrl($documentURL);
+			$configuration->setConfigurationParameter("url", $url);
+		}
 		if (f_util_StringUtils::isNotEmpty($configuration->getUrl()))
 		{
 			$configuration->setConfigurationParameter("zoom", "false");

@@ -85,6 +85,15 @@
 		<implementation>
 			<field name="mUploadCount">0</field>
 			
+			<constructor><![CDATA[
+				var me = this;
+				var thumb = this.listItems;
+				thumb.addEventListener("dragenter", function (event) {me.onThumbDragEnter(event);}, false);
+				thumb.addEventListener("dragleave", function (event) {me.onThumbDragLeave(event);}, false);	
+				thumb.addEventListener("dragover", function (event) {me.onThumbDragOver(event);}, false);
+				thumb.addEventListener("drop", function (event) {me.onThumbDrop(event);}, false);	
+            ]]></constructor>
+            
 			<method name="onDragEnter">
 				<parameter name="event" />		
 				<body><![CDATA[
@@ -215,6 +224,60 @@
 					event.preventDefault();
 				]]></body>	
 			</method>	
+			
+			<method name="onThumbDragEnter">
+				<parameter name="event" />		
+				<body><![CDATA[
+					//wCore.debug('wMediaModuleList.onThumbDragEnter');		
+					this.mDropData = null;
+					if (event.dataTransfer.types.contains('application/x-moz-file'))
+					{
+						//wCore.debug('wMediaModuleList.files');
+						this.dragFeedBack = true;
+					}
+					else
+					{
+						event.dataTransfer.effectAllowed = 'none';
+						this.dragFeedBack = null;
+					}
+					event.preventDefault();
+				]]></body>	
+			</method>	
+			
+			<method name="onThumbDragLeave">
+				<parameter name="event" />		
+				<body><![CDATA[
+					//wCore.debug('wMediaModuleList.onThumbDragLeave');		
+					this.dragFeedBack = null;;
+				]]></body>	
+			</method>
+					
+			<method name="onThumbDragOver">
+				<parameter name="event" />			
+				<body><![CDATA[
+					if (!this.dragFeedBack) 
+					{
+						event.dataTransfer.effectAllowed = 'none';
+					}													
+					event.preventDefault();
+				]]></body>	
+			</method>
+							
+			<method name="onThumbDrop">
+				<parameter name="event" />			
+				<body><![CDATA[
+					//wCore.debug('wMediaModuleList.onThumbDrop');
+					this.dragFeedBack = null;
+					if (!event.dataTransfer.types.contains('application/x-moz-file'))
+					{
+						event.preventDefault();
+						return;
+					}
+					var dropInfo = {parentid: this.mBaseItemData.id, dt: event.dataTransfer, beforeid:false, afterid:false};
+					this.executeDropFileCommand(dropInfo);
+					event.preventDefault();
+				]]></body>	
+			</method>
 			
 			<method name="executeDropFileCommand">
 				<parameter name="dropInfo" />

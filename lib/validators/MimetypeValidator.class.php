@@ -29,10 +29,7 @@ class validation_MimetypeValidator extends validation_ValidatorImpl
 			}
 			else
 			{
-				ob_start();
-				var_dump($values);
-				$varStr = ob_get_clean();;
-				throw new Exception(__METHOD__."Bad value ".$varStr);
+				throw new Exception(__METHOD__."Bad value ". var_export($values, true));
 			}
 		}
 

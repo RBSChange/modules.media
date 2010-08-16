@@ -29,7 +29,12 @@ class media_BlockMediaAction extends website_BlockAction
 	 */
 	public function execute($request, $response)
 	{
-        $request->setAttribute("media", $this->getDocumentParameter());
+		$media = $this->getDocumentParameter();
+		if ($media === null)
+		{
+			return website_BlockView::NONE;
+		}
+        $request->setAttribute("media", $media);
         return website_BlockView::SUCCESS;
     }
 }

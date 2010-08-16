@@ -137,6 +137,10 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 	 */
 	public static function render($media, $class, $addcmpref = false)
 	{
+		if ($media === null)
+		{
+			return '';
+		}
 		$lang = self::getLang($media);
 		$title = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
 		$alt = f_Locale::translate(self::LOCALE_PATH.'Download;') . ' ' . htmlspecialchars(strip_tags($title));

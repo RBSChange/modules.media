@@ -60,7 +60,12 @@ class media_BlockImageAction extends website_BlockAction
 			$request->setAttribute('imageConf', $this->getConfiguration());
 			return $this->forward('media', 'ImageList');
 		}
-		$request->setAttribute("image", $this->getDocumentParameter());
+		$image = $this->getDocumentParameter();
+		if ($image === null)
+		{
+			return website_BlockView::NONE;
+		}
+		$request->setAttribute("image", $image);
         return website_BlockView::SUCCESS;
 	}
 }

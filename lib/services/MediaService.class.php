@@ -213,10 +213,12 @@ class media_MediaService extends media_FileService
 		{
 			if ($this->putExtractedTextInCache($media))
 			{
-				$cacheEntry = new f_SimpleCache('media_Extractedtext', $media->getId(), array('modules_media/media'));
-				if ($cacheEntry->exists('text'))
+				//$cacheEntry = new f_SimpleCache('media_Extractedtext', $media->getId(), array('modules_media/media'));
+				$cache = f_DataCacheService::getInstance();
+				$cacheEntry = $cache->readFromCache('media_Extractedtext', $media->getId(), array('modules_media/media'));
+				if ($cache->exists($cacheEntry))
 				{
-					$extractedText = $cacheEntry->readFromCache('text');
+					$extractedText = $cacheEntry->getValue('text');
 				}
 			}
 
@@ -238,9 +240,11 @@ class media_MediaService extends media_FileService
 					break;
 			}
 
-			if (f_SimpleCache::isEnabled() && $this->putExtractedTextInCache($media))
+			//if (f_SimpleCache::isEnabled() && $this->putExtractedTextInCache($media))
+			if (f_DataCacheService::getInstance()->isEnabled() && $this->putExtractedTextInCache($media))
 			{
-				$cacheEntry->writeToCache('text', $extractedText);
+				$cacheEntry->setValue('text', $extractedText);
+				$cache->writeToCache($cacheEntry);
 			}
 		}
 		catch (Exception $e)
@@ -263,7 +267,8 @@ class media_MediaService extends media_FileService
 	 */
 	private function putExtractedTextInCache($media)
 	{
-		if (!f_SimpleCache::isEnabled())
+		//if (!f_SimpleCache::isEnabled())
+		if (!f_DataCacheService::getInstance()->isEnabled())
 		{
 			return false;
 		}

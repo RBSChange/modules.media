@@ -59,4 +59,53 @@
 			<parameter name="transparent" type="Boolean" default-value="true" />
 		</parameters>
 	</block>
+	
+	<block type="modules_media_imageList" label="&amp;modules.media.bo.blocks.ImageList;" icon="list-block">
+		<parameters>
+			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
+			
+			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
+			<parameter name="customWidth" type="String" />
+			<parameter name="customHeight" type="String" />
+			<parameter name="zoom" type="Boolean" default-value="true" />
+			<parameter name="url" type="String">
+				<constraints>url:true</constraints>
+			</parameter>
+			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
+		</parameters>
+		<xul>
+			<javascript>
+				<constructor><![CDATA[
+					var fields = this.getFields();
+					var me = this;
+					fields.format.addEventListener('fieldChanged', function(event) {
+						me.onFormatChange(event);
+					}, true);
+					fields.documenturl.addEventListener('fieldChanged', function(event) {
+						fields.url.disabled = fields.documenturl.value != '';
+					}, true);
+					
+					this.addEventListener('gridValuesUpdated', function(event) {
+						fields.url.disabled = fields.documenturl.getAttribute('initialvalue') != '';
+					}, true);
+				]]></constructor>
+				
+				<method name="onFormatChange">
+					<body><![CDATA[
+					var fields = this.getFields();
+					if (fields['format'].value != '')
+					{
+						this.getElementByAnonId('customWidth_cnt').collapsed = true;
+						this.getElementByAnonId('customHeight_cnt').collapsed = true;
+					}
+					else
+					{
+						this.getElementByAnonId('customWidth_cnt').collapsed = false;
+						this.getElementByAnonId('customHeight_cnt').collapsed = false;
+					}
+					]]></body>
+				</method>				
+			</javascript>
+		</xul>
+	</block>
 </blocks>

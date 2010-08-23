@@ -149,7 +149,8 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 				{
 					$xhtmlPropertyNames[$propertyName] = 'get' . ucfirst($propertyName);
 				} 
-				else if ($propertyInfos->isDocument() && $propertyInfos->acceptType('modules_media/media'))
+				else if ($propertyInfos->isDocument() && 
+					($propertyInfos->acceptType('modules_media/media') || $propertyInfos->acceptType('modules_media/securemedia')))
 				{
 					if ($propertyInfos->isArray())
 					{

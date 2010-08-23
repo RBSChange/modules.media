@@ -1,0 +1,5 @@
+Version: 3.0.4
+
+Ajout de la propriété node sur le document file
+
+Suppression de la contrainte de publication sur la propriété 'title' du document media.

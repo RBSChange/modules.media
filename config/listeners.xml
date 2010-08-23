@@ -2,4 +2,8 @@
 <listeners>
 	<listener listenerClass="media_RemoveTmpFilesListener" />
 	<listener listenerClass="media_UpdateUsageListener" />
+	
+	<!-- Sample event if filecontent of media modified
+	<listener listenerClass="media_FileContentUpdated" />
+	-->
 </listeners>

@@ -66,18 +66,6 @@ class media_MediaService extends media_FileService
 	}
 
 	/**
-	 * @see f_persistentdocument_DocumentService::isPublishable()
-	 *
-	 * @param f_persistentdocument_PersistentDocument $document
-	 * @return boolean
-	 */
-	public function isPublishable($document)
-	{
-		$title = $document->getTitle();
-		return parent::isPublishable($document) && !empty($title);
-	}
-
-	/**
 	 * @param media_persistentdocument_tmpfile $tmpFile
 	 * @return media_persistentdocument_media
 	 */

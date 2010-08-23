@@ -52,20 +52,71 @@ class media_BlockImageAction extends website_BlockAction
 		{
 			$configuration->setConfigurationParameter("zoom", "false");
 		}
-		$cmpref = $this->findParameterValue(K::COMPONENT_ID_ACCESSOR);
-		if (count($cmpref) > 1)
-		{
-			//$request->setAttribute(K::COMPONENT_ID_ACCESSOR, explode(' ', $cmpref));
-			$request->setAttribute(K::COMPONENT_ID_ACCESSOR, $cmpref);
-			$request->setAttribute('imageConf', $this->getConfiguration());
-			return $this->forward('media', 'ImageList');
-		}
-		$image = $this->getDocumentParameter();
-		if ($image === null)
+		
+		$cmprefs = $this->getDocumentIds();
+		if (count($cmprefs) == 0)
 		{
 			return website_BlockView::NONE;
 		}
-		$request->setAttribute("image", $image);
+
+		if (count($cmprefs) > 1)
+		{
+			$request->setAttribute('cmpref', $cmprefs);
+			$request->setAttribute('imageConf', $this->getConfiguration());
+			return $this->forward('media', 'ImageList');
+		}
+		
+		try 
+		{
+			$image = DocumentHelper::getDocumentInstance($cmprefs[0], 'modules_media/media');
+			if ($image->getMediatype() !== MediaHelper::TYPE_IMAGE)
+			{
+				return website_BlockView::NONE;
+			}
+			$request->setAttribute("image", $image);
+		}
+		catch (Exception $e)
+		{
+			Framework::warn(__METHOD__ . ' Invalid media ' . $e->getMessage()); 
+			return website_BlockView::NONE;
+		}
         return website_BlockView::SUCCESS;
+	}
+	
+	private function getDocumentIds()
+	{
+		$data = $this->findParameterValue('cmpref');
+		if (is_array($data))
+		{
+			return $data;
+		}
+		
+		if (is_integer($data))
+		{
+			return array($data);
+		}
+		
+		if (is_string($data))
+		{
+			if (strpos($data, ',') !== false)
+			{
+				$cmprefs = explode(',', $data);
+			}
+			else
+			{
+				$cmprefs = explode(' ', $data);
+			}
+			
+			$result = array();
+			foreach ($cmprefs as $cmpref) 
+			{
+				if (intval($cmpref) > 0)
+				{
+					$result[] = intval($cmpref);
+				}
+			}
+			return $result;
+		}
+		return array();
 	}
 }

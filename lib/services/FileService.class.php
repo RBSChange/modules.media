@@ -72,7 +72,14 @@ class media_FileService extends f_persistentdocument_DocumentService
 			{
 				$filename = $document->getFilename();
 			}
-			
+			if (defined('NODE_NAME'))
+			{
+				$document->setNode(NODE_NAME);
+				if ($document->hasMeta('nodes'))
+				{
+					$document->setMeta('nodes', null);
+				}
+			}
 			$extension = f_util_FileUtils::getFileExtension($filename);
 			$info = $this->getFileInfoByPath($tmpFileName);
 			$info['extension'] = $extension;
@@ -172,8 +179,28 @@ class media_FileService extends f_persistentdocument_DocumentService
 			}
 			
 			$document->setNewFileName(null);
+			$this->dispatchMediaFileContentUpdated($document, $lang, $originalFileName);
 		}
 	}
+	
+	/**
+	 * @param media_persistentdocument_file $document
+	 * @param string $lang
+	 * @param string $originalFileName
+	 */
+	public function dispatchMediaFileContentUpdated($document, $lang, $originalFileName)
+	{
+		try 
+		{
+			$filePath = $originalFileName;
+			f_event_EventManager::dispatchEvent('mediaFileContentUpdated', $this, array('media' => $document, 'filePath' => $filePath));
+		}
+		catch (Exception $e)
+		{
+			Framework::exception($e);
+		}
+	}
+	
 	
 	/**
 	 * @var Boolean

@@ -54,13 +54,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			$document->setTmpfile(null);
 		}
 		
-		if (Framework::isDebugEnabled())
-		{
-			Framework::debug(__METHOD__ . " : " . $document->__toString());
-		}
-		
 		$tmpFileName = $document->getNewFileName();
-		
 		if ($tmpFileName !== null && is_file($tmpFileName))
 		{
 			if ($document->getFilename() === null)
@@ -77,7 +71,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 				$document->setNode(NODE_NAME);
 				if ($document->hasMeta('nodes'))
 				{
-					$document->setMeta('nodes', null);
+					$prefix = RequestContext::getInstance()->getLang() . ':';
+					$syncNodes = array();
+					foreach ($document->getMeta('nodes') as $syncNode) 
+					{
+						if (strpos($syncNode, $prefix) !== 0)
+						{
+							$syncNodes[] = $syncNode;
+						}
+					}
+					$document->setMeta('nodes', count($syncNodes) > 0 ? $syncNodes : null);
 				}
 			}
 			$extension = f_util_FileUtils::getFileExtension($filename);
@@ -179,21 +182,19 @@ class media_FileService extends f_persistentdocument_DocumentService
 			}
 			
 			$document->setNewFileName(null);
-			$this->dispatchMediaFileContentUpdated($document, $lang, $originalFileName);
+			$this->dispatchMediaFileContentUpdated($document, $lang);
 		}
 	}
 	
 	/**
 	 * @param media_persistentdocument_file $document
 	 * @param string $lang
-	 * @param string $originalFileName
 	 */
-	public function dispatchMediaFileContentUpdated($document, $lang, $originalFileName)
+	public function dispatchMediaFileContentUpdated($document, $lang)
 	{
 		try 
 		{
-			$filePath = $originalFileName;
-			f_event_EventManager::dispatchEvent('mediaFileContentUpdated', $this, array('media' => $document, 'filePath' => $filePath));
+			f_event_EventManager::dispatchEvent('mediaFileContentUpdated', $this, array('media' => $document, 'lang' => $lang));
 		}
 		catch (Exception $e)
 		{
@@ -303,9 +304,19 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	public function deleteFormatedMedia($document, $lang = null)
 	{
-		$path = $this->getFormattedAbsoluteFolder($document->getId(), $lang);
-		f_util_FileUtils::rmdir($path);
+		$this->deleteFormatedMediaId($document->getId(), $lang);
 		f_event_EventManager::dispatchEvent('deleteFormatedMedia', null, array('media' => $document));
+	}
+	
+	/**
+	 * @param integer $documentId
+	 * @param string $lang$
+	 * @return void
+	 */
+	public function deleteFormatedMediaId($documentId, $lang = null)
+	{
+		$path = $this->getFormattedAbsoluteFolder($documentId, $lang);
+		f_util_FileUtils::rmdir($path);
 	}
 	
 	/**

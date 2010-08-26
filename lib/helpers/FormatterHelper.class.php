@@ -271,7 +271,7 @@ class media_ResizerFormatter
 	protected function linkToOriginal($originalFileName, $formattedFileName)
 	{
 		f_util_FileUtils::mkdir(dirname($formattedFileName));
-		symlink($originalFileName, $formattedFileName);
+		f_util_FileUtils::symlink($originalFileName, $formattedFileName, f_util_FileUtils::OVERRIDE);
 	}
 	
 	protected function computeImageSize($orginalWidth, $originalHeight, $format)

@@ -54,7 +54,7 @@
 			
 			<method name="onInitialize">
 				<body><![CDATA[
-					this.resizeTo(800, 600);
+					this.autoResize(800, 600);
 					this.setAttribute('cursor-X', '');
 					this.setAttribute('cursor-Y', '');
 					this.currentAction = null;
@@ -417,7 +417,7 @@
 					<label value="&amp;modules.media.bo.actions.Crop;" class="dialog-title" />
 					<spacer flex="1" />
 					<vbox pack="center">
-						<toolbarbutton height="16" width="16" change:icon="delete/small" oncommand="onCancel();" tooltiptexts="&amp;modules.uixul.bo.dialog.Cancel;" />
+						<toolbarbutton height="16" width="16" image="{IconsBase}/small/delete.png" oncommand="onCancel();" tooltiptexts="&amp;modules.uixul.bo.dialog.Cancel;" />
 					</vbox>
 				</hbox>
 				<vbox flex="1">
@@ -449,9 +449,9 @@
 					</vbox>
 				</vbox>
 				<hbox align="center" pack="start">
-					<button change:icon="check/small" disabled="true" anonid="ok" 
+					<button image="{IconsBase}/small/check.png" disabled="true" anonid="ok" 
 						oncommand="onOk()" label="&amp;modules.media.bo.actions.Crop;" />
-					<button change:icon="delete/small"
+					<button image="{IconsBase}/small/delete.png"
 						oncommand="onCancel()" label="&amp;modules.uixul.bo.dialog.Cancel;" />
 				</hbox>
 			</vbox>

@@ -149,7 +149,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');
 		if ($addcmpref)
 		{
-			$attrs['cmpref'] = '"' . $media->getId() . '"';
+			$attrs['rel'] = '"cmpref:' . $media->getId() . '"';
 		}
 
 		if (f_util_StringUtils::isNotEmpty($class))

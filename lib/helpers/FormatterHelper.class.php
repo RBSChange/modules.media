@@ -66,7 +66,7 @@ class media_FormatterHelper
 			if ($format !== null)
 			{
 				$resourcePath = self::buildFormattedResourcePath($filename, $format);
-				if ($resourcePath !== $filename)
+				if ($resourcePath !== $filename && (!file_exists($resourcePath) || filemtime($filename) > filemtime($resourcePath)))
 				{
 					media_ResizerFormatter::getInstance()->resize($filename, $resourcePath, $format);
 				}

@@ -1,5 +1,4 @@
 <?php
-
 class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 {
 	const LOCALE_PATH =  '&modules.media.download.';
@@ -38,9 +37,8 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 	public function end()
 	{
 	}
+	
 	/**
-	 *
-	 *
 	 * @param media_persistentdocument_media $media
 	 */
 	public function getLang($media)
@@ -54,8 +52,6 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 	}
 
 	/**
-	 * Enter description here...
-	 *
 	 * @param media_persistentdocument_media $media
 	 * @param String $lang
 	 */
@@ -108,7 +104,10 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		return $res;
 	}
 
-
+	/**
+	 * @param string $path
+	 * @return string
+	 */
 	public static function getFileSize($path)
 	{
 		if (is_readable($path))
@@ -127,7 +126,6 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 			return $res;
 		}
 		return null;
-
 	}
 
 	/**
@@ -187,7 +185,11 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		return $additionnalAttributes;
 	}
 
-
+	/**
+	 * @param media_persistentdocument_media $media
+	 * @param string $lang
+	 * @return string
+	 */
 	public static function getUrl($media, $lang)
 	{
 		if (!($media instanceof media_persistentdocument_file))

@@ -237,7 +237,7 @@ class media_MediaService extends media_FileService
 		}
 		catch (Exception $e)
 		{
-			Framework::exception($e);
+			Framework::error(__METHOD__ . ': ' . $e->getMessage());
 		}
 
 		// always append title, description and credit

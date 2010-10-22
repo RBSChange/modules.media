@@ -1,18 +1,9 @@
 <?php
-// change:icon
-//
-//   <button change:icon="[attributeName ]icon_name[/size][ shadow]" />
-
 /**
- * @package phptal.php.attribute
- * @author INTbonjF
- * 2007-04-19
+ * @deprecated use change:img
  */
 class PHPTAL_Php_Attribute_CHANGE_icon extends PHPTAL_Php_Attribute
 {
-	private $pageId;
-	private $lang;
-
     public function start()
     {
         $exp = trim($this->expression);

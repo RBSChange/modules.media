@@ -1,18 +1,9 @@
 <?php
-// change:image
-//
-//   <img change:image="[attributeName ][front/]image_name[ width][ height][ format]" />
-
 /**
- * @package phptal.php.attribute
- * @author INTbonjF
- * 2007-04-19
+ * @deprecated use change:img
  */
 class PHPTAL_Php_Attribute_CHANGE_image extends PHPTAL_Php_Attribute
 {
-	private $pageId;
-	private $lang;
-
 	public function start()
 	{
 		$exp = trim($this->expression);

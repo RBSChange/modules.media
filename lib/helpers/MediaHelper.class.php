@@ -10,6 +10,7 @@ class MediaHelper
 	const BACK_STATIC_PATH = '/media/backoffice/';
 	const FRONT_STATIC_PATH = '/media/frontoffice/';
 	const ROOT_MEDIA_PATH = '/media/';
+	const THEME_PATH = '/media/themes/';
 
 	const ADMIN = 'admin';
 	const SMALL = 'small';
@@ -1095,17 +1096,45 @@ class MediaHelper
 	 */
 	public static function getStaticUrl($filename, $contentType = null)
 	{
-		if (f_util_StringUtils::beginsWith($filename, 'front/'))
+		$filename = self::expandStaticUrl($filename);
+		if (RequestContext::getInstance()->getMode() == RequestContext::BACKOFFICE_MODE)
 		{
-			return self::getFrontofficeStaticUrl(substr($filename, 6), $contentType);
+			return LinkHelper::getUIRessourceLink($filename)->getUrl();	
 		}
-		else if (f_util_StringUtils::beginsWith($filename, '/front/'))
-		{
-			return self::getFrontofficeStaticUrl(substr($filename, 7), $contentType);
-		}
-
-		return self::getBackofficeStaticUrl($filename, $contentType);
+		return LinkHelper::getRessourceLink($filename)->getUrl();
 	}
+	
+	/**
+	 * @param string $filename
+	 * @return string
+	 */
+	private static function expandStaticUrl($filename)
+	{
+		$pos = strpos($filename, 'front/');
+		if ($pos === 0 || $pos === 1)
+		{
+			return str_replace('//', '/', self::FRONT_STATIC_PATH . substr($filename, 6 + $pos));
+		}
+		$pos = strpos($filename, 'back/');
+		if ($pos === 0 || $pos === 1)
+		{
+			return str_replace('//', '/', self::BACK_STATIC_PATH . substr($filename, 5 + $pos));
+		}
+		$pos = strpos($filename, 'theme/');
+		if ($pos === 0 || $pos === 1)
+		{
+			return str_replace('//', '/', self::THEME_PATH . substr($filename, 6 + $pos));
+		}
+		$pos = strpos($filename, 'icon/');
+		if ($pos === 0 || $pos === 1)
+		{
+			return str_replace('//', '/', self::ICON_PATH . substr($filename, 4 + $pos));
+		}
+		return str_replace('//', '/', $filename);
+	}
+
+	
+	
 
 	/**
 	 * Get the URL of a webapp BACKOFFICE static media.
@@ -1116,8 +1145,6 @@ class MediaHelper
 	 */
 	public static function getBackofficeStaticUrl($filename, $contentType = null)
 	{
-		//return self::getUrl(self::getBackofficeStaticPath($filename), $contentType);
-		// INTCOURS - 01/10/2007 - please keep ABSOLUTE URLs !!!!
 		return LinkHelper::getUIRessourceLink(self::getBackofficeStaticPath($filename))->getUrl();
 	}
 

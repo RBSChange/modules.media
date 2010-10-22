@@ -1,9 +1,7 @@
 <?php
-// change:webappimage
-//
-//   <img change:webappimage="name image_name[; folder [front]|back]" />
-//	image_name est evalué. La chaine retourné peut contenir {lang} qui sera remplacé par la langue en cours
-
+/**
+ * @deprecated use change:img
+ */
 class PHPTAL_Php_Attribute_CHANGE_webappimage extends PHPTAL_Php_Attribute
 {
 	public function start()

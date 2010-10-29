@@ -11,7 +11,7 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 	{
 		if (!isset($this->info[$lang]))
 		{
-			$infoData = parent::getInfo();
+			$infoData = parent::getInfoForLang($lang);
 			if ($infoData == null)
 			{
 				$this->info[$lang] = array();
@@ -23,15 +23,42 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 			}
 		}
 	}
+	
 	/**
-	 * @return Array
+	 * @return array
+	 */	
+	public function getCommonInfo()
+	{
+		$info = $this->getInfo();
+		if (!$this->getFilename())
+		{
+			$info = array_merge($this->getInfoForLang($this->getLang()), $info);
+		}
+		return $info;
+	}
+	
+	
+	
+	/**
+	 * @return array
 	 */
 	public function getInfo()
 	{
-		$lang = RequestContext::getInstance()->getLang();
+		return $this->getInfoForLang(RequestContext::getInstance()->getLang());
+	}
+	
+	/**
+	 * @param string $lang
+	 * @return array
+	 */
+	public function getInfoForLang($lang)
+	{
 		$this->loadInfoForLang($lang);
 		return $this->info[$lang];
-	}
+	}	
+	
+
+	
 	/**
 	 * @param Array $info
 	 */

@@ -288,8 +288,7 @@ class media_MediaService extends media_FileService
 		
 		if ($document->isContextLangAvailable())
 		{
-			$lang = RequestContext::getInstance()->getLang();
-			
+			$lang = RequestContext::getInstance()->getLang();			
 		}
 		else
 		{
@@ -300,7 +299,8 @@ class media_MediaService extends media_FileService
 		try 
 		{
 			$rc->beginI18nWork($lang);
-			$info = $document->getInfo();
+			$info = $document->getCommonInfo();
+			
 			$data['content'] = array(
 				'mimetype' => $document->getMimetype(),
 				'size' => $info['size']

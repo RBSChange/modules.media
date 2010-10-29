@@ -255,9 +255,25 @@ class MediaHelper
 	private static function getLocalizedContent($parameters)
 	{
 		$document = $parameters['document'];
-		//'id' 'filename' 'extension' 'path' 'type' 'url' 'size' 'alt' 'width' 'height'
-		$docInfo = $document->getInfo();
+		//'id' 'filename' 'extension' 'path' 'type' 'url' 'size' 'alt' 'width' 'height'	
+		$lang = RequestContext::getInstance()->getLang();
+		$urlLang = $lang;
+		$docInfo = array();	
+			
+		if ($document instanceof media_persistentdocument_file)
+		{
+	      	$urlLang = ($document->getFilename()) ? $lang  : $document->getLang();
+			if ($lang != $urlLang)
+			{
+				$docInfo = array_merge($document->getInfoForLang($urlLang), $document->getInfo());
+			}
+			else
+			{
+				$docInfo = $document->getInfo();
+			}
+		}
 		$parameters = array_merge($docInfo, $parameters);
+		
 		if (isset($parameters['format']))
 		{
 			$format = self::getFormatPropertiesByName($parameters['format']);
@@ -274,7 +290,7 @@ class MediaHelper
 				$format = array('width' => $parameters['width'], 'height' => $parameters['height']);
 			}
 		}
-		$parameters['url'] = $document->getDocumentService()->generateUrl($document, null, $format);
+		$parameters['url'] = $document->getDocumentService()->generateUrl($document, $urlLang, $format);
 
 		$content = "";
 		if (!isset($parameters['type'])) {return $content;}

@@ -635,11 +635,11 @@ class MediaHelper
 		}
 
 		$link = LinkHelper::getUIActionLink('media', 'Display')->setArgSeparator(f_web_HttpLink::ESCAPE_SEPARATOR);
-		$link->setQueryParametre('cmpref', $parameters['cmpref']);
-		$link->setQueryParametre('lang', $parameters['lang']);
-		$link->setQueryParametre('width', $parameters['width']);
-		$link->setQueryParametre('height', $parameters['height']);
-		$link->setQueryParametre('format', $parameters['format']);
+		$link->setQueryParameter('cmpref', $parameters['cmpref']);
+		$link->setQueryParameter('lang', $parameters['lang']);
+		$link->setQueryParameter('width', $parameters['width']);
+		$link->setQueryParameter('height', $parameters['height']);
+		$link->setQueryParameter('format', $parameters['format']);
 
 		if (isset($parameters['attributes']) && is_array($parameters['attributes']))
 		{
@@ -652,7 +652,7 @@ class MediaHelper
 				{
 					continue;
 				}
-				$link->setQueryParametre($name, $value);
+				$link->setQueryParameter($name, $value);
 			}
 		}
 

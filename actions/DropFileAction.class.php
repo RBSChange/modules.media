@@ -92,7 +92,7 @@ class media_DropFileAction extends f_action_BaseJSONAction
 	/**
 	 * @return Boolean
 	 */
-	protected function suffixSecureActionByDocument()
+	protected function isDocumentAction()
 	{
 		return true;
 	}

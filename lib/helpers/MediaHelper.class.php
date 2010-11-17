@@ -973,16 +973,18 @@ class MediaHelper
 	{
 		$disposition = ($inline) ? "inline" : "attachment";
 
-		if (!is_null($document))
+		if ($document !== null)
 		{
 			if ($document->getFilename())
 			{
-				$header[] = 'Content-Disposition: '.$disposition.'; filename="' . f_util_StringUtils::utf8Decode($document->getFilename()) . '"';
+				$fileName = $document->getFilename();
 			}
 			else
 			{
-				$header[] = 'Content-Disposition: '.$disposition.'; filename="' . f_util_StringUtils::utf8Decode($document->getVoFilename()) . '"';
+				$fileName = $document->getVoFilename();
 			}
+			$fileName = f_util_StringUtils::convertEncoding($fileName, 'UTF-8', 'ISO-8859-1');
+			$header[] = 'Content-Disposition: '.$disposition.'; filename="' . $fileName . '"';
 		}
 		else
 		{

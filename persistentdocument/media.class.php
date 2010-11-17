@@ -31,7 +31,7 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 	 */
 	protected function addTreeAttributes($moduleName, $treeType, &$nodeAttributes)
 	{
-		if ($treeType == tree_parser_TreeParser::TYPE_LIST)
+		if ($treeType == 'wlist')
 		{
 			$nodeAttributes['countreferences'] =  $this->countReferences();
 		}
@@ -41,13 +41,13 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 			case MediaHelper::TYPE_IMAGE:
 				$nodeAttributes['actualtype'] = 'modules_media_image';
 				$nodeAttributes['hasPreviewImage'] = true;
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
 					$lang = RequestContext::getInstance()->getLang();
 					$alt = htmlspecialchars($this->getTitle(), ENT_COMPAT, 'UTF-8');
 					$src = MediaHelper::getUrl($this, K::XUL);
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = '<img class="image" src="' . $src . '" cmpref="' . $this->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" />';
-					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
+					$nodeAttributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $this->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" />';
+					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				if ($treeType == 'wlist')
 				{
@@ -61,25 +61,25 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 			
 			case MediaHelper::TYPE_PDF:
 				$nodeAttributes['actualtype'] = 'modules_media_pdf';
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
-					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
+					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
 			
 			case MediaHelper::TYPE_DOC:
 				$nodeAttributes['actualtype'] = 'modules_media_doc';
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
-					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
+					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
 			
 			case MediaHelper::TYPE_FLASH:
 				$nodeAttributes['actualtype'] = 'modules_media_flash';
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
 
 				    $styleAttributes = array();
@@ -96,23 +96,23 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 		            
 		            $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
 		            $link = '<a rel="cmpref:' . $this->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '</a>';
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = $link;
-					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
+					$nodeAttributes['htmllink'] = $link;
+					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
 			
 			case MediaHelper::TYPE_VIDEO:
 				$nodeAttributes['actualtype'] = 'modules_media_video';
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = '';
-					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
+					$nodeAttributes['htmllink'] = '';
+					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
 			default:
-				if ($treeType == tree_parser_TreeParser::TYPE_MULTI_LIST)
+				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($this, null, true);
 				}
 				break;
 		}
@@ -143,10 +143,10 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 		$this->setTmpfile($val);
 	}
 
-	// Deprecated method.
+	// Deprecated
 	
 	/**
-	 * @deprecated no front indexation on medias. 
+	 * @deprecated (will be removed in 4.0) no front indexation on medias. 
 	 */
 	public function getIndexedDocument()
 	{

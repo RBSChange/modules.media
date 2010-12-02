@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.general" lcid="de_DE">
+  <key id="module-name">Mediathek</key>
+  <key id="tree-root-name">Mediathek</key>
+  <key id="system-folder-name">Mediathek</key>
+  <key id="uploading">Dateiübertragung</key>
+  <key id="close">schliessen</key>
+  <key id="file">Datei</key>
+  <key id="progress">Progression</key>
+  <key id="imagesetblockwidth">das Bild definiert die Breite des Blocks</key>
+  <key id="formats">Bildformat</key>
+  <key id="selectmedia">die neue Datei selektieren</key>
+  <key id="mediafile">Mediendatei</key>
+  <key id="doupdate">aktualisieren</key>
+  <key id="docancel">löschen</key>
+  <key id="update-success">Aktualisierung erfolgreich abgeschlossen.</key>
+  <key id="preview">Vorschau</key>
+</i18n>

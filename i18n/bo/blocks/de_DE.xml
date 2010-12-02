@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.blocks" lcid="de_DE">
+  <key id="media">Medium</key>
+  <key id="image">Bild</key>
+  <key id="flash">Flash Animation</key>
+</i18n>

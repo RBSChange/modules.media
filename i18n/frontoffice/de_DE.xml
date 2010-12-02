@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.frontoffice" lcid="de_DE">
+  <key id="zoom-click-to-close">Klicken um zu schliessen</key>
+  <key id="zoom-original">Original Format</key>
+  <key id="gauge-search-5-0">Relevanz 0 von 5</key>
+  <key id="gauge-search-5-1">Relevanz 1 von 5</key>
+  <key id="gauge-search-5-2">Relevanz 2 von 5</key>
+  <key id="gauge-search-5-3">Relevanz 3 von 5</key>
+  <key id="gauge-search-5-4">Relevanz 4 von 5</key>
+  <key id="gauge-search-5-5">Relevanz 5 von 5</key>
+</i18n>

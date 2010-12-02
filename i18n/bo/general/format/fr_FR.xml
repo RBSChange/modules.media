@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.general.format" lcid="fr_FR">
+  <key id="thumbnail">vignette (128x128)</key>
+  <key id="minithumbnail">miniature (64x64)</key>
+  <key id="bigthumbnail">grande vignette (256x256)</key>
+  <key id="original">original</key>
+</i18n>

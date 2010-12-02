@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.document.preferences" lcid="de_DE">
+  <key id="document-name">Präferenzen</key>
+  <key id="edition-form-title">Präferenzen des Moduls Mediathek</key>
+  <key id="usefilenameasalt">Dateiname als Titel nutzen</key>
+  <key id="usefilenameasalt-help">Dateiname als Titel nutzen / Alternative zu den generierten Links</key>
+</i18n>

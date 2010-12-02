@@ -1,5 +1,5 @@
 <?php
-class media_TransformAction extends f_action_BaseAction
+class media_TransformAction extends f_action_BaseJSONAction
 {
 	/**
 	 * @param Context $context
@@ -7,24 +7,23 @@ class media_TransformAction extends f_action_BaseAction
 	 */
 	public function _execute($context, $request)
 	{
-		if ($request->hasParameter('way'))
+		$way = $request->getParameter('way');
+		$documents= $this->getDocumentInstanceArrayFromRequest($request);
+		switch ($way)
 		{
-			$documents= $this->getDocumentInstanceArrayFromRequest($request);
-			switch ($request->getParameter('way'))
-			{
-				case "toSecureMedia":
-					$this->transformToSecureMedia($documents);
-					break;
-					
-				case "toMedia":
-					$this->transformToMedia($documents);
-					break;
-			}
-			
-			return self::getSuccessView();
+			case "toSecureMedia":
+				$this->transformToSecureMedia($documents);
+				break;
+						
+			case "toMedia":
+				$this->transformToMedia($documents);
+				break;
+			default:
+				throw new Exception('Invalid way parameter');
+				break;
 		}
-
-		return self::getErrorView();
+		return $this->sendJSON(array('message' => 
+			LocaleService::getInstance()->transBO('m.media.bo.actions.transform' . strtolower($way). '-success')));
 	}
 	
 	/**

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.blocks.imagelist" lcid="fr_FR">
+  <key id="cmpref">Images</key>
+  <key id="format">Format</key>
+  <key id="format-help">Choisisser un format d'image prédéfini</key>
+  <key id="customwidth">Largeur</key>
+  <key id="customwidth-help">Largeur maximale de l'image</key>
+  <key id="customheight">Hauteur</key>
+  <key id="customheight-help">Hauteur maximale de l'image</key>
+  <key id="zoom">zoom</key>
+  <key id="zoom-help">Activer le zoom lorsque possible</key>
+  <key id="url">lien</key>
+  <key id="url-help">saisissez une adresse (URL) pour générer un lien vers cette adresse. Ceci désactivera la fonctionalité zoom.</key>
+  <key id="documenturl">lien vers un document</key>
+  <key id="documenturl-help">sélectionnez le document de votre choix pour générer un lien vers ce document. Ceci désactivera la fonctionalité zoom.</key>
+</i18n>

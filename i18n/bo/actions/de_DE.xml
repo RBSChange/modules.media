@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.actions" lcid="de_DE">
+  <key id="create_">Hinzufügen</key>
+  <key id="createmedia">Ein Medium hinzufügen</key>
+  <key id="uploadmedia">Aktualisierung der Datei</key>
+  <key id="downloadmedia">Datei herunterladen</key>
+  <key id="clickfordownloadmedia">drücken, um dei Datei herunterzuladen</key>
+  <key id="uploadmediamessage">bitte selektieren Sie ausschliesslich ein Dokument.</key>
+  <key id="canceluploadmedia">Aktualisierung abbrechen</key>
+  <key id="create-securemedia">Ein gesichertes Medium hinzufügen</key>
+  <key id="create-preferences">Präferenzen erstellen</key>
+  <key id="transformtosecuremedia">in gesichertes Medium umwandeln</key>
+  <key id="transformtomedia">in nicht gesichertes Medium umwandeln</key>
+  <key id="crop">Bild anpassen</key>
+  <key id="cropimage">Bild anpassen</key>
+  <key id="cropped">(angepasst)</key>
+</i18n>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.actions" lcid="fr_FR">
+  <key id="create_">ajouter</key>
+  <key id="createmedia">Ajouter un média</key>
+  <key id="uploadmedia">mise à jour du fichier</key>
+  <key id="downloadmedia">récupérer le fichier</key>
+  <key id="clickfordownloadmedia">cliquer pour récupérer le fichier</key>
+  <key id="uploadmediamessage">veuillez ne sélectionner qu'un seul document.</key>
+  <key id="canceluploadmedia">annuler la mise à jour</key>
+  <key id="create-securemedia">Ajouter un média sécurisé</key>
+  <key id="create-preferences">Create preferences</key>
+  <key id="transformtosecuremedia">Convertir en media securisé</key>
+  <key id="transformtomedia">Convertir en média non sécurisé</key>
+  <key id="crop">Recadrer l'image</key>
+  <key id="cropimage">recadrer l'image</key>
+  <key id="cropped">(Recadrée)</key>
+  
+  <key id="transformtosecuremedia-success">converstion en media securisé efféctué.</key>
+  <key id="transformtomedia-success">converstion en média non sécurisé efféctué.</key>
+</i18n>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.actions" lcid="en_GB">
+  <key id="create_">add</key>
+  <key id="createmedia">Add a file</key>
+  <key id="uploadmedia">update file</key>
+  <key id="downloadmedia">download file</key>
+  <key id="clickfordownloadmedia">click for download file</key>
+  <key id="uploadmediamessage">please select only one document.</key>
+  <key id="canceluploadmedia">cancel update</key>
+  <key id="create-securemedia">add a secure file</key>
+  <key id="create-preferences">Create preferences</key>
+  <key id="transformtosecuremedia">Transform to secure media</key>
+  <key id="transformtomedia">Transform to media</key>
+  <key id="crop">Crop image</key>
+  <key id="cropimage">crop image</key>
+  <key id="cropped">(Cropped)</key>
+</i18n>

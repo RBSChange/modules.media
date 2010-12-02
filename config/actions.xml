@@ -62,7 +62,7 @@
 		<parameter name="listWidget" />
 		<body><![CDATA[
 			var ids = listWidget.getSelectedIds();
-			this.execute("Transform", "Transform", {cmpref: ids, way: 'toSecureMedia'});
+			this.executeJSON("Transform", {cmpref: ids, way: 'toSecureMedia'});
 		]]></body>
 		<checkDisplay><![CDATA[ 
 			return this.isContextLangAvailable(document);
@@ -79,7 +79,7 @@
 		<parameter name="listWidget" />
 		<body><![CDATA[
 			var ids = listWidget.getSelectedIds();
-			this.execute("Transform", "Transform", {cmpref: ids, way: 'toMedia'});
+			this.executeJSON("Transform", {cmpref: ids, way: 'toMedia'});
 		]]></body>
 	</action>
 	<action name="transformToMediaIsActive">

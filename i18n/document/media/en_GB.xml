@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.document.media" lcid="en_GB">
+  <key id="document-name">media</key>
+  <key id="edition-form-title">media properties</key>
+  <key id="label">full title</key>
+  <key id="label-help">media full title</key>
+  <key id="title">short alternate content</key>
+  <key id="title-help">short alternate content displayed instead of the media (60 characters max.) </key>
+  <key id="description">long alternate content</key>
+  <key id="description-help">long alternate content displayed instead of the media</key>
+  <key id="credit">credit</key>
+  <key id="credit-help">credit or copyright</key>
+  <key id="warnselectmedia">Please select a file</key>
+</i18n>

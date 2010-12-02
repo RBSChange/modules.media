@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.bo.doceditor.property" lcid="en_GB">
+  <key id="width">width</key>
+  <key id="height">height</key>
+</i18n>

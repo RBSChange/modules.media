@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.download" lcid="en_GB">
+  <key id="b-long">bytes</key>
+  <key id="kb-long">kilobytes</key>
+  <key id="mb-long">megabytes</key>
+  <key id="gb-long">gigabytes</key>
+  <key id="b-acronym">b</key>
+  <key id="kb-acronym">kb</key>
+  <key id="mb-acronym">mb</key>
+  <key id="gb-acronym">gb</key>
+  <key id="download">download</key>
+</i18n>

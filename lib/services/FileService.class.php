@@ -372,19 +372,22 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	public function getOriginalPath($document, $mustExist = false)
 	{
-		if ($mustExist && !$document->isContextLangAvailable())
+		if (!$document->getFilename())
 		{
-			$lang = $document->getLang();
-		}
-		else
-		{
-			$lang = RequestContext::getInstance()->getLang();
-			if (!$document->isLangAvailable($lang))
+            if ($mustExist)
+            {
+				$lang = $document->getLang();
+			}
+			else
 			{
 				return null;
 			}
 		}
-		
+        else
+        {
+                $lang = RequestContext::getInstance()->getLang();
+        }
+
 		$mediaFolder = $this->getAbsoluteFolder($document->getId(), $lang);
 		$filePath = $mediaFolder . $document->getFilenameForLang($lang);
 		return $filePath;

@@ -122,7 +122,10 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
     	return array();
     }
     
-    protected function countReferences()
+    /**
+     * @return integer
+     */
+    public function countReferences()
     {
     	return count($this->getAllUsages());
     }

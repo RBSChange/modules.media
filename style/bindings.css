@@ -1,6 +1,3 @@
-wblocktoolbar[type="modules_media_image"]{
-	-moz-binding: url(binding:modules.media.wMediaToolbar#wImageToolbar);
-}
 cproperty[propertyname="previewimgurl"]{
 	-moz-binding: url(binding:modules.media.cMediaModule#cPreviewImgUrl);
 }

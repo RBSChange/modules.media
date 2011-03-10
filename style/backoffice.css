@@ -1,21 +1,3 @@
-treechildren::-moz-tree-image(modules_media_media),treechildren::-moz-tree-image(modules_media_securemedia){
-	list-style-image: url(/changeicons/small/document.png) ;
-}
-treechildren::-moz-tree-image(modules_media_media modules_media_doc),treechildren::-moz-tree-image(modules_media_securemedia modules_media_doc){
-	list-style-image: url(/changeicons/small/document-text.png) ;
-}
-treechildren::-moz-tree-image(modules_media_media modules_media_pdf),treechildren::-moz-tree-image(modules_media_securemedia modules_media_pdf){
-	list-style-image: url(/changeicons/small/pdf.png) ;
-}
-treechildren::-moz-tree-image(modules_media_media modules_media_image),treechildren::-moz-tree-image(modules_media_securemedia modules_media_image){
-	list-style-image: url(/changeicons/small/photo.png) ;
-}
-treechildren::-moz-tree-image(modules_media_media modules_media_flash),treechildren::-moz-tree-image(modules_media_securemedia modules_media_flash){
-	list-style-image: url(/changeicons/small/flash.png) ;
-}
-treechildren::-moz-tree-image(modules_media_media modules_media_video),treechildren::-moz-tree-image(modules_media_securemedia modules_media_video){
-	list-style-image: url(/changeicons/small/film.png) ;
-}
 treechildren::-moz-tree-image(modules_media_preferences){
 	list-style-image: url(/changeicons/small/media.png) ;
 }
@@ -33,9 +15,21 @@ treechildren::-moz-tree-image(modules_media_file){
 treechildren::-moz-tree-image(modules_media_fileusage){
 	list-style-image: url(/changeicons/small/document.png);
 }
-treechildren::-moz-tree-image(modules_media_media){
-	list-style-image: url(/changeicons/small/document.png);
+treechildren::-moz-tree-image(modules_media_media),treechildren::-moz-tree-image(modules_media_securemedia){
+	list-style-image: url(/changeicons/small/document.png) ;
 }
-treechildren::-moz-tree-image(modules_media_securemedia){
-	list-style-image: url(/changeicons/small/document.png);
+treechildren::-moz-tree-image(modules_media_media modules_media_doc),treechildren::-moz-tree-image(modules_media_securemedia modules_media_doc){
+	list-style-image: url(/changeicons/small/document-text.png) ;
+}
+treechildren::-moz-tree-image(modules_media_media modules_media_pdf),treechildren::-moz-tree-image(modules_media_securemedia modules_media_pdf){
+	list-style-image: url(/changeicons/small/pdf.png) ;
+}
+treechildren::-moz-tree-image(modules_media_media modules_media_image),treechildren::-moz-tree-image(modules_media_securemedia modules_media_image){
+	list-style-image: url(/changeicons/small/photo.png) ;
+}
+treechildren::-moz-tree-image(modules_media_media modules_media_flash),treechildren::-moz-tree-image(modules_media_securemedia modules_media_flash){
+	list-style-image: url(/changeicons/small/flash.png) ;
+}
+treechildren::-moz-tree-image(modules_media_media modules_media_video),treechildren::-moz-tree-image(modules_media_securemedia modules_media_video){
+	list-style-image: url(/changeicons/small/film.png) ;
 }

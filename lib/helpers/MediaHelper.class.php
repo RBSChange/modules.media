@@ -214,14 +214,12 @@ class MediaHelper
 		$lang = isset($parameters['lang']) ? $parameters['lang'] : $rc->getLang();
 		try
 		{
-			$rc->beginI18nWork($lang);
-			$link = self::getLocalizedContent($parameters);
-			$rc->endI18nWork();
+			$link = self::getLocalizedContent($parameters, $lang);
 		}
 		catch (Exception $e)
 		{
-			$rc->endI18nWork($e);
 			$link = null;
+			Framework::exception($e);
 		}
 
 		return $link;
@@ -250,13 +248,29 @@ class MediaHelper
 	}
 
 	/**
+	 * @param array $parameters
+	 * @param string $lang
 	 * @return string
 	 */
-	private static function getLocalizedContent($parameters)
+	private static function getLocalizedContent($parameters, $lang)
 	{
 		$document = $parameters['document'];
 		//'id' 'filename' 'extension' 'path' 'type' 'url' 'size' 'alt' 'width' 'height'
-		$docInfo = $document->getInfo();
+		$urlLang = $lang;
+		$docInfo = null;
+		if ($document instanceof media_persistentdocument_file)
+		{
+	      	$urlLang = ($document->getFilenameForLang($lang)) ? $lang  : $document->getLang();
+			if ($lang != $urlLang)
+			{
+				$docInfo = array_merge($document->getInfoForLang($urlLang), $document->getInfo());
+			}
+			else
+			{
+				$docInfo = $document->getInfoForLang($lang);
+			}
+		}
+
 		$parameters = array_merge($docInfo, $parameters);
 		if (isset($parameters['format']))
 		{
@@ -274,7 +288,7 @@ class MediaHelper
 				$format = array('width' => $parameters['width'], 'height' => $parameters['height']);
 			}
 		}
-		$parameters['url'] = $document->getDocumentService()->generateUrl($document, null, $format);
+		$parameters['url'] = $document->getDocumentService()->generateUrl($document, $urlLang, $format);
 
 		$content = "";
 		if (!isset($parameters['type'])) {return $content;}
@@ -299,9 +313,9 @@ class MediaHelper
 				->setMimeContentType(K::HTML)
 				->load('Media-Block-Flash-Success');
 				$parameters['id'] = 'media-' . $parameters['id'];
-				if ($document->getDescription())
+				if ($document->getDescriptionForLang($urlLang))
 				{
-					$parameters['description'] = $document->getDescriptionAsHtml();
+					$parameters['description'] =  f_util_HtmlUtils::renderHtmlFragment($document->getDescriptionForLang($urlLang));
 				}
 				$templateComponent->setAttribute('medias', array($parameters));
 				$content = $templateComponent->execute();
@@ -389,9 +403,9 @@ class MediaHelper
 					}
 				}
 
-				if ($document->getDescription())
+				if ($document->getDescriptionForLang($urlLang))
 				{
-					$attributes['longdesc'] = LinkHelper::getActionUrl("media", "DisplayMediaDescription", array(K::COMPONENT_ID_ACCESSOR => $document->getId(), "label" => $document->getLabel(), "lang" => $parameters["lang"]));
+					$attributes['longdesc'] = LinkHelper::getActionUrl("media", "DisplayMediaDescription", array(K::COMPONENT_ID_ACCESSOR => $document->getId(), "label" => $document->getLabelForLang($urlLang), "lang" => $parameters["lang"]));
 				}
 
 				foreach ($attributes as $name => $value)

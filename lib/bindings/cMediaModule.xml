@@ -125,61 +125,11 @@
 					event.preventDefault();
 				]]></body>	
 			</method>	
-					
-			<method name="onDragOver">
-				<parameter name="event" />			
-				<body><![CDATA[
-					if (!this.dragFeedBack) 
-					{
-						event.dataTransfer.effectAllowed = 'none';
-						event.preventDefault();
-						return;
-					}
-					
-					var tree = this.tree;
-					var rowIndex = tree.treeBoxObject.getRowAt(event.clientX, event.clientY);					
-							
-					var currentDragFeedBack = this.dragFeedBack;
-					var dropItemData = currentDragFeedBack.dropItemData; 
-					var dragFeedBack = this.getDragFeedBack(rowIndex, event.clientY);
-					
-					var itemData = (dragFeedBack.dropOn < 0) ? this.mBaseItemData : tree.view.getItemAtIndex(dragFeedBack.dropOn).itemData;
-					if (!itemData || itemData.id  == dropItemData.id) 
-					{
-						this.cleanDragFeedBack();
-						event.dataTransfer.effectAllowed = 'none';
-						event.preventDefault();
-						return;					
-					}
-
-					currentDragFeedBack.action = this.getDropAction(itemData, dropItemData);	
-					if (!currentDragFeedBack.action)
-					{
-						event.dataTransfer.effectAllowed = 'none';
-					}
-														
-					if (currentDragFeedBack.dropOn != dragFeedBack.dropOn)
-					{
-						this.cleanDragFeedBack();
-						if (currentDragFeedBack.action) { this.applyDragFeedBack(dragFeedBack);}	
-					}
-					else if (currentDragFeedBack.dropBefore != dragFeedBack.dropBefore ||
-							 currentDragFeedBack.dropAfter != dragFeedBack.dropAfter)
-					{
-						this.cleanDragFeedBack();
-						if (currentDragFeedBack.action)
-						{ 
-							this.applyDragFeedBack(dragFeedBack);
-						}
-					}						
-													
-					event.preventDefault();
-				]]></body>	
-			</method>
-							
+												
 			<method name="onDrop">
 				<parameter name="event" />			
 				<body><![CDATA[
+					this.onDragLeave(event);
 					//wCore.debug('onDrop');
 					var dragFeedBack = this.mDropData;
 					this.mDropData = null;
@@ -232,42 +182,39 @@
 					this.mDropData = null;
 					if (event.dataTransfer.types.contains('application/x-moz-file'))
 					{
-						//wCore.debug('wMediaModuleList.files');
-						this.dragFeedBack = true;
+						wCore.debug('wMediaModuleList.files');
 					}
 					else
 					{
 						event.dataTransfer.effectAllowed = 'none';
-						this.dragFeedBack = null;
 					}
 					event.preventDefault();
 				]]></body>	
 			</method>	
-			
-			<method name="onThumbDragLeave">
-				<parameter name="event" />		
-				<body><![CDATA[
-					//wCore.debug('wMediaModuleList.onThumbDragLeave');		
-					this.dragFeedBack = null;;
-				]]></body>	
-			</method>
-					
+				
 			<method name="onThumbDragOver">
 				<parameter name="event" />			
 				<body><![CDATA[
-					if (!this.dragFeedBack) 
+					if (!event.dataTransfer.types.contains('application/x-moz-file'))
 					{
 						event.dataTransfer.effectAllowed = 'none';
 					}													
 					event.preventDefault();
 				]]></body>	
 			</method>
-							
+					
+			<method name="onThumbDragLeave">
+				<parameter name="event" />		
+				<body><![CDATA[
+					//wCore.debug('wMediaModuleList.onThumbDragLeave');		
+					event.preventDefault();
+				]]></body>	
+			</method>
+					
 			<method name="onThumbDrop">
 				<parameter name="event" />			
 				<body><![CDATA[
 					//wCore.debug('wMediaModuleList.onThumbDrop');
-					this.dragFeedBack = null;
 					if (!event.dataTransfer.types.contains('application/x-moz-file'))
 					{
 						event.preventDefault();

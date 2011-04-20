@@ -10,7 +10,16 @@ class media_GenerateFormatedAction extends f_action_BaseAction
 	 */
 	public function _execute($context, $request)
     {
-        $format = $request->getParameter('format');   
+    	$matches = null;
+    	if (isset($_SERVER["REDIRECT_URL"]) && preg_match('/^\/publicmedia\/formatted\/(.+)$/', $_SERVER["REDIRECT_URL"], $matches))
+    	{
+    		$format = $matches[1];
+    	}
+    	else
+    	{
+    		$format = $request->getParameter('format');	
+    	}
+    	   
         try 
         {   
         	if (Framework::isInfoEnabled())

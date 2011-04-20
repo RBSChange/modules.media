@@ -1,11 +1,2 @@
-.media-flash-dummy{
-	border: 1px solid silver;
-	font-weight: bold;
-	font-size: 15px;
-	text-align: center;
-	vertical-align: middle;
-	color: dimgray;
-	background: url(/media/backoffice/flash-logo.png) ghostwhite center no-repeat;
-}
-
+@import url(/modules/media/style/frontoffice.xul.all.css);
 @import url(/modules/media/style/fancybox.css);

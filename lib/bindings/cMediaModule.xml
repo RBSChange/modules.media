@@ -44,43 +44,6 @@
 		</content>
 	</binding>
 	
-	<binding id="cMediaUsages" extends="layout.cDocumentEditor#cProperty">
-		<implementation>					
-			<method name="setValue">
-				<parameter name="val" />
-				<body><![CDATA[
-					var lst = document.getAnonymousElementByAttribute(this, "anonid", "lstdoc");
-					while (lst.lastChild) {lst.removeChild(lst.lastChild)}
-					
-					if (val)
-					{
-						for (var i = 0; i < val.length; i++)
-						{
-							var label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:label");
-							lst.appendChild(label);
-							label.value = val[i];
-						}
-						this.removeAttribute("hidden");
-					}
-					else
-					{
-						this.setAttribute("hidden", true);
-					}
-				]]></body>
-			</method>	
-		</implementation>
-		<content>
-			<xul:hbox>
-				<xul:label class="label" xbl:inherits="value=label" />
-				<xul:label class="label separator" value=":" />
-				<xul:vbox anonid="lstdoc">				
-				</xul:vbox>
-			</xul:hbox>			
-		</content>
-	</binding>	
-	
-	
-
 	<binding id="wMediaModuleList" extends="widgets.cNavigation#cModuleThumbnailList">
 		<implementation>
 			<field name="mUploadCount">0</field>

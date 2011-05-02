@@ -1,11 +1,14 @@
 cproperty[propertyname="previewimgurl"]{
 	-moz-binding: url(binding:modules.media.cMediaModule#cPreviewImgUrl);
 }
-cproperty[propertyname="mediausages"]{
-	-moz-binding: url(binding:modules.media.cMediaModule#cMediaUsages);
-}
 cmodulelist#modules_media_widget_documentlist{
 	-moz-binding: url(binding:modules.media.cMediaModule#wMediaModuleList);
+}
+cusageslist {
+	-moz-binding: url(binding:modules.media.editors.media#cUsagesList);
+}
+cusagespanel cpaginator{
+	-moz-binding: url(binding:modules.media.editors.media#cPaginator);
 }
 wdialog[template="cropImage"]{
 	-moz-binding: url(binding:modules.media.cropImageDialog#cropImageDialog);

@@ -14,7 +14,8 @@
 		<property name="previewimgurl" labeli18n="modules.media.bo.doceditor.property.Previewimgurl" />
 	</section>
 
-	<section name="usages" labeli18n="modules.media.bo.doceditor.section.Usages" image="{IconsBase}/small/search.png">
+	<section name="usages" labeli18n="modules.media.bo.doceditor.section.Usages" image="{IconsBase}/small/search.png"
+		linkedtab="usages" actiontexti18n="modules.media.bo.doceditor.section.usages-view">
 		<property name="mediausages" labeli18n="modules.media.bo.doceditor.property.Mediausages" />
 	</section>
 

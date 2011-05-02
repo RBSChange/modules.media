@@ -5,8 +5,7 @@
   <key id="width">largeur</key>
   <key id="height">hauteur</key>
   <key id="previewimgurl">Apercu</key>
-  <key id="previewimgurl-download">Telecharger...</key>
-  <key id="mediausages">liste des documents</key>
-  <key id="mediausages-not-found">Media non utilisé</key>
-  <key id="mediausages-error">Document n°{num} introuvale</key>
+  <key id="previewimgurl-download">Télécharger...</key>
+  <key id="mediausages">Nombre de références</key>
+  <key id="mediausages-not-found">aucun</key>
 </i18n>

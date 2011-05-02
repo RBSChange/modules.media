@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bindings xmlns="http://www.mozilla.org/xbl" xmlns:xbl="http://www.mozilla.org/xbl"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	<binding id="media_usages" extends="layout.cDocumentEditor#cDocumentEditorPanel">
+		<content>
+			<xul:vbox flex="1">
+				<xul:cmessageinfo anonid="message" />
+				<xul:hbox anonid="action-bar">
+					<xul:cpaginator orient="horizontal" anonid="paginator" />
+				</xul:hbox>
+				<xul:scrollbox anonid="scrollctrl" flex="1" class="editordatacontainer" orient="vertical">
+					<xul:cusageslist anonid="usageslist" flex="1" />
+					<xul:spacer flex="1" />
+				</xul:scrollbox>
+			</xul:vbox>
+		</content>
+		<implementation>
+			<property name="gridlist" readonly="true">
+				<getter><![CDATA[
+					return this.getElementByAnonId('usageslist');
+				]]></getter>
+			</property>
+
+			<method name="onCloseEditor">
+				<body><![CDATA[	
+					//wCore.debug("onCloseEditor:" + this.tagName);
+					var gridlist = this.gridlist;
+					if ('initJSONDataset' in gridlist)
+					{
+						gridlist.initJSONDataset(null);
+					}
+				]]></body>
+			</method>
+
+			<method name="getInitializeParameters">
+				<body><![CDATA[
+					return {
+						action: 'InitializeUsagesPanel',
+						cmpref: this.documentEditor.documentid, 
+						lang : this.documentEditor.documentInfos.vo
+					};
+				]]></body>
+			</method>
+
+			<method name="fireInitializeComplete">
+				<parameter name="result" />
+				<body><![CDATA[
+					if (result.status == 'OK')
+					{			
+						var contents = result.contents;
+						var fileId = contents.fileId;
+						var dataset = (contents.docs.length > 0) ? contents.docs : null;
+						var gridlist = this.gridlist;
+						wCore.executeOnMethodExists(gridlist, 'initJSONDataset', function() {
+							gridlist.initJSONDataset(dataset);
+						});
+						this.collapseContentZone(false);
+						this.fireEvent("panelInitializeComplete");
+						this.updateNavigation(contents);
+						this.gotoTop();
+					}
+					else
+					{
+						this.documentInfos = null
+						this.gridlist.initJSONDataset(null);
+						this.showErrorMessage(result.contents.errorMessage);
+						this.collapseContentZone(true);
+					}
+					this.mInitialized = true;
+				]]></body>
+			</method>
+			
+			<method name="updateNavigation">
+				<parameter name="contents" />
+				<body><![CDATA[
+					this.mDocumentTotal = parseInt(contents.total);
+					this.mStartIndex = parseInt(contents.offset);
+					this.mPageSize = contents.length;
+					this.mRowCount = contents.docs.length;
+					wCore.debug("UpdateNavigation : fireevent");
+					this.fireEvent("usagePaginationUpdated");
+				]]></body>
+			</method>
+			
+			<method name="navigate">
+				<parameter name="offset" />
+				<body><![CDATA[
+					wCore.debug("Navigate "+offset);
+					this.mStartIndex = offset;
+					var params = {
+						action: 'InitializeUsagesPanel',
+						cmpref: this.documentEditor.documentid, 
+						lang: this.documentEditor.documentInfos.vo,
+						offset: this.mStartIndex
+					};
+					var me = this;
+					wCore.executeJSON('media', 'InitializeUsagesPanel', params, function (results) { me.fireInitializeComplete(results)}, true);
+				]]></body>
+			</method>
+
+		</implementation>
+
+		<handlers>
+			<handler event="gridChanged"><![CDATA[
+				this.modified = this.gridlist.isModified();
+			]]></handler>
+		</handlers>
+	</binding>
+	
+	<binding id="cPaginator" extends="widgets.cNavigation#cPaginator">
+		<implementation>
+			<field name="mPanel">null</field>
+			<method name="registerToParent">
+				<body><![CDATA[
+				if (this.mPanel === null)
+				{
+					var pn = this.parentNode;
+					while (pn)
+					{
+						if (pn.localName === 'cusagespanel')
+						{
+							wCore.debug("Found mPanel");
+							this.mPanel = pn;
+							break;
+						}
+						pn = pn.parentNode;
+					}
+				}
+				var me = this;
+				this.mPanel.addEventListener("usagePaginationUpdated", function (event) {me.updateNavigation(event.originalTarget);}, false);
+				wCore.debug("Paginator registered");
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+	
+	<binding id="cUsagesList" extends="widgets.cGrid#cAbstractGrid">
+		
+		<content>
+			<xul:grid flex="1" anonid="grid" xbl:inherits="disabled" style="padding-left: 5px;padding-right: 5px;">
+				<xul:columns>
+					<xul:column flex="1" />
+					<xul:column flex="1" />
+					<xul:column />
+				</xul:columns>
+				<xul:rows>
+					<xul:row class="head" anonid="head-row">
+						<xul:label name="l" value="&amp;modules.media.bo.doceditor.panel.usages.Column-label;" />
+						<xul:label name="t" value="&amp;modules.media.bo.doceditor.panel.usages.Column-type;" />
+						<xul:label name="actionrow" value="&amp;modules.media.bo.doceditor.panel.usages.Column-actions;" />
+					</xul:row>
+				</xul:rows>
+			</xul:grid>
+
+			<xul:row anonid="template-row" class="document orderable" hidden="true">
+				<xul:label value="" />
+				<xul:label value="" />
+				<xul:toolbar class="action">
+					<xul:toolbarbutton action="edit" image="{IconsBase}/small/edit.png" tooltiptext="&amp;modules.uixul.bo.actions.Edit;" />
+					<xul:toolbarbutton action="locate" image="{IconsBase}/small/search.png" tooltiptext="&amp;modules.media.bo.doceditor.panel.usages.Locate;" />
+				</xul:toolbar>
+			</xul:row>
+		</content>
+		<implementation>
+			<field name="offset">0</field>
+			<field name="length">10</field>
+			<field name="count">0</field>
+			<field name="mDocumentTotal">0</field>
+			<field name="mPageSize">0</field>
+			<field name="mStartIndex">0</field>
+			<field name="mEndIndex">0</field>
+			<constructor><![CDATA[
+				this.fireEvent('gridInitialised');
+			]]></constructor>
+
+			<method name="getDatarowKey">
+				<parameter name="datarow" />
+				<body><![CDATA[
+					return datarow.id;
+				]]></body>
+			</method>
+			
+			<method name="execute_locate">
+				<parameter name="rowNode" />
+				<parameter name="rowData" />
+				<body><![CDATA[
+					var uri = [rowData.e, 'locateDocument', rowData.m.replace('\/', '_'), rowData.i].join(',');
+					openActionUri(uri);
+				]]></body>
+			</method>
+
+			<method name="execute_edit">
+				<parameter name="rowNode" />
+				<parameter name="rowData" />
+				<body><![CDATA[
+					var uri = [rowData.e, 'openDocument', rowData.m.replace('\/', '_'), rowData.i].join(',');
+					openActionUri(uri);
+				]]></body>
+			</method>
+		</implementation>
+	</binding>
+</bindings>

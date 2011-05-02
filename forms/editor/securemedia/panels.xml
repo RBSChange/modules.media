@@ -5,6 +5,7 @@
 	<panel name="publication" />
 	<panel name="localization" />
 	<panel name="redirect" />
+	<panel name="usages" icon="search" labeli18n="m.media.bo.doceditor.section.usages"/>
 	<panel name="history" />
 	<panel name="create" />
 </panels>

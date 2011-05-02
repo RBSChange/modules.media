@@ -322,37 +322,15 @@ class media_MediaService extends media_FileService
 			}
 			
 			//$mediaId, $mediaLang, $documentId, $documentLang
-			$mediausages = array();
-			$i = 0;
-			foreach ($document->getAllUsages() as $info) 
+			$mediausagesCount = count($document->getAllUsages());
+			$ls = LocaleService::getInstance();
+			if ($mediausagesCount == 0)
 			{
-				if ($i == 5) 
-				{
-					$mediausages[] = '...';
-					break;
-				}
-				$i++;
-				try 
-				{
-					$doc = $this->pp->getDocumentInstance($info[2]);
-					$model = $doc->getPersistentModel();
-					$moduleName = f_Locale::translateUI('&modules.'. $model->getModuleName() .'.bo.general.Module-name;');		
-					$docName = f_Locale::translateUI('&modules.'. $model->getModuleName() .'.document.'. $model->getDocumentName().'.Document-name;');
-					$lang = ($info[3] != '') ?  $info[3] : $doc->getLang();
-					$mediausages[] = $doc->getLabelForLang($lang) . ' (' . $moduleName . ', ' .$docName . ')';
-				}
-				catch (Exception $e)
-				{
-					if (Framework::isDebugEnabled())
-					{
-						Framework::exception($e);
-					}
-					$mediausages[] = f_Locale::translateUI('&modules.media.bo.doceditor.property.Mediausages-error;', array('num', $info[2]));
-				}		
+				$mediausages = $ls->transBO('m.media.bo.doceditor.property.mediausages-not-found');
 			}
-			if (count($mediausages) == 0)
+			else
 			{
-				$mediausages[] = f_Locale::translateUI('&modules.media.bo.doceditor.property.Mediausages-not-found;');
+				$mediausages = $mediausagesCount;
 			}
 			$data['usages']['mediausages'] = $mediausages;
 			

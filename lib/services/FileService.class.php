@@ -611,4 +611,18 @@ class media_FileService extends f_persistentdocument_DocumentService
 			$this->tm->rollBack($e);
 		}
 	}
+	
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param array $attributes
+	 * @param string $content
+	 * @param string $lang
+	 * @return string
+	 */
+	public function getXhtmlFragment($document, $attributes, $content, $lang)
+	{
+		$attributes['href'] = media_FileService::getInstance()->generateDownloadUrl($document, $lang);
+		$document->addDownloadAttributes($attributes);
+		return f_util_HtmlUtils::buildLink($attributes, $content);
+	}
 }

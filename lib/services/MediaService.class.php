@@ -51,17 +51,17 @@ class media_MediaService extends media_FileService
 		{
 			$document->setTitle($document->getLabel());
 		}
-		
+
 		$tmpFileName = $document->getNewFileName();
 		if ($tmpFileName !== null && is_file($tmpFileName))
 		{
 			$document->setMediatype(MediaHelper::getMediaTypeByFilename($document->getFilename()));
-		} 
+		}
 		else if ($document->isPropertyModified('title'))
 		{
 			$document->setInfo($document->getInfo());
 		}
-		
+
 		parent::preSave($document, $parentNodeId);
 	}
 
@@ -272,7 +272,7 @@ class media_MediaService extends media_FileService
 				return false;
 		}
 	}
-	
+
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $forModuleName
@@ -282,27 +282,27 @@ class media_MediaService extends media_FileService
 	public function getResume($document, $forModuleName, $allowedSections = null)
 	{
 		$data = parent::getResume($document, $forModuleName, $allowedSections);
-		
+
 		if ($document->isContextLangAvailable())
 		{
-			$lang = RequestContext::getInstance()->getLang();			
+			$lang = RequestContext::getInstance()->getLang();
 		}
 		else
 		{
 			$lang = $document->getLang();
-			
+
 		}
 		$rc = RequestContext::getInstance();
-		try 
+		try
 		{
 			$rc->beginI18nWork($lang);
 			$info = $document->getCommonInfo();
-			
+
 			$data['content'] = array(
 				'mimetype' => $document->getMimetype(),
 				'size' => $info['size']
 			);
-			
+
 			$data['content']['previewimgurl'] = array('id' => $document->getId(), 'lang' => $lang);
 			if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
 			{
@@ -310,17 +310,17 @@ class media_MediaService extends media_FileService
 				$data['content']['width'] = $info['width'].' '.$pixelsLabel;
 				$data['content']['height'] = $info['height'].' '.$pixelsLabel;
 				$data['content']['previewimgurl']['image'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
-					->setQueryParameter('cmpref', $document->getId())
-					->setQueryParameter('max-height', 128)
-					->setQueryParameter('max-width', 128)
-					->setQueryParameter('lang', RequestContext::getInstance()->getLang())
-					->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
+				->setQueryParameter('cmpref', $document->getId())
+				->setQueryParameter('max-height', 128)
+				->setQueryParameter('max-width', 128)
+				->setQueryParameter('lang', RequestContext::getInstance()->getLang())
+				->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
 			}
 			else
 			{
 				$data['content']['previewimgurl']['image'] = '';
 			}
-			
+
 			//$mediaId, $mediaLang, $documentId, $documentLang
 			$mediausagesCount = count($document->getAllUsages());
 			$ls = LocaleService::getInstance();
@@ -333,7 +333,7 @@ class media_MediaService extends media_FileService
 				$mediausages = $mediausagesCount;
 			}
 			$data['usages']['mediausages'] = $mediausages;
-			
+
 			$rc->endI18nWork();
 		}
 		catch (Exception $e)
@@ -343,7 +343,7 @@ class media_MediaService extends media_FileService
 
 		return $data;
 	}
-	
+
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $moduleName
@@ -356,7 +356,7 @@ class media_MediaService extends media_FileService
 		{
 			$nodeAttributes['countreferences'] =  $document->countReferences();
 		}
-		
+
 		switch ($document->getMediatype())
 		{
 			case MediaHelper::TYPE_IMAGE:
@@ -372,14 +372,14 @@ class media_MediaService extends media_FileService
 				}
 				if ($treeType == 'wlist')
 				{
-			    	$nodeAttributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
-						->setQueryParameter('cmpref', $document->getId())
-						->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
-						->setQueryParameter('lang', RequestContext::getInstance()->getLang())
-						->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
-				}				
+					$nodeAttributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
+					->setQueryParameter('cmpref', $document->getId())
+					->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
+					->setQueryParameter('lang', RequestContext::getInstance()->getLang())
+					->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
+				}
 				break;
-			
+					
 			case MediaHelper::TYPE_PDF:
 				$nodeAttributes['actualtype'] = 'modules_media_pdf';
 				if ($treeType == 'wmultilist')
@@ -388,7 +388,7 @@ class media_MediaService extends media_FileService
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
-			
+					
 			case MediaHelper::TYPE_DOC:
 				$nodeAttributes['actualtype'] = 'modules_media_doc';
 				if ($treeType == 'wmultilist')
@@ -397,31 +397,31 @@ class media_MediaService extends media_FileService
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
-			
+					
 			case MediaHelper::TYPE_FLASH:
 				$nodeAttributes['actualtype'] = 'modules_media_flash';
 				if ($treeType == 'wmultilist')
 				{
 
-				    $styleAttributes = array();
-		            $mediaInfos = $document->getInfo();
-		            if (isset($mediaInfos['height']))
-		            {
-		                $styleAttributes['height'] = $mediaInfos['height'] . 'px';
-		            }
-		            if (isset($mediaInfos['width']))
-		            {
-		                $styleAttributes['width'] = $mediaInfos['width'] . 'px';
-		            }
-		            $title = htmlspecialchars($document->getTitle());
-		            
-		            $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
-		            $link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '</a>';
+				 $styleAttributes = array();
+				 $mediaInfos = $document->getInfo();
+				 if (isset($mediaInfos['height']))
+				 {
+				 	$styleAttributes['height'] = $mediaInfos['height'] . 'px';
+				 }
+				 if (isset($mediaInfos['width']))
+				 {
+				 	$styleAttributes['width'] = $mediaInfos['width'] . 'px';
+				 }
+				 $title = htmlspecialchars($document->getTitle());
+
+				 $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
+				 $link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '</a>';
 					$nodeAttributes['htmllink'] = $link;
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
-			
+
 			case MediaHelper::TYPE_VIDEO:
 				$nodeAttributes['actualtype'] = 'modules_media_video';
 				if ($treeType == 'wmultilist')
@@ -437,5 +437,53 @@ class media_MediaService extends media_FileService
 				}
 				break;
 		}
+	}
+
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param array $attributes
+	 * @param string $content
+	 * @param string $lang
+	 * @return string
+	 */
+	public function getXhtmlFragment($document, $attributes, $content, $lang)
+	{
+		if ($document->getMediatype() == MediaHelper::TYPE_FLASH)
+		{
+			$xhtml = $this->renderFlashTag($document, $attributes);
+		}
+		else if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
+		{
+			$attributes['href'] = media_MediaService::getInstance()->generateUrl($document, $lang);
+			$xhtml = f_util_HtmlUtils::buildLink($attributes, $content);
+		}
+		else
+		{
+			$xhtml = parent::getXhtmlFragment($document, $attributes, $content, $lang);
+		}
+		return $xhtml;
+	}
+	
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param Array $attributes
+	 * @return String
+	 */
+	private function renderFlashTag($document, $attributes)
+	{
+		$attributes['id'] = 'media-' . $document->getId();
+		$attributes['url'] = LinkHelper::getDocumentUrl($document);
+		$attributes = array_merge($attributes, MediaHelper::getImageSize(media_MediaService::getInstance()->getOriginalPath($document)));
+		unset($attributes['src']);
+		$attributes['alt'] = $document->getTitle();
+		if ($document->getDescription())
+		{
+			$attributes['description'] = $document->getDescriptionAsHtml();
+		}
+
+		$templateComponent = TemplateLoader::getInstance()->setpackagename('modules_media')->setMimeContentType(K::HTML)->load('Media-Block-Flash-Success');
+		$templateComponent->setAttribute('medias', array($attributes));
+		$content = $templateComponent->execute();
+		return $content;
 	}
 }

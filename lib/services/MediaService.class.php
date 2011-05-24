@@ -368,4 +368,52 @@ class media_MediaService extends media_FileService
 
 		return $data;
 	}
+	
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param array $attributes
+	 * @param string $content
+	 * @param string $lang
+	 * @return string
+	 */
+	public function getXhtmlFragment($document, $attributes, $content, $lang)
+	{
+		if ($document->getMediatype() == MediaHelper::TYPE_FLASH)
+		{
+			$xhtml = $this->renderFlashTag($document, $attributes);
+		}
+		else if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
+		{
+			$attributes['href'] = media_MediaService::getInstance()->generateUrl($document, $lang);
+			$xhtml = f_util_HtmlUtils::buildLink($attributes, $content);
+		}
+		else
+		{
+			$xhtml = parent::getXhtmlFragment($document, $attributes, $content, $lang);
+		}
+		return $xhtml;
+	}
+	
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param Array $attributes
+	 * @return String
+	 */
+	private function renderFlashTag($document, $attributes)
+	{
+		$attributes['id'] = 'media-' . $document->getId();
+		$attributes['url'] = LinkHelper::getDocumentUrl($document);
+		$attributes = array_merge($attributes, MediaHelper::getImageSize(media_MediaService::getInstance()->getOriginalPath($document)));
+		unset($attributes['src']);
+		$attributes['alt'] = $document->getTitle();
+		if ($document->getDescription())
+		{
+			$attributes['description'] = $document->getDescriptionAsHtml();
+		}
+
+		$templateComponent = TemplateLoader::getInstance()->setpackagename('modules_media')->setMimeContentType(K::HTML)->load('Media-Block-Flash-Success');
+		$templateComponent->setAttribute('medias', array($attributes));
+		$content = $templateComponent->execute();
+		return $content;
+	}	
 }

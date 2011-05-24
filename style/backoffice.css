@@ -15,8 +15,11 @@ treechildren::-moz-tree-image(modules_media_file){
 treechildren::-moz-tree-image(modules_media_fileusage){
 	list-style-image: url(/changeicons/small/document.png);
 }
-treechildren::-moz-tree-image(modules_media_media),treechildren::-moz-tree-image(modules_media_securemedia){
-	list-style-image: url(/changeicons/small/document.png) ;
+treechildren::-moz-tree-image(modules_media_media){
+	list-style-image: url(/changeicons/small/document.png);
+}
+treechildren::-moz-tree-image(modules_media_securemedia){
+	list-style-image: url(/changeicons/small/document.png);
 }
 treechildren::-moz-tree-image(modules_media_media modules_media_doc),treechildren::-moz-tree-image(modules_media_securemedia modules_media_doc){
 	list-style-image: url(/changeicons/small/document-text.png) ;

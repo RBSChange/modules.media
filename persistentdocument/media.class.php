@@ -95,7 +95,7 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 		            $title = htmlspecialchars($this->getTitle());
 		            
 		            $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
-		            $link = '<a rel="cmpref:' . $this->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '</a>';
+		            $link = '<a rel="cmpref:' . $this->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '&#160;</a>';
 					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = $link;
 					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
 				}

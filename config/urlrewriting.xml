@@ -4,7 +4,7 @@
 		<rule redirection="media/DisplayMediaDescription">
 			<template>media/description/$label,$cmpref.html</template>
 			<parameters>
-				<parameter name="cmpref" format="[0-9]+" forwardTo="cmpref" />
+				<parameter name="cmpref" forwardTo="cmpref" />
 			</parameters>
 		</rule>
 	</rules>

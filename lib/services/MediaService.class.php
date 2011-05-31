@@ -416,7 +416,7 @@ class media_MediaService extends media_FileService
 				 $title = htmlspecialchars($document->getTitle());
 
 				 $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
-				 $link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '</a>';
+				 $link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '&#160;</a>';
 					$nodeAttributes['htmllink'] = $link;
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}

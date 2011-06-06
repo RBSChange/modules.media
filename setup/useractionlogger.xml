@@ -30,4 +30,5 @@
   <actiondef modulename="media" actionname="move.folder" label="modules.media.bo.useractionlogger.move-folder"/>
   <actiondef modulename="media" actionname="move.systemfolder" label="modules.media.bo.useractionlogger.move-systemfolder"/>
   <actiondef modulename="media" actionname="saveredirectinfo.securemedia" label="modules.media.bo.useractionlogger.saveredirectinfo-securemedia"/>
+  <actiondef modulename="media" actionname="saveredirectinfo.media" label="m.media.bo.useractionlogger.saveredirectinfo-media"/>
 </script>

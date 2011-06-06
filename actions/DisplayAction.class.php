@@ -15,7 +15,7 @@ class media_DisplayAction extends f_action_BaseAction
 		
 		try 
 		{
-			$media = DocumentHelper::getDocumentInstance($mediaId);
+			$media = media_persistentdocument_file::getInstanceById($mediaId);
 		}
 		catch (Exception $e)
 		{

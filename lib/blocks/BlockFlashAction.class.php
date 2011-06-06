@@ -37,7 +37,7 @@ class media_BlockFlashAction extends website_BlockAction
 		$medias = array();
 		$document = $this->getRequiredDocumentParameter();
 		$parameters = $document->getInfo();
-		$parameters['url'] = $document->getDocumentService()->generateUrl($document, null, array());
+		$parameters['url'] = LinkHelper::getDocumentUrl($document);
 		if (isset($parameters['id']) && is_numeric($parameters['id']))
 		{
 			$parameters['id'] = 'media-' . $parameters['id'];

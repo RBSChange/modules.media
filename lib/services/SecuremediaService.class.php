@@ -49,16 +49,27 @@ class media_SecuremediaService extends media_MediaService
 		return WEBEDIT_HOME.'/securemedia/formatted/'.$this->getRelativeFolder($id, $lang);
 	}
 
+	
 	/**
+	 * @param website_UrlRewritingService $urlRewritingService
 	 * @param media_persistentdocument_securemedia $document
+	 * @param website_persistentdocument_website $website
 	 * @param string $lang
 	 * @param array $parameters
+	 * @return f_web_Link | null
 	 */
-	public function generateUrl($document, $lang = null, $parameters = array())
+	public function getWebLink($urlRewritingService, $document, $website, $lang, $parameters)
 	{
-		return $this->generateDownloadUrl($document, $lang, $parameters);
+		$fileName = $document->getFilenameForLang($lang);
+		if (empty($fileName)) 
+		{
+			$lang = $document->getLang();
+		}
+		$parameters['lang'] = $lang;
+		$parameters['cmpref'] = $document->getId();		
+		return $urlRewritingService->getActionLinkForWebsite('media', 'Display', $website, $lang, $parameters);
 	}
-
+	
 	/**
 	 * Compute access using the registered strategies.
 	 * @param media_persistentdocument_securemedia $media

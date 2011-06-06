@@ -56,4 +56,6 @@
   <key id="log-move-systemfolder">log-move-systemfolder</key>
   <key id="saveredirectinfo-securemedia">saveredirectinfo.securemedia {lang} {documentlabel}</key>
   <key id="log-saveredirectinfo-securemedia">log-saveredirectinfo-securemedia</key>
+  <key id="saveredirectinfo-media">saveredirectinfo.media {lang} {documentlabel}</key>
+  <key id="log-saveredirectinfo-media">log saveredirectinfo media</key>
 </i18n>

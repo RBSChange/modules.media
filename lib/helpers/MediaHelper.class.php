@@ -85,10 +85,10 @@ class MediaHelper
 			$format = self::getFormatPropertiesByName($formatName);
 			if (f_util_ArrayUtils::isNotEmpty($format))
 			{
-				return $media->getDocumentService()->generateUrl($media, null, $format);
+				return LinkHelper::getDocumentUrl($media, null, $format);
 			}
 		}
-		return $media->getDocumentService()->generateUrl($media);
+		return LinkHelper::getDocumentUrl($media);
 	}
 
 	/**
@@ -150,13 +150,13 @@ class MediaHelper
 	}
 
 	/**
-	 * @deprecated use $media->getDocumentService()->generateUrl()
+	 * @deprecated use LinkHelper::getDocumentUrl($media)
 	 * @param media_persistentdocument_media $media
 	 * @return string
 	 */
 	public static function getPublicUrl($media)
 	{
-		return $media->getDocumentService()->generateUrl($media, RequestContext::getInstance()->getLang());
+		return LinkHelper::getDocumentUrl($media);
 	}
 
 	/**
@@ -290,7 +290,7 @@ class MediaHelper
 				$format = array('width' => $parameters['width'], 'height' => $parameters['height']);
 			}
 		}
-		$parameters['url'] = $document->getDocumentService()->generateUrl($document, $urlLang, $format);
+		$parameters['url'] = LinkHelper::getDocumentUrl($document, $urlLang, $format);
 
 		$content = "";
 		if (!isset($parameters['type'])) {return $content;}
@@ -505,7 +505,7 @@ class MediaHelper
 					|| ($askedHeight !== null && $askedHeight < (0.85 * $docInfo['height']));
 					if ($formatted && !$xulContent)
 					{
-						$content = '<a class="lightbox" href="' . $document->getDocumentService()->generateUrl($document, null, $docInfo) . '" title="'.$alt.'">' . $content . '</a>';
+						$content = '<a class="lightbox" href="' . LinkHelper::getDocumentUrl($document, null, $docInfo) . '" title="'.$alt.'">' . $content . '</a>';
 					}
 				}
 
@@ -619,18 +619,18 @@ class MediaHelper
 			{
 				$format = self::getFormatPropertiesByName($parameters['format']);
 				$lang = isset($parameters['lang']) ? $parameters['lang'] : null;
-				return $document->getDocumentService()->generateUrl($document, $lang, $format);
+				return LinkHelper::getDocumentUrl($document, $lang, $format);
 			}
 			elseif (isset($parameters['width']) || isset($parameters['height']))
 			{
 				$format = array();
 				if (isset($parameters['width'])) {$format['width'] = $parameters['width'];}
 				if (isset($parameters['height'])) {$format['height'] = $parameters['height'];}
-				return $document->getDocumentService()->generateUrl($document, $lang, $format);
+				return LinkHelper::getDocumentUrl($document, $lang, $format);
 			}
 			else
 			{
-				return $document->getDocumentService()->generateUrl($document);
+				return LinkHelper::getDocumentUrl($document);
 			}
 		}
 

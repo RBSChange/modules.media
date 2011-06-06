@@ -437,6 +437,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	protected function convertMediaFileNameToUrl($fileName)
 	{
+		
 		$baseUrl = Framework::getBaseUrl();
 		if (!$baseUrl)
 		{
@@ -460,17 +461,48 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
+	 * @param website_UrlRewritingService $urlRewritingService
 	 * @param media_persistentdocument_file $document
+	 * @param website_persistentdocument_website $website
 	 * @param string $lang
 	 * @param array $parameters
-	 * @return String
+	 * @return f_web_Link | null
 	 */
-	public function generateUrl($document, $lang, $parameters)
+	public function getWebLink($urlRewritingService, $document, $website, $lang, $parameters)
 	{
-		$path = $this->getAbsoluteFilePath($document, $lang, true);
-		return $this->convertMediaFileNameToUrl($path);
+		if ($website === null)
+		{
+			f_util_ProcessUtils::printBackTrace();
+		}
+		$documentId = $document->getId();
+		$fileName = $document->getFilenameForLang($lang);
+		if (empty($fileName)) {$fileName = $document->getVoFilename(); $lang = $document->getLang();}
+		$protocol = RequestContext::getInstance()->getProtocol();
+		$host = $this->getHostForDocumentId($documentId, $lang);
+		$link = new f_web_ParametrizedLink($protocol, $host, '/publicmedia/original/' . $this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName));
+		$link->setQueryParameters($parameters);
+		return $link;
 	}
 	
+	/**
+	 * @param integer $id
+	 * @param string $lang
+	 */
+	protected function getHostForDocumentId($id, $lang)
+	{
+		$webSite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$domains = Framework::getConfigurationValue('modules/media/domains', array());
+		if (f_util_ArrayUtils::isEmpty($domains))
+		{
+			return $webSite->isLangAvailable($lang) ? $webSite->getDomainForLang($lang) : Framework::getUIDefaultHost();
+		}
+		else
+		{
+			$domains = array_values($domains);
+			return (count($domains) > 1) ?  $domains[$id % count($domains)] : $domains[0];
+		}	
+	}
+
 	/**
 	 * @param media_persistentdocument_file $document
 	 * @param string $lang

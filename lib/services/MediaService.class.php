@@ -99,72 +99,46 @@ class media_MediaService extends media_FileService
 		return $media;
 	}
 
+
 	/**
+	 * @param website_UrlRewritingService $urlRewritingService
 	 * @param media_persistentdocument_media $document
+	 * @param website_persistentdocument_website $website
 	 * @param string $lang
 	 * @param array $parameters
+	 * @return f_web_Link | null
 	 */
-	public function generateUrl($document, $lang = null, $parameters = array())
+	public function getWebLink($urlRewritingService, $document, $website, $lang, $parameters)
 	{
 		$formatKey = media_FormatterHelper::getFormatKey($parameters);
 		if ($formatKey !== null)
 		{
-			if ($lang == null)
-			{
-				if ($document->isContextLangAvailable())
-				{
-					$lang = RequestContext::getInstance()->getLang();
-				}
-				else
-				{
-					$lang = $document->getLang();
-				}
-			}
-
+			$fileName = $document->getFilenameForLang($lang);
+			if (empty($fileName)) {$fileName = $document->getVoFilename(); $lang = $document->getLang();}
 			$resourceExtension = $this->getFormatedExtension($document, $lang);
 			if ($resourceExtension !== false)
 			{
-				$fileName = $document->getFilenameForLang($lang);
-				$extension = f_util_FileUtils::getFileExtension($fileName);
-				$resourceDir = $this->getFormattedAbsoluteFolder($document->getId(), $lang);
-				return $this->convertMediaFileNameToUrl($resourceDir . rawurlencode(basename($fileName, '.' . $extension)) . ';' . $formatKey . $resourceExtension);
+				$documentId = $document->getId();
+				$protocol = RequestContext::getInstance()->getProtocol();
+				$host = $this->getHostForDocumentId($documentId, $lang);
+				$link = new f_web_ParametrizedLink($protocol, $host, 
+					'/publicmedia/formatted/' . 
+					$this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName) . 
+					';' . $formatKey . $resourceExtension);
+				return $link;
 			}
 		}
-		return parent::generateUrl($document, $lang, $parameters);
+		return parent::getWebLink($urlRewritingService, $document, $website, $lang, $parameters);
 	}
 
 	/**
-	 * @param media_persistentdocument_file $document
+	 * @param media_persistentdocument_media $document
 	 * @param string $lang
 	 * @param array $parameters
 	 * @return String
 	 */
 	public function generateAbsoluteUrl($document, $lang, $parameters)
 	{
-		$formatKey = media_FormatterHelper::getFormatKey($parameters);
-		if ($formatKey !== null)
-		{
-			if ($lang == null)
-			{
-				if ($document->isContextLangAvailable())
-				{
-					$lang = RequestContext::getInstance()->getLang();
-				}
-				else
-				{
-					$lang = $document->getLang();
-				}
-			}
-
-			$resourceExtension = $this->getFormatedExtension($document, $lang);
-			if ($resourceExtension !== false)
-			{
-				$fileName = $document->getFilenameForLang($lang);
-				$extension = f_util_FileUtils::getFileExtension($fileName);
-				$resourceDir = $this->getFormattedAbsoluteFolder($document->getId(), $lang);
-				return $this->convertMediaFileNameToAbsoluteUrl($resourceDir . rawurlencode(basename($fileName, '.' . $extension)) . ';' . $formatKey . $resourceExtension);
-			}
-		}
 		return parent::generateAbsoluteUrl($document, $lang, $parameters);
 	}
 
@@ -447,14 +421,23 @@ class media_MediaService extends media_FileService
 	 * @return string
 	 */
 	public function getXhtmlFragment($document, $attributes, $content, $lang)
-	{
+	{		
 		if ($document->getMediatype() == MediaHelper::TYPE_FLASH)
 		{
 			$xhtml = $this->renderFlashTag($document, $attributes);
 		}
 		else if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
 		{
-			$attributes['href'] = media_MediaService::getInstance()->generateUrl($document, $lang);
+			$parameters = array();
+			if (isset($attributes['width']))
+			{
+				$parameters['width'] = intval($attributes['width']);
+			}
+			if (isset($attributes['height']))
+			{
+				$parameters['height'] = intval($attributes['height']);
+			}
+			$attributes['href'] = LinkHelper::getDocumentUrl($document, $lang, $parameters);
 			$xhtml = f_util_HtmlUtils::buildLink($attributes, $content);
 		}
 		else

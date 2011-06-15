@@ -54,16 +54,23 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 	public function getInfoForLang($lang)
 	{
 		$this->loadInfoForLang($lang);
-		return $this->info[$lang];
+		$infos = $this->info[$lang];		
+		if (!isset($info['type']))
+		{
+			$info['type'] = MediaHelper::getMediaTypeByFilename($this->getFilename());
+		}
+		return $info;
 	}	
-	
-
-	
+		
 	/**
-	 * @param Array $info
+	 * @param array $info
 	 */
 	public function setInfo($info)
 	{
+		if (!isset($info['type']))
+		{
+			$info['type'] = MediaHelper::getMediaTypeByFilename($this->getFilename());
+		}
 		$lang = RequestContext::getInstance()->getLang();
 		$this->loadInfoForLang($lang);
 		$this->info[$lang] = $info;
@@ -211,5 +218,22 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 			$this->setModificationdate(null);
 		}
 		$this->tmpFileId = ($val > 0) ? $val : null;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return null;
+	}
+
+	/**
+	 * @param string $lang
+	 * @return string
+	 */
+	public function getDescriptionForLang($lang)
+	{
+		return null;
 	}
 }

@@ -99,38 +99,6 @@ class media_MediaService extends media_FileService
 		return $media;
 	}
 
-
-	/**
-	 * @param website_UrlRewritingService $urlRewritingService
-	 * @param media_persistentdocument_media $document
-	 * @param website_persistentdocument_website $website
-	 * @param string $lang
-	 * @param array $parameters
-	 * @return f_web_Link | null
-	 */
-	public function getWebLink($urlRewritingService, $document, $website, $lang, $parameters)
-	{
-		$formatKey = media_FormatterHelper::getFormatKey($parameters);
-		if ($formatKey !== null)
-		{
-			$fileName = $document->getFilenameForLang($lang);
-			if (empty($fileName)) {$fileName = $document->getVoFilename(); $lang = $document->getLang();}
-			$resourceExtension = $this->getFormatedExtension($document, $lang);
-			if ($resourceExtension !== false)
-			{
-				$documentId = $document->getId();
-				$protocol = RequestContext::getInstance()->getProtocol();
-				$host = $this->getHostForDocumentId($documentId, $lang);
-				$link = new f_web_ParametrizedLink($protocol, $host, 
-					'/publicmedia/formatted/' . 
-					$this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName) . 
-					';' . $formatKey . $resourceExtension);
-				return $link;
-			}
-		}
-		return parent::getWebLink($urlRewritingService, $document, $website, $lang, $parameters);
-	}
-
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $lang
@@ -140,25 +108,6 @@ class media_MediaService extends media_FileService
 	public function generateAbsoluteUrl($document, $lang, $parameters)
 	{
 		return parent::generateAbsoluteUrl($document, $lang, $parameters);
-	}
-
-	/**
-	 * @param media_persistentdocument_media $document
-	 * @param string $lang
-	 */
-	private function getFormatedExtension($document, $lang)
-	{
-		$mimeType = $document->getMimetypeForLang($lang);
-		switch ($mimeType)
-		{
-			case 'image/jpeg':
-				return MediaHelper::EXTENSION_JPEG;
-			case 'image/png':
-				return MediaHelper::EXTENSION_PNG;
-			case 'image/gif':
-				return MediaHelper::EXTENSION_GIF;
-		}
-		return false;
 	}
 
 	/**

@@ -476,12 +476,52 @@ class media_FileService extends f_persistentdocument_DocumentService
 		}
 		$documentId = $document->getId();
 		$fileName = $document->getFilenameForLang($lang);
-		if (empty($fileName)) {$fileName = $document->getVoFilename(); $lang = $document->getLang();}
+		if (empty($fileName))
+		{
+			$fileName = $document->getVoFilename();
+			$lang = $document->getLang();
+		}
 		$protocol = RequestContext::getInstance()->getProtocol();
 		$host = $this->getHostForDocumentId($documentId, $lang);
-		$link = new f_web_ParametrizedLink($protocol, $host, '/publicmedia/original/' . $this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName));
-		$link->setQueryParameters($parameters);
-		return $link;
+					
+		$formatKey = media_FormatterHelper::getFormatKey($parameters);
+		if ($formatKey !== null)
+		{
+			$resourceExtension = $this->getFormatedExtension($document, $lang);
+			if ($resourceExtension !== false)
+			{
+				$link = new f_web_ParametrizedLink($protocol, $host, 
+					'/publicmedia/formatted/' . 
+					$this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName) . 
+					';' . $formatKey . $resourceExtension);
+				return $link;
+			}
+		}
+		else
+		{
+			$link = new f_web_ParametrizedLink($protocol, $host, '/publicmedia/original/' . $this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName));
+			$link->setQueryParameters($parameters);
+			return $link;
+		}
+	}
+
+	/**
+	 * @param media_persistentdocument_media $document
+	 * @param string $lang
+	 */
+	private function getFormatedExtension($document, $lang)
+	{
+		$mimeType = $document->getMimetypeForLang($lang);
+		switch ($mimeType)
+		{
+			case 'image/jpeg':
+				return MediaHelper::EXTENSION_JPEG;
+			case 'image/png':
+				return MediaHelper::EXTENSION_PNG;
+			case 'image/gif':
+				return MediaHelper::EXTENSION_GIF;
+		}
+		return false;
 	}
 	
 	/**

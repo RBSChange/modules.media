@@ -6,18 +6,7 @@ class media_BlockFlashAction extends website_BlockAction
 	 */
 	public function getCacheDependencies()
 	{
-		return array("modules_media/media");
-	}
-
-	/**
-	 * @param website_BlockActionRequest $request
-	 * @return Array
-	 */
-	public function getCacheKeyParameters($request)
-	{
-		$keys = array($this->findParameterValue(K::COMPONENT_ID_ACCESSOR), $this->findParameterValue('transparent'));
-		$keys['lang'] = $this->getLang();
-		return $keys;
+		return array($this->getDocumentIdParameter());
 	}
 
 	/**

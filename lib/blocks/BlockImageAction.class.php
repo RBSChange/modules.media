@@ -6,30 +6,13 @@ class media_BlockImageAction extends website_BlockAction
 	 */	
 	public function getCacheDependencies()
 	{
-		$deps = array($this->findParameterValue("cmpref"));
+		$deps = array($this->getDocumentIdParameter());
 		$docUrlId = $this->getConfiguration()->getDocumentUrlId();
 		if (f_util_StringUtils::isNotEmpty($docUrlId))
 		{
 			$deps[] = $docUrlId;
 		}
 		return $deps;
-	}
-	
-	/**
-	 * @param website_BlockActionRequest $request
-	 * @return Array
-	 */
-	public function getCacheKeyParameters($request)
-	{
-		$keys = array('cmpref' => $this->findParameterValue("cmpref"));
-		$cfg = $this->getConfiguration();
-		$params = array("format", "customWidth", "customHeight", "zoom", "url", "documenturl");
-		foreach ($params as $paramName)
-		{
-			$keys[$paramName] = $cfg->getConfigurationParameter($paramName);
-		}
-	    $keys['lang'] = $this->getLang();
-		return $keys;
 	}
 
 	/**

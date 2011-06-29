@@ -5,7 +5,8 @@
 	</block>
 	
 	<block type="modules_media_image" hidden="true" 
-		 label="&amp;modules.media.bo.blocks.Image;">
+		 label="&amp;modules.media.bo.blocks.Image;"
+		 cache="true" cache-key="cmpref">
 		<parameters>
 			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
 			<parameter name="customWidth" type="String" />
@@ -53,14 +54,15 @@
 		</xul>
 	</block>
 	
-	<block type="modules_media_flash" hidden="true" 
-		 label="&amp;modules.media.bo.blocks.Flash;">
+	<block type="modules_media_flash" hidden="true" label="&amp;modules.media.bo.blocks.Flash;"
+		cache="true" cache-key="cmpref">
 		<parameters>
 			<parameter name="transparent" type="Boolean" default-value="true" />
 		</parameters>
 	</block>
 	
-	<block type="modules_media_imageList" label="&amp;modules.media.bo.blocks.ImageList;" icon="list-block">
+	<block type="modules_media_imageList" label="&amp;modules.media.bo.blocks.ImageList;" icon="list-block"
+		cache="true" cache-key="cmpref" cache-deps="[modules_media/media]">
 		<parameters>
 			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
 			

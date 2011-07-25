@@ -1,6 +1,6 @@
 <?php
 
-class PHPTAL_Php_Attribute_CHANGE_gauge extends ChangeTalAttribute 
+class PHPTAL_Php_Attribute_CHANGE_Gauge extends ChangeTalAttribute 
 {
 
 	/**
@@ -18,7 +18,7 @@ class PHPTAL_Php_Attribute_CHANGE_gauge extends ChangeTalAttribute
 			'imageExtension' => '.png', 
 			'maxScore' => 5, 
 			'baseClass' => 'solrsearch-results-',
-			'baseLocalKey' => 'modules.media.frontoffice.Gauge-search-5-');
+			'baseLocalKey' => 'm.media.frontoffice.gauge-search-5-');
 	}
 	
 	protected function getEvaluatedParameters()
@@ -42,7 +42,7 @@ class PHPTAL_Php_Attribute_CHANGE_gauge extends ChangeTalAttribute
 		}
 		else
 		{
-			$attributes['alt'] = f_Locale::translate('&' . $params['baseLocalKey'] . $value . ";");
+			$attributes['alt'] = LocaleService::getInstance()->transFO($params['baseLocalKey'] . $value, array('ucf'));
 		}
 		
 		$attributes['title'] = $attributes['alt'];

@@ -18,12 +18,15 @@
  * @example PATH : http://www.rbschange.fr/media/frontoffice/logo.png
  * @package phptal.php.attribute
  */
-class PHPTAL_Php_Attribute_CHANGE_img extends PHPTAL_Php_Attribute
+class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 {
 	
-	public function start()
-	{
-		switch (strtolower($this->tag->name))
+    /**
+     * Called before element printing.
+     */
+    public function before(PHPTAL_Php_CodeWriter $codewriter)
+    {
+        switch (strtolower($this->phpelement->getLocalName()))
 		{
 			case 'img' :
 			case 'input' :
@@ -35,9 +38,18 @@ class PHPTAL_Php_Attribute_CHANGE_img extends PHPTAL_Php_Attribute
 				$attribute = 'image';
 				break;
 		}
-		$this->tag->attributes[$attribute] = '<?php echo PHPTAL_Php_Attribute_CHANGE_img::renderImg(\'' . $this->expression . '\') ?>';
-	}
-	
+		$attr = $this->phpelement->getOrCreateAttributeNode($attribute);
+		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $this->expression . '\') ?>');
+    }
+
+    /**
+     * Called after element printing.
+     */
+    public function after(PHPTAL_Php_CodeWriter $codewriter)
+    {
+       //NOTHING
+    }
+    	
 	/**
 	 * @param array $params
 	 * @return String
@@ -49,9 +61,5 @@ class PHPTAL_Php_Attribute_CHANGE_img extends PHPTAL_Php_Attribute
 			return $url;
 		}
 		return  MediaHelper::getStaticUrl($url);	
-	}
-	
-	public function end()
-	{
 	}
 }

@@ -10,10 +10,5 @@ class media_PHPTAL_CHANGE
         $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('media', 32));  	
         $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('img', 32));
         $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('gauge', 32));
-        
-        //Deprecated
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('icon', 31));
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('image', 32));
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('webappimage', 32));
 	}
 }

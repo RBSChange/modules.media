@@ -1,5 +1,5 @@
 <?php
-class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
+class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 {
 	const LOCALE_PATH =  '&modules.media.download.';
 
@@ -31,7 +31,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 
 		$this->tag->generator->doSetVar('$media', $media);
 		$this->tag->generator->doSetVar('$class', $class);
-		$this->tag->generator->doEcho('PHPTAL_Php_Attribute_CHANGE_download::render($media, $class)');
+		$this->tag->generator->doEcho('PHPTAL_Php_Attribute_CHANGE_Download::render($media, $class)');
 	}
 
 	public function end()

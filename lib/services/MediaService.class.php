@@ -307,7 +307,7 @@ class media_MediaService extends media_FileService
 				$nodeAttributes['actualtype'] = 'modules_media_pdf';
 				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($document, null, true);
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
@@ -316,7 +316,7 @@ class media_MediaService extends media_FileService
 				$nodeAttributes['actualtype'] = 'modules_media_doc';
 				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($document, null, true);
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				break;
@@ -356,7 +356,7 @@ class media_MediaService extends media_FileService
 			default:
 				if ($treeType == 'wmultilist')
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_download::render($document, null, true);
+					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
 				}
 				break;
 		}

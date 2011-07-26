@@ -1,11 +1,14 @@
 <?php
 class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 {
-	const LOCALE_PATH =  '&modules.media.download.';
+	const LOCALE_PATH =  'm.media.download.';
 
-	public function start()
-	{
-		$expressions = $this->tag->generator->splitExpression($this->expression);
+	/**
+     * Called before element printing.
+     */
+    public function before(PHPTAL_Php_CodeWriter $codewriter)
+    {
+		$expressions = $codewriter->splitExpression($this->expression);
 		$media = 'null';
 		$class = 'null';
 		// foreach attribute
@@ -15,27 +18,27 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 			switch ($attribute)
 			{
 				case 'class':
-					$class = '"'.$this->evaluate($value, true).'"';
+					$class = $codewriter->evaluateExpression($value);
 					break;
 				case 'document':
-					$media = $this->evaluate($value, true);
+					$media = $codewriter->evaluateExpression($value);
 					break;
 				default:
 					if ($media == 'null' && is_null($value) && !is_null($attribute))
 					{
-						$media = $this->evaluate($attribute, true);
+						$media = $codewriter->evaluateExpression($attribute);
 					}
 					break;
 			}
 		}
-
-		$this->tag->generator->doSetVar('$media', $media);
-		$this->tag->generator->doSetVar('$class', $class);
-		$this->tag->generator->doEcho('PHPTAL_Php_Attribute_CHANGE_Download::render($media, $class)');
+		$codewriter->doEchoRaw('PHPTAL_Php_Attribute_CHANGE_Download::render('.$media.', '.$class.')');
 	}
-
-	public function end()
-	{
+	
+    /**
+     * Called after element printing.
+     */
+    public function after(PHPTAL_Php_CodeWriter $codewriter)
+    {
 	}
 	
 	/**
@@ -120,8 +123,9 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 				$size = $size / 1024;
 				$i++;
 			}
-			$res = sprintf("%.2f", $size).' <acronym title="'.f_Locale::translate(self::LOCALE_PATH . ucfirst($iec[$i]) .'-long;').'">';
-			$res .= f_Locale::translate(self::LOCALE_PATH .ucfirst($iec[$i]).'-acronym;');
+			$ls = LocaleService::getInstance();
+			$res = sprintf("%.2f", $size).' <acronym title="'.$ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]) .'-long', array('ucf','attr')).'">';
+			$res .= $ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]).'-acronym', array('ucf','attr'));
 			$res .= '</acronym>';
 			return $res;
 		}
@@ -141,7 +145,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		}
 		$lang = self::getLang($media);
 		$title = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
-		$alt = f_Locale::translate(self::LOCALE_PATH.'Download;') . ' ' . htmlspecialchars(strip_tags($title));
+		$alt = LocaleService::getInstance()->transFO(self::LOCALE_PATH.'download', array('ucf', 'attr')) . ' ' . htmlspecialchars(strip_tags($title));
 		$html = '<a';
 		
 		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');

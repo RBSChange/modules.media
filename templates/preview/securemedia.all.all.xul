@@ -1,6 +1,6 @@
 <tabbox flex="1">
 	<tabs>
-		<tab i18n:attributes="label &amp;modules.generic.backoffice.General;" />
+		<tab label="${trans:m.generic.backoffice.general,ucf,attr}" />
 	</tabs>
 	<tabpanels flex="1">
 		<tabpanel flex="1">
@@ -11,39 +11,39 @@
 				</columns>
 				<rows>
 					<row>
-						<label value="Label" i18n:attributes="value &amp;modules.media.bo.preview.LabelLabel;"/>
+						<label value="${trans:m.media.bo.preview.label,ucf,lab,attr}"/>
 						<description tal:content="document/attributes/label" />
 					</row>
 					<row tal:condition="document/attributes/title">
-						<label value="Title" i18n:attributes="value &amp;modules.media.bo.preview.TitleLabel;"/>
+						<label value="${trans:m.media.bo.preview.title,ucf,lab,attr}"/>
 						<description tal:content="document/attributes/title" />
 					</row>
 					<row tal:condition="document/attributes/description">
-						<label value="Description" i18n:attributes="value &amp;modules.media.bo.preview.DescriptionLabel;"/>
+						<label value="${trans:m.media.bo.preview.description,ucf,lab,attr}"/>
 						<description tal:content="document/attributes/description" />
 					</row>
 					<row tal:condition="document/attributes/credit">
-						<label value="Credit" i18n:attributes="value &amp;modules.media.bo.preview.CreditLabel;"/>
+						<label value="${trans:m.media.bo.preview.credit,ucf,lab,attr}"/>
 						<description tal:content="document/attributes/credit" />
 					</row>
 					<row tal:condition="document/extra_attributes/extension">
-						<label value="Type" i18n:attributes="value &amp;modules.media.bo.preview.TypeLabel;"/>
+						<label value="${trans:m.media.bo.preview.type,ucf,lab,attr}"/>
 						<description tal:content="document/extra_attributes/extension" />
 					</row>
 					<row tal:condition="document/extra_attributes/width">
-						<label value="Type" i18n:attributes="value &amp;modules.media.bo.preview.WidthLabel;"/>
+						<label value="${trans:m.media.bo.preview.width,ucf,lab,attr}"/>
 						<description tal:content="document/extra_attributes/width" />
 					</row>
 					<row tal:condition="document/extra_attributes/height">
-						<label value="Media type" i18n:attributes="value &amp;modules.media.bo.preview.HeightLabel;"/>
+						<label value="${trans:m.media.bo.preview.height,ucf,lab,attr}"/>
 						<description tal:content="document/extra_attributes/height" />
 					</row>
 					<row tal:condition="document/extra_attributes/size">
-						<label value="Media type" i18n:attributes="value &amp;modules.media.bo.preview.SizeLabel;"/>
+						<label value="${trans:m.media.bo.preview.size,ucf,lab,attr}"/>
 						<description tal:content="document/extra_attributes/size" />
 					</row>
 					<row>
-						<label i18n:attributes="value &amp;modules.media.bo.preview.DownloadLabel;" />
+						<label value="${trans:m.media.bo.preview.download,ucf,lab,attr}" />
 						<label tal:content="document/extra_attributes/url" class="text-link" onclick="window.open('${document/extra_attributes/url}')" />
 					</row>
 				</rows>

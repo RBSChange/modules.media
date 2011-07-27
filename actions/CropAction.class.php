@@ -12,7 +12,7 @@ class media_CropAction extends f_action_BaseJSONAction
 		{
 			return $this->sendJSONError('Media not found', false);
 		}
-		$filePath = MediaHelper::getOriginalPath($media);
+		$filePath = $media->getDocumentService()->getOriginalPath($media);
 		$extension = f_util_FileUtils::getFileExtension($filePath);
 		$sourceImage = null;
 		switch (strtolower($extension))

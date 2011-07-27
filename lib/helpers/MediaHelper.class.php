@@ -103,63 +103,6 @@ class MediaHelper
 	}
 
 	/**
-	 * @deprecated use media_FileService::getInstance()->getRelativeFolder()
-	 * @param Integer $id
-	 * @param String lang, default RequestContext lang
-	 * @return String
-	 */
-	private static function getMediaFolder($id, $lang)
-	{
-		return media_FileService::getInstance()->getRelativeFolder($id, $lang);
-	}
-
-	/**
-	 * Return the document's original file path.
-	 *
-	 * @deprecated use $document->getDocumentService()->getOriginalPath()
-	 * @param media_persistentdocument_media $document
-	 * @param boolean $mustExist
-	 * @return string
-	 */
-	public static function getOriginalPath($document, $mustExist = false)
-	{
-		return $document->getDocumentService()->getOriginalPath($document, $mustExist);
-	}
-
-	/**
-	 * @deprecated use $document->getDocumentService()->getOriginalFolder()
-	 * @param media_persistentdocument_media $document
-	 * @return string the folder that contains the files of the media, ending with '/'
-	 */
-	public static function getOriginalFolder($document)
-	{
-		return $document->getDocumentService()->getOriginalFolder($document);
-	}
-
-	/**
-	 * @deprecated use $document->getDocumentService()->getOriginalPath()
-	 *
-	 * @param Integer $documentId
-	 * @param Boolean $mustExist
-	 * @return string
-	 */
-	public static function getOriginalPathById($documentId, $mustExist = false)
-	{
-		$document = DocumentHelper::getDocumentInstance($documentId);
-		return $document->getDocumentService()->getOriginalPath($document, $mustExist);
-	}
-
-	/**
-	 * @deprecated use LinkHelper::getDocumentUrl($media)
-	 * @param media_persistentdocument_media $media
-	 * @return string
-	 */
-	public static function getPublicUrl($media)
-	{
-		return LinkHelper::getDocumentUrl($media);
-	}
-
-	/**
 	 * @param media_persistentdocument_media $media
 	 * @param integer $width
 	 * @param integer $height
@@ -167,7 +110,7 @@ class MediaHelper
 	 */
 	public static function getPublicResizedUrl($media, $width, $height)
 	{
-		$fileName = self::getOriginalPath($media);
+		$fileName = $media->getDocumentService()->getOriginalPath($media, true);
 		if ($width && $height)
 		{
 			$format = array('max-width' => $width, 'max-height' => $height);
@@ -543,7 +486,8 @@ class MediaHelper
 
 		if (isset($parameters['document']))
 		{
-			return self::getOriginalPath($parameters['document'], true);
+			$media = $parameters['document'];
+			return $media->getDocumentService()->getOriginalPath($media);
 		}
 		else if (!isset($parameters['cmpref']))
 		{
@@ -1468,30 +1412,6 @@ class MediaHelper
 		}
 
 		return $parameters;
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public static function getStaticImage($filename, $contentType = null)
-	{
-		return self::getStaticUrl($filename, $contentType);
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public static function getFrontofficeStaticImage($filename, $contentType = null)
-	{
-		return self::getFrontofficeStaticUrl($filename, $contentType);
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public static function getBackofficeStaticImage($filename, $contentType = null)
-	{
-		return self::getBackofficeStaticUrl($filename, $contentType);
 	}
 
 	/**

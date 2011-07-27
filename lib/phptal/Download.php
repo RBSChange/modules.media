@@ -77,7 +77,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		    $filename = $media->getVoFilename();
 		}
 
-		$path = MediaHelper::getOriginalPath($media, true);
+		$path = $media->getDocumentService()->getOriginalPath($media, true);
 		$type = $media->getMediatype();
 		
 		// #7824 - intcours - display extension for "unknown" files :

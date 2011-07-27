@@ -128,7 +128,8 @@ class media_DisplayAction extends f_action_BaseAction
 		{
 			try
 			{
-				return MediaHelper::getOriginalPathById($mediaId, true);
+				$media = DocumentHelper::getDocumentInstance($mediaId);
+				return $media->getDocumentService()->getOriginalPath($media);
 			}
 			catch (Exception $e)
 			{

@@ -3,7 +3,7 @@
  * media_persistentdocument_media
  * @package modules.media
  */
-class media_persistentdocument_media extends media_persistentdocument_mediabase implements indexer_IndexableDocument
+class media_persistentdocument_media extends media_persistentdocument_mediabase
 {
 	/**
 	 * @see media_persistentdocument_mediabase::getBackofficeIndexedDocument()
@@ -47,22 +47,5 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 	public function setI18ntmpfile($val)
 	{
 		$this->setTmpfile($val);
-	}
-
-	// Deprecated
-	
-	/**
-	 * @deprecated (will be removed in 4.0) no front indexation on medias. 
-	 */
-	public function getIndexedDocument()
-	{
-		$indexedDoc = new indexer_IndexedDocument();
-		$indexedDoc->setId($this->getId());
-		$indexedDoc->setDocumentModel('modules_media/media');
-		$indexedDoc->setLabel($this->getLabel());
-		$indexedDoc->setLang(RequestContext::getInstance()->getLang());
-		$indexedDoc->setText($this->getTextForIndexer());
-		$indexedDoc->setStringField('mediaType', $this->getMediatype());
-		return $indexedDoc;
 	}
 }

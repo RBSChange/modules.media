@@ -1183,7 +1183,7 @@ class MediaHelper
 		f_util_FileUtils::mkdir(dirname($cacheFile));
 		if (!file_exists($cacheFile))
 		{
-			$formats = StyleService::getInstance()->getImageFormats($stylesheet);
+			$formats = website_StyleService::getInstance()->getImageFormats($stylesheet);
 			if (isset($formats[$formatName]))
 			{
 				$format = $formats[$formatName];

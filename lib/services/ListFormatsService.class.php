@@ -29,7 +29,7 @@ class media_ListFormatsService extends BaseService implements list_ListItemsServ
 	public function getItems()
 	{
 		$items = array();
-		$formats = StyleService::getInstance()->getImageFormats('modules.media.frontoffice');
+		$formats = website_StyleService::getInstance()->getImageFormats('modules.media.frontoffice');
 		foreach (array_keys($formats) as $formatName)
 		{
 			$items[] = new list_Item(f_Locale::translateUI('&modules.media.bo.general.format.' . ucfirst($formatName) .';'), 'modules.media.frontoffice/' . $formatName);

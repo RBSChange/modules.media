@@ -290,7 +290,7 @@ class media_MediaService extends media_FileService
 					$lang = RequestContext::getInstance()->getLang();
 					$alt = htmlspecialchars($document->getTitle(), ENT_COMPAT, 'UTF-8');
 					$src = MediaHelper::getUrl($document, K::XUL);
-					$nodeAttributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $document->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" />';
+					$nodeAttributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $document->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" usemediaalt="true" />';
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
 				if ($treeType == 'wlist')

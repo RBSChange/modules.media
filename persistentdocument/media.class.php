@@ -46,7 +46,7 @@ class media_persistentdocument_media extends media_persistentdocument_mediabase 
 					$lang = RequestContext::getInstance()->getLang();
 					$alt = htmlspecialchars($this->getTitle(), ENT_COMPAT, 'UTF-8');
 					$src = MediaHelper::getUrl($this, K::XUL);
-					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = '<img class="image" src="' . $src . '" cmpref="' . $this->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" />';
+					$nodeAttributes[f_tree_parser_AttributesBuilder::HTMLLINK_ATTRIBUTE] = '<img class="image" src="' . $src . '" cmpref="' . $this->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" usemediaalt="true" />';
 					$nodeAttributes[f_tree_parser_AttributesBuilder::BLOCK_ATTRIBUTE] = $nodeAttributes['actualtype'];
 				}
 				if ($treeType == 'wlist')

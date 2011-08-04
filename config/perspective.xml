@@ -15,8 +15,8 @@
 			</drops>
 			<styles properties="actualtype" />
 			<columns>
-				<column name="title" label="Title" flex="2" />
-				<column name="countreferences" label="Countreferences" flex="1" />
+				<column name="title" flex="2" />
+				<column name="countreferences" flex="1" />
 			</columns>
 			<contextactions>
 				<contextaction name="edit" />
@@ -36,8 +36,8 @@
 			</children>
 			<styles properties="actualtype" />
 			<columns>
-				<column name="title" label="Title" flex="2" />
-				<column name="countreferences" label="Countreferences" flex="1" />
+				<column name="title" flex="2" />
+				<column name="countreferences" flex="1" />
 			</columns>
 			<contextactions>
 				<contextaction name="openFolder" />
@@ -51,8 +51,8 @@
 			</children>
 			<styles properties="actualtype" />
 			<columns>
-				<column name="title" label="Title" flex="2" />
-				<column name="countreferences" label="Countreferences" flex="1" />
+				<column name="title" flex="2" />
+				<column name="countreferences" flex="1" />
 			</columns>
 			<drops>
 				<drop model="modules_media/media" action="move" />

@@ -2,11 +2,11 @@
 /**
  * @package modules.media
  */
-class media_GenerateFormatedAction extends f_action_BaseAction
+class media_GenerateFormatedAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
     {
@@ -33,7 +33,7 @@ class media_GenerateFormatedAction extends f_action_BaseAction
         	Framework::exception($e);
         	f_web_http_Header::setStatus(404);
         }
-        return View::NONE;
+        return change_View::NONE;
     }
 
     public function isSecure()
@@ -43,6 +43,6 @@ class media_GenerateFormatedAction extends f_action_BaseAction
 
     public function getRequestMethods ()
     {
-        return Request::GET;
+        return change_Request::GET;
     }
 }

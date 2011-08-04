@@ -3,11 +3,11 @@
  * media_ViewDetailAction
  * @package modules.media.actions
  */
-class media_ViewDetailAction extends f_action_BaseAction
+class media_ViewDetailAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{

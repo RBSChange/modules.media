@@ -128,7 +128,7 @@ class MediaHelper
 		if ($mediaFilePath)
 		{
 			$mediaFilePath = str_replace('%', '%25', $mediaFilePath);
-			return LinkHelper::getRessourceLink('/publicmedia/'.substr($mediaFilePath, strlen(WEBEDIT_HOME.self::ROOT_MEDIA_PATH)))->getUrl();
+			return LinkHelper::getRessourceLink('/publicmedia/'.substr($mediaFilePath, strlen(PROJECT_HOME.self::ROOT_MEDIA_PATH)))->getUrl();
 		}
 		return '';
 	}
@@ -499,16 +499,16 @@ class MediaHelper
 		}
 		else
 		{
-			$filename = str_replace(WEBEDIT_HOME . self::ROOT_MEDIA_PATH, '', realpath(str_replace('//', '/', WEBEDIT_HOME . '/media/' . $parameters['cmpref'])));
-			$filename = str_replace('//', '/', WEBEDIT_HOME . self::ROOT_MEDIA_PATH . '/' . $filename);
+			$filename = str_replace(PROJECT_HOME . self::ROOT_MEDIA_PATH, '', realpath(str_replace('//', '/', PROJECT_HOME . '/media/' . $parameters['cmpref'])));
+			$filename = str_replace('//', '/', PROJECT_HOME . self::ROOT_MEDIA_PATH . '/' . $filename);
 
 			if (is_readable($filename) && is_file($filename))
 			{
 				return $filename;
 			}
 
-			$filename = str_replace(WEBEDIT_HOME . self::ROOT_MEDIA_PATH, '', realpath(str_replace('//', '/', WEBEDIT_HOME . '/' . $parameters['cmpref'])));
-			$filename = str_replace('//', '/', WEBEDIT_HOME . self::ROOT_MEDIA_PATH . '/' . $filename);
+			$filename = str_replace(PROJECT_HOME . self::ROOT_MEDIA_PATH, '', realpath(str_replace('//', '/', PROJECT_HOME . '/' . $parameters['cmpref'])));
+			$filename = str_replace('//', '/', PROJECT_HOME . self::ROOT_MEDIA_PATH . '/' . $filename);
 
 			if (is_readable($filename) && is_file($filename))
 			{

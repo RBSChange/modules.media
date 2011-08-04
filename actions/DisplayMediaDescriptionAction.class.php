@@ -5,8 +5,8 @@
 class media_DisplayMediaDescriptionAction extends media_DisplayAction
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	protected function displayMedia ($media, $context, $request)
 	{
@@ -16,6 +16,6 @@ class media_DisplayMediaDescriptionAction extends media_DisplayAction
 		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
 		$template->setAttribute("website", $website);
 		echo $template->execute();
-		return View::NONE;
+		return change_View::NONE;
 	}
 }

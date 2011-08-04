@@ -395,7 +395,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	protected function getAbsoluteFolder($id, $lang = null)
 	{
-		return WEBEDIT_HOME . '/media/original/' . $this->getRelativeFolder($id, $lang);
+		return PROJECT_HOME . '/media/original/' . $this->getRelativeFolder($id, $lang);
 	}
 	
 	/**
@@ -405,7 +405,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	protected function getFormattedAbsoluteFolder($id, $lang = null)
 	{
-		return WEBEDIT_HOME . '/media/formatted/' . $this->getRelativeFolder($id, $lang);
+		return PROJECT_HOME . '/media/formatted/' . $this->getRelativeFolder($id, $lang);
 	}
 	
 	/**
@@ -452,7 +452,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	protected function convertMediaFileNameToAbsoluteUrl($fileName)
 	{
-		$completName = substr($fileName, strlen(WEBEDIT_HOME . MediaHelper::ROOT_MEDIA_PATH));
+		$completName = substr($fileName, strlen(PROJECT_HOME . MediaHelper::ROOT_MEDIA_PATH));
 		if (strpos($completName, 'formatted/') === 0)
 		{
 			$completName = str_replace(array('&', '%26'), '_', $completName);

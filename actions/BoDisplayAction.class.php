@@ -7,8 +7,8 @@ class media_BoDisplayAction extends media_DisplayAction
 {
 	/**
 	 * @param media_persistentdocument_file $media
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 * @return Boolean true if the display is permitted (true by default)
 	 */
 	protected function hasAccess($media, $context, $request)

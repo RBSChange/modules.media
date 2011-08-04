@@ -1,9 +1,9 @@
 <?php
-class media_InitializeUsagesPanelAction extends f_action_BaseJSONAction
+class media_InitializeUsagesPanelAction extends change_JSONAction
 {
 	
 	/**
-	 * @param Request $request
+	 * @param change_Request $request
 	 * @return media_persistentdocument_file
 	 */
 	private function getFileFromRequest($request)
@@ -12,8 +12,8 @@ class media_InitializeUsagesPanelAction extends f_action_BaseJSONAction
 	}
 	
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute($context, $request)
 	{

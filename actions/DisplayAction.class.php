@@ -1,9 +1,9 @@
 <?php
-class media_DisplayAction extends f_action_BaseAction
+class media_DisplayAction extends change_Action
 {
 	/**
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 */
 	public function _execute ($context, $request)
 	{
@@ -22,7 +22,7 @@ class media_DisplayAction extends f_action_BaseAction
 			//Invalid Media
         	Framework::exception($e);
         	f_web_http_Header::setStatus(404);
-			return View::NONE;
+			return change_View::NONE;
 		}
 		
 		if (!$this->hasAccess($media, $context, $request))
@@ -31,7 +31,7 @@ class media_DisplayAction extends f_action_BaseAction
 			$user = $context->getUser();
 			$user->setAttribute('illegalAccessPage', $_SERVER["REQUEST_URI"]);
 			$controller->forward('website', 'Error401');
-			return View::NONE;
+			return change_View::NONE;
 		}
 
 		return $this->displayMedia($media, $context, $request);
@@ -39,7 +39,7 @@ class media_DisplayAction extends f_action_BaseAction
 	
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @param Context $context
+	 * @param change_Context $context
 	 * @param Request$request
 	 * @return String
 	 */
@@ -55,7 +55,7 @@ class media_DisplayAction extends f_action_BaseAction
 		{
 			$controller = $context->getController();
 			$controller->forward('website', 'Error404');
-			return View::NONE;
+			return change_View::NONE;
 		}
 
 		if (!$request->hasParameter(MediaHelper::FORCEDOWNLOAD_ATTRIBUTE) && function_exists('apache_request_headers'))
@@ -68,7 +68,7 @@ class media_DisplayAction extends f_action_BaseAction
 				{
 					header('HTTP/1.1 304 Not Modified');
 					$this->dispatchDownloadEvent($media);
-					return View::NONE;
+					return change_View::NONE;
 				}
 			}
 		}
@@ -119,7 +119,7 @@ class media_DisplayAction extends f_action_BaseAction
 
 		media_FormatterHelper::outputFile($filename, $media, $format, $request->hasParameter(MediaHelper::TRANSIENT_ATTRIBUTE), $request->hasParameter(MediaHelper::FORCEDOWNLOAD_ATTRIBUTE));
 		$this->dispatchDownloadEvent($media);
-		return View::NONE;
+		return change_View::NONE;
 	}
 
 	protected function getFilename ($mediaId)
@@ -152,8 +152,8 @@ class media_DisplayAction extends f_action_BaseAction
 
 	/**
 	 * @param media_persistentdocument_file $media
-	 * @param Context $context
-	 * @param Request $request
+	 * @param change_Context $context
+	 * @param change_Request $request
 	 * @return Boolean true if the display is permitted (true by default)
 	 */
 	protected function hasAccess($media, $context, $request)
@@ -168,6 +168,6 @@ class media_DisplayAction extends f_action_BaseAction
 
 	public function getRequestMethods()
 	{
-		return Request::GET | Request::POST;
+		return change_Request::GET | change_Request::POST;
 	}
 }

@@ -36,7 +36,7 @@ class media_SecuremediaService extends media_MediaService
 	 */
 	protected function getAbsoluteFolder($id, $lang = null)
 	{
-		return WEBEDIT_HOME.'/securemedia/original/'.$this->getRelativeFolder($id, $lang);
+		return PROJECT_HOME.'/securemedia/original/'.$this->getRelativeFolder($id, $lang);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class media_SecuremediaService extends media_MediaService
 	 */
 	protected function getFormattedAbsoluteFolder($id, $lang = null)
 	{
-		return WEBEDIT_HOME.'/securemedia/formatted/'.$this->getRelativeFolder($id, $lang);
+		return PROJECT_HOME.'/securemedia/formatted/'.$this->getRelativeFolder($id, $lang);
 	}
 
 	

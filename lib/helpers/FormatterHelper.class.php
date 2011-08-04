@@ -11,7 +11,7 @@ class media_FormatterHelper
 		$mediaId = 0;
 		$format = array();
 		$lang = '';
-		$formattedFileName = WEBEDIT_HOME . MediaHelper::FORMATTED_PATH . $encodedformat;
+		$formattedFileName = PROJECT_HOME . MediaHelper::FORMATTED_PATH . $encodedformat;
 		
 		self::decodeFormat($encodedformat, $mediaId, $lang, $format);
 		try

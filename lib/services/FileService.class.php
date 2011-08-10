@@ -474,6 +474,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 		{
 			f_util_ProcessUtils::printBackTrace();
 		}
+		
 		$documentId = $document->getId();
 		$fileName = $document->getFilenameForLang($lang);
 		if (empty($fileName))
@@ -481,9 +482,18 @@ class media_FileService extends f_persistentdocument_DocumentService
 			$fileName = $document->getVoFilename();
 			$lang = $document->getLang();
 		}
+		
+		if (isset($parameters['download']))
+		{
+			unset($parameters['download']);
+			$parameters['lang'] = $lang;
+			$parameters['cmpref'] = $documentId;
+			return $urlRewritingService->getActionLinkForWebsite('media', 'Display', $website, $lang, $parameters);
+		}
+		
 		$protocol = RequestContext::getInstance()->getProtocol();
 		$host = $this->getHostForDocumentId($documentId, $lang);
-					
+			
 		$formatKey = media_FormatterHelper::getFormatKey($parameters);
 		if ($formatKey !== null)
 		{
@@ -564,14 +574,8 @@ class media_FileService extends f_persistentdocument_DocumentService
 	public final function generateDownloadUrl($document, $lang = null, $parameters = array())
 	{
 		$lang = ($lang == null) ? RequestContext::getInstance()->getLang() : $lang;
-		$url = website_UrlRewritingService::getInstance()->getDocumentUrl($document, $lang, $parameters);
-		if ($url !== null)
-		{
-			return $url;
-		}			
-		$parameters['lang'] = $lang;
-		$parameters['cmpref'] = $document->getId();
-		return LinkHelper::getActionUrl('media', 'Display', $parameters);
+		$parameters['download'] = true;
+		return website_UrlRewritingService::getInstance()->getDocumentUrl($document, $lang, $parameters);
 	}
 	
 	/**

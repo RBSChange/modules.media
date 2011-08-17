@@ -255,7 +255,7 @@ class MediaHelper
 			case self::TYPE_FLASH:
 				$templateComponent = TemplateLoader::getInstance()
 				->setpackagename('modules_media')
-				->setMimeContentType(K::HTML)
+				->setMimeContentType('html')
 				->load('Media-Block-Flash-Success');
 				$parameters['id'] = 'media-' . $parameters['id'];
 				if ($document->getDescriptionForLang($urlLang))
@@ -284,7 +284,7 @@ class MediaHelper
 				break;
 				 
 			case self::TYPE_IMAGE:
-				$xulContent = isset($parameters['contentType']) && $parameters['contentType'] == K::XUL;
+				$xulContent = isset($parameters['contentType']) && $parameters['contentType'] == 'xul';
 				$content  = ($xulContent) ? '<image' : '<img';
 				$content .= ' src="' . htmlspecialchars($parameters['url'], ENT_COMPAT, 'UTF-8') . '"';
 				$content .= ' lang="' . $parameters['lang'] .'"';
@@ -350,7 +350,7 @@ class MediaHelper
 
 				if ($document->getDescriptionForLang($urlLang))
 				{
-					$attributes['longdesc'] = LinkHelper::getActionUrl("media", "DisplayMediaDescription", array(K::COMPONENT_ID_ACCESSOR => $document->getId(), "label" => $document->getLabelForLang($urlLang), "lang" => $parameters["lang"]));
+					$attributes['longdesc'] = LinkHelper::getActionUrl("media", "DisplayMediaDescription", array(change_Request::DOCUMENT_ID => $document->getId(), "label" => $document->getLabelForLang($urlLang), "lang" => $parameters["lang"]));
 				}
 
 				foreach ($attributes as $name => $value)
@@ -556,7 +556,7 @@ class MediaHelper
 			return null;
 		}
 
-		if ($parameters['contentType'] == K::HTML)
+		if ($parameters['contentType'] == 'html')
 		{
 			$document = $parameters['document'];
 			if (isset($parameters['format']))
@@ -1286,7 +1286,7 @@ class MediaHelper
 		'height' => null,
 		'format' => null,
 		'alt' => null,
-		'contentType' => K::HTML,
+		'contentType' => 'html',
 		'attributes' => array()
 		);
 
@@ -1325,7 +1325,7 @@ class MediaHelper
 				{
 					$parameters['format'] = $args[1];
 				}
-				else if (($args[1] == K::HTML) || ($args[1] == K::XUL) || ($args[1] == K::XML))
+				else if (($args[1] == 'html') || ($args[1] == 'xul') || ($args[1] == 'xml'))
 				{
 					$parameters['contentType'] = $args[1];
 				}
@@ -1360,7 +1360,7 @@ class MediaHelper
 					{
 						$parameters['format'] = $args[$i];
 					}
-					else if (($args[$i] == K::HTML) || ($args[$i] == K::XUL) || ($args[$i] == K::XML))
+					else if (($args[$i] == 'html') || ($args[$i] == 'xul') || ($args[$i] == 'xml'))
 					{
 						$parameters['contentType'] = $args[$i];
 					}

@@ -7,10 +7,10 @@ class media_DisplayAction extends change_Action
 	 */
 	public function _execute ($context, $request)
 	{
-		$mediaId = $request->getParameter(K::COMPONENT_ID_ACCESSOR);
+		$mediaId = $request->getParameter(change_Request::DOCUMENT_ID);
 		if ($mediaId === null)
 		{
-			$mediaId = $request->getModuleParameter('media', K::COMPONENT_ID_ACCESSOR);
+			$mediaId = $request->getModuleParameter('media', change_Request::DOCUMENT_ID);
 		}
 		
 		try 

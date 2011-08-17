@@ -15,7 +15,7 @@ class media_BlockMediaAction extends website_BlockAction
 	 */
 	public function getCacheKeyParameters($request)
 	{
-	    $keys = array($this->findParameterValue(K::COMPONENT_ID_ACCESSOR));
+	    $keys = array($this->findParameterValue(change_Request::DOCUMENT_ID));
 	    $keys['lang'] = $this->getLang();
 		return $keys;
 	}

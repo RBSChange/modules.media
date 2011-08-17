@@ -289,7 +289,7 @@ class media_MediaService extends media_FileService
 				{
 					$lang = RequestContext::getInstance()->getLang();
 					$alt = htmlspecialchars($document->getTitle(), ENT_COMPAT, 'UTF-8');
-					$src = MediaHelper::getUrl($document, K::XUL);
+					$src = MediaHelper::getUrl($document, 'xul');
 					$nodeAttributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $document->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" usemediaalt="true" />';
 					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
 				}
@@ -413,7 +413,7 @@ class media_MediaService extends media_FileService
 			$attributes['description'] = $document->getDescriptionAsHtml();
 		}
 
-		$templateComponent = TemplateLoader::getInstance()->setpackagename('modules_media')->setMimeContentType(K::HTML)->load('Media-Block-Flash-Success');
+		$templateComponent = TemplateLoader::getInstance()->setpackagename('modules_media')->setMimeContentType('html')->load('Media-Block-Flash-Success');
 		$templateComponent->setAttribute('medias', array($attributes));
 		$content = $templateComponent->execute();
 		return $content;

@@ -234,18 +234,17 @@ class media_ResizerFormatter
 	{
 		if (self::$instance === null)
 		{
-			$originalClass = get_class();
-			$finalClassName = Injection::getFinalClassName($originalClass);
-			if ($originalClass === $finalClassName)
+			if (extension_loaded('imagick'))
 			{
-				if (extension_loaded('imagick'))
-				{
 					$finalClassName = 'media_ImagickResizerFormatter';
-				}
-				else if (extension_loaded('gd'))
-				{
+			}
+			else if (extension_loaded('gd'))
+			{
 					$finalClassName = 'media_GDResizerFormatter';
-				}
+			}
+			else
+			{
+				$finalClassName = get_class();
 			}
 			self::$instance = new $finalClassName();
 		}

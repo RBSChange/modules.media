@@ -16,7 +16,7 @@ class media_SecuremediaService extends media_MediaService
 	{
 		if (self::$instance === null)
 		{
-			self::$instance = self::getServiceClassInstance(get_class());
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
@@ -99,7 +99,7 @@ class media_SecuremediaService extends media_MediaService
 	 */
 	public function hasBoAccess($media)
 	{
-		$ps = f_permission_PermissionService::getInstance();
+		$ps = change_PermissionService::getInstance();
 
 		$user = users_UserService::getInstance()->getCurrentBackEndUser();
 		if ($user === null)

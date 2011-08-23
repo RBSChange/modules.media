@@ -28,8 +28,7 @@ class media_DisplayAction extends change_Action
 		if (!$this->hasAccess($media, $context, $request))
 		{
 			$controller = $context->getController();
-			$user = $context->getUser();
-			$user->setAttribute('illegalAccessPage', $_SERVER["REQUEST_URI"]);
+			$controller->getStorage()->write('users_illegalAccessPage', $_SERVER["REQUEST_URI"]);
 			$controller->forward('website', 'Error401');
 			return change_View::NONE;
 		}

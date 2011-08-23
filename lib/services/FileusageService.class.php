@@ -22,7 +22,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 	{
 		if (self::$instance === null)
 		{
-			self::$instance = self::getServiceClassInstance(get_class());
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}

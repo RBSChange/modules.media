@@ -16,7 +16,7 @@ class media_DisplaySecuremediaDefaultStrategy extends media_DisplaySecuremediaSt
 			Framework::debug(__METHOD__ . ' : ' . $media->__toString());
 		}
 		
-		$ps = f_permission_PermissionService::getInstance();
+		$ps = change_PermissionService::getInstance();
 		
 		$user = users_UserService::getInstance()->getCurrentFrontEndUser();
 		if ($user === null)

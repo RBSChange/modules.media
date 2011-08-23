@@ -16,7 +16,7 @@ class media_ListFormatsService extends BaseService implements list_ListItemsServ
 	{
 		if (self::$instance === null)
 		{
-			self::$instance = self::getServiceClassInstance(get_class());
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}

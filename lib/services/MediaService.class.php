@@ -160,14 +160,8 @@ class media_MediaService extends media_FileService
 		{
 			Framework::error(__METHOD__ . ': ' . $e->getMessage());
 		}
-
-		// always append title, description and credit
-		$textValue = $media->getTitle() . "\n" . $media->getDescription() . "\n" . $media->getCredit();
-		if ($extractedText !== null)
-		{
-			$textValue .= "\n".$extractedText;
-		}
-		return $textValue;
+		
+		return $extractedText;
 	}
 
 	/**
@@ -417,5 +411,15 @@ class media_MediaService extends media_FileService
 		$templateComponent->setAttribute('medias', array($attributes));
 		$content = $templateComponent->execute();
 		return $content;
+	}
+	
+	/**
+	 * @param indexer_IndexedDocument $indexedDocument
+	 * @param media_persistentdocument_media $document
+	 * @param indexer_IndexService $indexService
+	 */
+	protected function updateIndexDocument($indexedDocument, $document, $indexService)
+	{
+		$indexedDocument->addAggregateText($this->getTextForIndexer($document));
 	}
 }

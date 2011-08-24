@@ -6,25 +6,6 @@
 class media_persistentdocument_media extends media_persistentdocument_mediabase
 {
 	/**
-	 * @see media_persistentdocument_mediabase::getBackofficeIndexedDocument()
-	 * @return indexer_IndexedDocument
-	 */
-	public function getBackofficeIndexedDocument()
-	{
-		$indexedDoc = parent::getBackofficeIndexedDocument();
-		$indexedDoc->setText($indexedDoc->getText() . "\n" . $this->getTextForIndexer());
-		return $indexedDoc;
-	}
-
-	/**
-	 * @return unknown
-	 */
-	private function getTextForIndexer()
-	{
-		return media_MediaService::getInstance()->getTextForIndexer($this);
-	}
-
-	/**
 	 * @param array $info
 	 */
 	public function setInfo($info)

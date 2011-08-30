@@ -503,7 +503,7 @@ class MediaHelper
 					|| ($askedHeight !== null && $askedHeight < (0.85 * $docInfo['height']));
 					if ($formatted && !$xulContent)
 					{
-						$content = '<a class="lightbox" href="' . $document->getDocumentService()->generateUrl($document, null, $docInfo) . '" title="'.$alt.'">' . $content . '</a>';
+						$content = '<a class="lightbox" href="' . $document->getDocumentService()->generateUrl($document, $urlLang, $docInfo) . '" title="'.$alt.'">' . $content . '</a>';
 					}
 				}
 

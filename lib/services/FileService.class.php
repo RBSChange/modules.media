@@ -84,7 +84,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 				}
 			}
 			$extension = f_util_FileUtils::getFileExtension($filename);
-			$info = $this->getFileInfoByPath($tmpFileName);
+			$info = $this->getFileInfoByPath($tmpFileName, $extension);
 			$info['extension'] = $extension;
 			$info['filename'] = basename($filename, '.' . $extension);
 			$document->setContentlength($info['filesize']);
@@ -95,12 +95,13 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param string $path
+	 * @param string $extension
 	 * @return array <filesize, size, mimetype, isGifAnim, width, height>
 	 */
-	private function getFileInfoByPath($path)
+	private function getFileInfoByPath($path, $extension = null)
 	{
 		clearstatcache();
-		$info = array('filesize' => filesize($path), 'size' => f_util_FileUtils::getReadableFileSize($path), 'mimetype' => self::getMimetype($path));
+		$info = array('filesize' => filesize($path), 'size' => f_util_FileUtils::getReadableFileSize($path), 'mimetype' => self::getMimetype($path, $extension));
 		
 		if ($info['mimetype'] === 'image/gif' && MediaHelper::isGifAnim($path))
 		{
@@ -209,7 +210,11 @@ class media_FileService extends f_persistentdocument_DocumentService
 	private static $hasFileInfo;
 	private static $magicFile;
 	
-	public static function getMimetype($path)
+	/**
+	 * @param string $path
+	 * @param string $extension
+	 */
+	public static function getMimetype($path, $extension = null)
 	{
 		if (self::$hasFileInfo === null)
 		{
@@ -254,7 +259,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			
 		if (f_util_StringUtils::isEmpty($mime) || $mime === 'application/octet-stream')
 		{
-			$mime = MediaHelper::getMimeTypeByExtension(f_util_FileUtils::getFileExtension($path));
+			$mime = MediaHelper::getMimeTypeByExtension($extension ? $extension : f_util_FileUtils::getFileExtension($path));
 		}
 		else
 		{

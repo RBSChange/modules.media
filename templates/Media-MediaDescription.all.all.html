@@ -3,14 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="${media/getLang}" lang="${media/getLang}">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title tal:content="trans:m.media.frontoffice.media-descriptionpage-title,title=media/getTitle,websiteTitle=website/getLabel" />
+        <title>${trans:m.media.frontoffice.media-descriptionpage-title,title=media/getTitle,websiteTitle=website/getLabel}</title>
         <meta http-equiv="content-language" content="${media/getLang}" />
         <meta name="language" content="${media/getLang}" />
     </head>
     <body>
     	<h1 tal:content="trans:m.media.frontoffice.media-descriptionpage-title,title=media/getTitle,websiteTitle=website/getLabel">${media/getTitle}</h1>
-    	${media/getDescriptionAsHtml}
-    	
+    	<div>${media/getDescriptionAsHtml}</div>
     	<p>
     		<img change:media="document media" />
     	</p>

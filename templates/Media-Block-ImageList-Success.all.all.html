@@ -1,8 +1,7 @@
-<a tal:condition="imageConf/getUrl" href="${imageConf/getUrl}">
-	<ul class="media_imagelist">
-		<li tal:repeat="image images"><img change:media="document image; format imageConf/getFormat; max-width imageConf/getCustomWidth; max-height imageConf/getCustomHeight; zoom imageConf/getZoom" /></li>
-	</ul>
-</a>
-<ul tal:condition="not: imageConf/getUrl" class="media_imagelist">
-	<li tal:repeat="image images"><img change:media="document image; format imageConf/getFormat; max-width imageConf/getCustomWidth; max-height imageConf/getCustomHeight; zoom imageConf/getZoom" /></li>
+<ul class="media_imagelist">
+	<li tal:repeat="image images">
+		<a tal:omit-tag="not:imageConf/getUrl" href="${imageConf/getUrl}">
+			<img change:media="document image; format imageConf/getFormat; max-width imageConf/getCustomWidth; max-height imageConf/getCustomHeight; zoom imageConf/getZoom" />
+		</a>
+	</li>
 </ul>

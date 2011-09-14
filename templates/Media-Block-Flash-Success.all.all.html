@@ -6,5 +6,5 @@
   <tal:block tal:repeat="attribute media"> 
   	<param tal:condition="php: repeat.attribute.key != 'description'" tal:attributes="name repeat/attribute/key; value attribute;" />
   </tal:block>
-  <div tal:condition="media/description" tal:content="media/description" />
+  <div tal:condition="media/description">${media/description}</div>
 </object>

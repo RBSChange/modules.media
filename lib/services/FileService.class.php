@@ -521,6 +521,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 
 	/**
+	 * @param productexporter_persistentdocument_export $document
+	 * @param change_Request $request
+	 * @return array($module, $action)
+	 */
+	public function getResolveDetail($document, $request)
+	{
+		return array('media', 'Display');
+	}
+	
+	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $lang
 	 */

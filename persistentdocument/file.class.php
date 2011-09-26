@@ -56,7 +56,7 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 	{
 		$this->loadInfoForLang($lang);
 		$infos = $this->info[$lang];		
-		if (!isset($infos['type']))
+		if (!isset($infos['type']) && $this->getFilename())
 		{
 			$infos['type'] = MediaHelper::getMediaTypeByFilename($this->getFilename());
 		}
@@ -68,7 +68,7 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 	 */
 	public function setInfo($info)
 	{
-		if (!isset($info['type']))
+		if (!isset($info['type']) && $this->getFilename())
 		{
 			$info['type'] = MediaHelper::getMediaTypeByFilename($this->getFilename());
 		}

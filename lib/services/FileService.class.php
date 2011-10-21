@@ -555,7 +555,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	protected function getHostForDocumentId($id, $lang)
 	{
-		$webSite = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$webSite = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$domains = Framework::getConfigurationValue('modules/media/domains', array());
 		if (f_util_ArrayUtils::isEmpty($domains))
 		{

@@ -13,7 +13,7 @@ class media_DisplayMediaDescriptionAction extends media_DisplayAction
 		$this->setContentType("text/html");
 		$template = TemplateLoader::getInstance()->setPackageName("modules_media")->setDirectory("templates")->load("Media-MediaDescription");
 		$template->setAttribute("media", $media);
-		$website = website_WebsiteModuleService::getInstance()->getCurrentWebsite();
+		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$template->setAttribute("website", $website);
 		echo $template->execute();
 		return change_View::NONE;

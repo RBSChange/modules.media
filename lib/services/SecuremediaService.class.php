@@ -104,19 +104,11 @@ class media_SecuremediaService extends media_MediaService
 		$user = users_UserService::getInstance()->getCurrentBackEndUser();
 		if ($user === null)
 		{
-			if (Framework::isDebugEnabled())
-			{
-				Framework::debug(__METHOD__ . ' : User not authenticated');
-			}
 			return false;
 		}
 		$permissionName = 'modules_media.BoDisplay';
 		if (!$ps->hasPermission($user, $permissionName, $media->getId()))
 		{
-			if (Framework::isDebugEnabled())
-			{
-				Framework::debug(__METHOD__ . 'permisson {' . $permissionName . '} is not defined for user {' . $user->__toString() . '}');
-			}
 			return false;
 		}
 		return true;

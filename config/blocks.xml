@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blocks>
-	<block type="modules_media_media" hidden="true" labeli18n="m.media.bo.blocks.media" />
-	
-	<block type="modules_media_image" hidden="true" labeli18n="m.media.bo.blocks.image" cache="true" cache-key="cmpref">
-		<parameters>
-			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel="" />
-			<parameter name="customWidth" type="String" />
-			<parameter name="customHeight" type="String" />
-			<parameter name="zoom" type="Boolean" default-value="true" />
-			<parameter name="url" type="String">
-				<constraints>url:true</constraints>
-			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
-		</parameters>
-		<xul>
-			<javascript>
-				<constructor><![CDATA[
+  <block type="modules_media_media" hidden="true" labeli18n="m.media.bo.blocks.media"/>
+  <block type="modules_media_image" hidden="true" labeli18n="m.media.bo.blocks.image" cache="true" cache-key="cmpref">
+    <parameters>
+      <parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
+      <parameter name="customWidth" type="String"/>
+      <parameter name="customHeight" type="String"/>
+      <parameter name="zoom" type="Boolean" default-value="true"/>
+      <parameter name="url" type="String">
+        <constraint name="url"/>
+      </parameter>
+      <parameter name="documenturl" type="modules_generic/Document" allow="hasUrl"/>
+    </parameters>
+    <xul>
+      <javascript>
+        <constructor><![CDATA[
 					var fields = this.getFields();
 					var me = this;
 					fields.format.addEventListener('fieldChanged', function(event) {
@@ -29,9 +28,8 @@
 						fields.url.disabled = fields.documenturl.getAttribute('initialvalue') != '';
 					}, true);
 				]]></constructor>
-
-				<method name="onFormatChange">
-					<body><![CDATA[
+        <method name="onFormatChange">
+          <body><![CDATA[
 					var fields = this.getFields();
 					if (fields['format'].value != '')
 					{
@@ -44,35 +42,30 @@
 						this.getElementByAnonId('customHeight_cnt').collapsed = false;
 					}
 					]]></body>
-				</method>
-
-			</javascript>
-		</xul>
-	</block>
-
-	<block type="modules_media_flash" hidden="true" labeli18n="m.media.bo.blocks.flash" cache="true" cache-key="cmpref">
-		<parameters>
-			<parameter name="transparent" type="Boolean" default-value="true" />
-		</parameters>
-	</block>
-
-	<block type="modules_media_imageList" labeli18n="m.media.bo.blocks.imagelist" icon="list-block" cache="true" cache-key="cmpref"
-		cache-deps="[modules_media/media]">
-		<parameters>
-			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
-
-			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel="" />
-			<parameter name="customWidth" type="String" />
-			<parameter name="customHeight" type="String" />
-			<parameter name="zoom" type="Boolean" default-value="true" />
-			<parameter name="url" type="String">
-				<constraints>url:true</constraints>
-			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
-		</parameters>
-		<xul>
-			<javascript>
-				<constructor><![CDATA[
+        </method>
+      </javascript>
+    </xul>
+  </block>
+  <block type="modules_media_flash" hidden="true" labeli18n="m.media.bo.blocks.flash" cache="true" cache-key="cmpref">
+    <parameters>
+      <parameter name="transparent" type="Boolean" default-value="true"/>
+    </parameters>
+  </block>
+  <block type="modules_media_imageList" labeli18n="m.media.bo.blocks.imagelist" icon="list-block" cache="true" cache-key="cmpref" cache-deps="[modules_media/media]">
+    <parameters>
+      <parameter name="cmpref" type="modules_media/media" max-occurs="-1"/>
+      <parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
+      <parameter name="customWidth" type="String"/>
+      <parameter name="customHeight" type="String"/>
+      <parameter name="zoom" type="Boolean" default-value="true"/>
+      <parameter name="url" type="String">
+        <constraint name="url"/>
+      </parameter>
+      <parameter name="documenturl" type="modules_generic/Document" allow="hasUrl"/>
+    </parameters>
+    <xul>
+      <javascript>
+        <constructor><![CDATA[
 					var fields = this.getFields();
 					var me = this;
 					fields.format.addEventListener('fieldChanged', function(event) {
@@ -86,9 +79,8 @@
 						fields.url.disabled = fields.documenturl.getAttribute('initialvalue') != '';
 					}, true);
 				]]></constructor>
-
-				<method name="onFormatChange">
-					<body><![CDATA[
+        <method name="onFormatChange">
+          <body><![CDATA[
 					var fields = this.getFields();
 					if (fields['format'].value != '')
 					{
@@ -101,8 +93,8 @@
 						this.getElementByAnonId('customHeight_cnt').collapsed = false;
 					}
 					]]></body>
-				</method>
-			</javascript>
-		</xul>
-	</block>
+        </method>
+      </javascript>
+    </xul>
+  </block>
 </blocks>

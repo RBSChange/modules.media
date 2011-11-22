@@ -38,7 +38,7 @@
 				<xul:hbox pack="start" align="start">
 					<xul:image xbl:inherits="src=value" style="max-height: 128px; max-width: 128px" /><xul:spacer width="10" />
 					<xul:label class="text-link" onclick="document.getBindingParent(this).download()" 
-						value="&amp;modules.media.bo.doceditor.property.Previewimgurl-download;"/>
+						value="${transui:m.media.bo.doceditor.property.Previewimgurl-download,ucf,attr}"/>
 				</xul:hbox>	
 			</xul:hbox>			
 		</content>

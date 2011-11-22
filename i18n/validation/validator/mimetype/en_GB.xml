@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<i18n baseKey="m.media.validation.validator.mimetype" lcid="en_GB">
+  <key id="message">The {field} file does not have a valid type. The supported type is: "{allowedMimes}".</key>
+</i18n>

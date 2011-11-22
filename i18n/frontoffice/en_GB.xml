@@ -2,10 +2,11 @@
 <i18n baseKey="m.media.frontoffice" lcid="en_GB">
   <key id="zoom-click-to-close">click to close</key>
   <key id="zoom-original">original format</key>
-  <key id="gauge-search-5-0">relevancy 0 out of 5</key>
-  <key id="gauge-search-5-1">relevancy 1 out of 5</key>
-  <key id="gauge-search-5-2">relevancy 2 out of 5</key>
-  <key id="gauge-search-5-3">relevancy 3 out of 5</key>
-  <key id="gauge-search-5-4">relevancy 4 out of 5</key>
-  <key id="gauge-search-5-5">relevancy 5 out of 5</key>
+  <key id="gauge-search-5-0">relevance 0 out of 5</key>
+  <key id="gauge-search-5-1">relevance 1 out of 5</key>
+  <key id="gauge-search-5-2">relevance 2 out of 5</key>
+  <key id="gauge-search-5-3">relevance 3 out of 5</key>
+  <key id="gauge-search-5-4">relevance 4 out of 5</key>
+  <key id="gauge-search-5-5">relevance 5 out of 5</key>
+  <key id="media-descriptionpage-title">Description of the {title} media file from the {websiteTitle} website</key>
 </i18n>

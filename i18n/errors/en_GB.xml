@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.media.errors" lcid="en_GB">
-  <key id="modules-media-getpreferencesdocument">you don't have the appropriate permission to perform this operation : ″Open preferences window″</key>
-  <key id="modules-media-editlocale">you don't have the appropriate permission to perform this operation : ″Edit a locale″</key>
-  <key id="modules-media-order">you don't have the appropriate permission to perform this operation : ″Sort out the elements″</key>
-  <key id="modules-media-transform-media">you don't have the appropriate permission to perform this operation : ″Convert into free media″</key>
-  <key id="modules-media-transform-securemedia">you don't have the appropriate permission to perform this operation : ″Convert into restricted media″</key>
-  <key id="modules-media-updatemedia">you don't have the appropriate permission to perform this operation : ″Update a media″</key>
-  <key id="modules-media-upload">you don't have the appropriate permission to perform this operation : ″Upload″</key>
-  <key id="modules-media-downloadmedia">you don't have the appropriate permission to perform this operation : ″Download a media″</key>
-  <key id="modules-media-enabled">you don't have the appropriate permission to perform this operation : ″Access to the module″</key>
+  <key id="modules-media-getpreferencesdocument">you do not have the appropriate permissions to perform the following operation: "Open preferences"</key>
+  <key id="modules-media-editlocale">you do not have the appropriate permissions to perform the following operation: "Edit a locale"</key>
+  <key id="modules-media-order">you do not have the appropriate permissions to perform the following operation: "Reorder the elements"</key>
+  <key id="modules-media-transform-media">you do not have the appropriate permissions to perform this operation: "Convert into an un-secure media file"</key>
+  <key id="modules-media-transform-securemedia">you do not have the appropriate permissions to perform this operation: "Convert into secure media file"</key>
+  <key id="modules-media-updatemedia">you do not have the appropriate permissions to perform this operation: "Update a media file"</key>
+  <key id="modules-media-upload">you do not have the appropriate permissions to perform this operation: "Upload"</key>
+  <key id="modules-media-downloadmedia">you do not have the appropriate permissions to perform this operation: "Download a media file"</key>
+  <key id="modules-media-enabled">you do not have the appropriate permissions to perform the following operation: "Access the module"</key>
 </i18n>

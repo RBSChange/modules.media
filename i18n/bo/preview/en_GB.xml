@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.media.bo.preview" lcid="en_GB">
-  <key id="label">label</key>
+  <key id="label">title</key>
   <key id="title">alternate content</key>
   <key id="description">description</key>
   <key id="credit">credit</key>

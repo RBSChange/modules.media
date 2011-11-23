@@ -359,7 +359,7 @@ class MediaHelper
 				}
 				$alt = isset($parameters['alt']) ? htmlspecialchars($parameters['alt'], ENT_COMPAT, 'UTF-8') : '';
 				$content .= ' alt="' . $alt . '"';
-				$content .= ' title="' . $alt . '"';
+				// #46430: do not generate title attribute any more.
 
 				$attributes = array('class' => 'image', 'change:id' => $document->getId());
 				if (isset($docInfo["isGifAnim"]))

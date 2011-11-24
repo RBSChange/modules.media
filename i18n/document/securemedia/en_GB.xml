@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.media.document.securemedia" lcid="en_GB">
-  <key id="document-name">secure media</key>
-  <key id="edition-form-title">secure media properties</key>
+  <key id="document-name">secure media file</key>
+  <key id="edition-form-title">secure media file properties</key>
   <key id="label">full title</key>
-  <key id="label-help">media full title</key>
+  <key id="label-help">This is the full title for the media file.</key>
   <key id="title">short alternate content</key>
-  <key id="title-help">short alternate content displayed instead of the media (60 characters max.) </key>
+  <key id="title-help">This is short alternate content displayed instead of the media file (60 characters at most).</key>
   <key id="description">long alternate content</key>
-  <key id="description-help">long alternate content displayed instead of the media</key>
+  <key id="description-help">This is long alternate content displayed instead of the media file.</key>
   <key id="credit">credit</key>
-  <key id="credit-help">credit or copyright</key>
+  <key id="credit-help">Credit or copyright.</key>
   <key id="warnselectmedia">Please select a file</key>
 </i18n>

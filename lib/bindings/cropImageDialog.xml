@@ -414,24 +414,24 @@
 					xmlns:xbl="http://www.mozilla.org/xbl">
 			<vbox flex="1">
 				<hbox class="dialog-header">
-					<label value="&amp;modules.media.bo.actions.Crop;" class="dialog-title" />
+					<label value="${trans:m.media.bo.actions.Crop,ucf,attr}" class="dialog-title" />
 					<spacer flex="1" />
 					<vbox pack="center">
-						<toolbarbutton height="16" width="16" image="{IconsBase}/small/delete.png" oncommand="onCancel();" tooltiptexts="&amp;modules.uixul.bo.dialog.Cancel;" />
+						<toolbarbutton height="16" width="16" image="{IconsBase}/small/delete.png" oncommand="onCancel();" tooltiptexts="${trans:m.uixul.bo.dialog.Cancel,ucf,attr}" />
 					</vbox>
 				</hbox>
 				<vbox flex="1">
 					<hbox height="30" align="center" pack="start">
-						<checkbox anonid="override" value="true" label="&amp;modules.media.bo.dialog.Override;"/>
+						<checkbox anonid="override" value="true" label="${trans:m.media.bo.dialog.Override,ucf,attr}"/>
 						<hbox anonid="override-data" align="center">
-							<label value="&amp;modules.media.bo.dialog.FilenameLabel;"/>
+							<label value="${trans:m.media.bo.dialog.Filename,lab,ucf,attr}"/>
 							<textbox anonid="filename" value="" size="50" />								
 						</hbox>	
 																					
 					</hbox>
 					<hbox align="center" pack="start">
 						<label xbl:inherits="value=img-Info"/>
-						<label value="&amp;modules.media.bo.dialog.Coordinate;" style="padding-left: 20px;"/>
+						<label value="${trans:m.media.bo.dialog.Coordinate,ucf,attr}" style="padding-left: 20px;"/>
 						<label value="x:" style="padding-left: 5px;" /><label xbl:inherits="value=cursor-X" width="30" style="border: 1px solid black;"/>
 						<label value="y:" style="padding-left: 5px;" /><label xbl:inherits="value=cursor-Y" width="30" style="border: 1px solid black;"/>							
 					</hbox>
@@ -450,9 +450,9 @@
 				</vbox>
 				<hbox align="center" pack="start">
 					<button image="{IconsBase}/small/check.png" disabled="true" anonid="ok" 
-						oncommand="onOk()" label="&amp;modules.media.bo.actions.Crop;" />
+						oncommand="onOk()" label="${trans:m.media.bo.actions.Crop,ucf,attr}" />
 					<button image="{IconsBase}/small/delete.png"
-						oncommand="onCancel()" label="&amp;modules.uixul.bo.dialog.Cancel;" />
+						oncommand="onCancel()" label="${trans:m.uixul.bo.dialog.Cancel,ucf,attr}" />
 				</hbox>
 			</vbox>
 		</xbl:content>

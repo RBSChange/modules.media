@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.media.bo.dialog" lcid="en_GB">
-  <key id="override">Override original image</key>
+  <key id="override">Overwrite the original image</key>
   <key id="filename">Image name</key>
-  <key id="coordinate">coordinate</key>
-  <key id="width">width</key>
-  <key id="height">height</key>
+  <key id="coordinate">coordinates</key>
+  <key id="width">Width</key>
+  <key id="height">Height</key>
   <key id="size">size</key>
-  <key id="cropemptyselection">Please select a non-empty cropping zone.</key>
+  <key id="cropemptyselection">Please select a cropping area.</key>
 </i18n>

@@ -28,7 +28,6 @@ class media_MediaScriptDocumentElement extends import_ScriptDocumentElement
     {
         $properties = parent::getDocumentProperties();
 
-        
         if (isset($properties['path']))
         {
             $ressourcePath = f_util_FileUtils::buildWebeditPath($properties['path']);
@@ -48,11 +47,6 @@ class media_MediaScriptDocumentElement extends import_ScriptDocumentElement
         else
         {
             throw new Exception('Invalid argument "media[@path]"');
-        }
-        
-        if (!isset($properties['title']))
-        {
-            $properties['title'] = $properties['label'];
         }
         
         return $properties;

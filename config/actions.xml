@@ -99,7 +99,7 @@
 	<action name="cropImageIsActive">
 		<parameter name="itemData"/>
 		<body><![CDATA[
-			return itemData.langAvailable && itemData.actualtype === "modules_media_image";
+			return itemData.langAvailable && itemData.canBeCropped;
 		]]></body>
 	</action> 
 </actions>

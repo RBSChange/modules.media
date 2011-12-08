@@ -263,94 +263,92 @@ class media_MediaService extends media_FileService
 
 	/**
 	 * @param media_persistentdocument_media $document
+	 * @param array<string, string> $attributes
+	 * @param integer $mode
 	 * @param string $moduleName
-	 * @param string $treeType
-	 * @param array<string, string> $nodeAttributes
 	 */
-	public function addTreeAttributes($document, $moduleName, $treeType, &$nodeAttributes)
+	public function completeBOAttributes($document, &$attributes, $mode, $moduleName)
 	{
-		if ($treeType == 'wlist')
+		$attributes['canBeCropped'] = ($document->getMediatype() == MediaHelper::TYPE_IMAGE);
+		
+		if ($mode & DocumentHelper::MODE_CUSTOM)
 		{
-			$nodeAttributes['countreferences'] =  $document->countReferences();
+			$attributes['countreferences'] =  strval($document->countReferences());
 		}
 
 		switch ($document->getMediatype())
 		{
 			case MediaHelper::TYPE_IMAGE:
-				$nodeAttributes['actualtype'] = 'modules_media_image';
-				$nodeAttributes['hasPreviewImage'] = true;
-				if ($treeType == 'wmultilist')
+				$attributes['icon'] = 'photo';
+				if ($mode & DocumentHelper::MODE_ITEM)
+				{
+					$attributes['hasPreviewImage'] = true;
+				}
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
 					$lang = RequestContext::getInstance()->getLang();
-					$alt = htmlspecialchars($document->getTitle(), ENT_COMPAT, 'UTF-8');
+					$alt = f_util_HtmlUtils::textToHtml($document->getTitle());
 					$src = MediaHelper::getUrl($document, 'xul');
-					$nodeAttributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $document->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" usemediaalt="true" />';
-					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
+					$attributes['htmllink'] = '<img class="image" src="' . $src . '" cmpref="' . $document->getId() . '" alt="' . $alt . '" lang="' . $lang . '" xml:lang="' . $lang . '" usemediaalt="true" />';
+					$attributes['block'] = 'modules_media_image';
 				}
-				if ($treeType == 'wlist')
+				if ($mode & DocumentHelper::MODE_CUSTOM)
 				{
-					$nodeAttributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
-					->setQueryParameter('cmpref', $document->getId())
-					->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
-					->setQueryParameter('lang', RequestContext::getInstance()->getLang())
-					->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
+					$attributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
+						->setQueryParameter('cmpref', $document->getId())
+						->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
+						->setQueryParameter('lang', RequestContext::getInstance()->getLang())
+						->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
 				}
 				break;
 					
 			case MediaHelper::TYPE_PDF:
-				$nodeAttributes['actualtype'] = 'modules_media_pdf';
-				if ($treeType == 'wmultilist')
+				$attributes['icon'] = 'pdf';
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
-					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
+					$attributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
+					$attributes['block'] = 'modules_media_pdf';
 				}
 				break;
 					
 			case MediaHelper::TYPE_DOC:
-				$nodeAttributes['actualtype'] = 'modules_media_doc';
-				if ($treeType == 'wmultilist')
+				$attributes['icon'] = 'document-text';
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
-					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
+					$attributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
+					$attributes['block'] = 'modules_media_doc';
 				}
 				break;
 					
 			case MediaHelper::TYPE_FLASH:
-				$nodeAttributes['actualtype'] = 'modules_media_flash';
-				if ($treeType == 'wmultilist')
+				$attributes['icon'] = 'flash';
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
-
-				 $styleAttributes = array();
-				 $mediaInfos = $document->getInfo();
-				 if (isset($mediaInfos['height']))
-				 {
-				 	$styleAttributes['height'] = $mediaInfos['height'] . 'px';
-				 }
-				 if (isset($mediaInfos['width']))
-				 {
-				 	$styleAttributes['width'] = $mediaInfos['width'] . 'px';
-				 }
-				 $title = htmlspecialchars($document->getTitle());
-
-				 $style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
-				 $link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '&#160;</a>';
-					$nodeAttributes['htmllink'] = $link;
-					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
+					$styleAttributes = array();
+					$mediaInfos = $document->getInfo();
+					if (isset($mediaInfos['height'])) { $styleAttributes['height'] = $mediaInfos['height'] . 'px'; }
+					if (isset($mediaInfos['width'])) { $styleAttributes['width'] = $mediaInfos['width'] . 'px'; }
+					$style = f_util_HtmlUtils::buildStyleAttribute($styleAttributes);
+					$title = f_util_HtmlUtils::textToHtml($document->getTitle());
+					$link = '<a rel="cmpref:' . $document->getId() . '" href="#" class="media-flash-dummy" title="' . $title . '" lang="' . RequestContext::getInstance()->getLang() . '" style="' . $style . '">' . $title . '&#160;</a>';
+					$attributes['htmllink'] = $link;
+					$attributes['block'] = 'modules_media_flash';
 				}
 				break;
 
 			case MediaHelper::TYPE_VIDEO:
-				$nodeAttributes['actualtype'] = 'modules_media_video';
-				if ($treeType == 'wmultilist')
+				$attributes['icon'] = 'film';
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
-					$nodeAttributes['htmllink'] = '';
-					$nodeAttributes['block'] = $nodeAttributes['actualtype'];
+					$attributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
+					$attributes['block'] = 'modules_media_video';
 				}
 				break;
+				
 			default:
-				if ($treeType == 'wmultilist')
+				if ($mode & DocumentHelper::MODE_RESOURCE)
 				{
-					$nodeAttributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
+					$attributes['htmllink'] = PHPTAL_Php_Attribute_CHANGE_Download::render($document, null, true);
 				}
 				break;
 		}

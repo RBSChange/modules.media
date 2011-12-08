@@ -13,7 +13,6 @@
 				<drop model="modules_generic/folder" action="move" />
 				<drop model="modules_generic/systemfolder" action="move" />
 			</drops>
-			<styles properties="actualtype" />
 			<columns>
 				<column name="title" flex="2" />
 				<column name="countreferences" flex="1" />
@@ -34,7 +33,6 @@
 				<child model="modules_media/securemedia" />
 				<child model="modules_generic/folder" />
 			</children>
-			<styles properties="actualtype" />
 			<columns>
 				<column name="title" flex="2" />
 				<column name="countreferences" flex="1" />
@@ -52,7 +50,6 @@
 				<child model="modules_media/securemedia" />
 				<child model="modules_generic/folder" />
 			</children>
-			<styles properties="actualtype" />
 			<columns>
 				<column name="title" flex="2" />
 				<column name="countreferences" flex="1" />

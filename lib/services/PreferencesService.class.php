@@ -76,6 +76,6 @@ class media_PreferencesService extends f_persistentdocument_DocumentService
 	 */
 	protected function preSave($document, $parentNodeId = null)
 	{
-		$document->setLabel('&modules.media.bo.general.Module-name;');
+		$document->setLabel('media');
 	}
 }

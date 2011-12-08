@@ -1,17 +1,16 @@
 <?php
 /**
- * media_persistentdocument_preferences
  * @package media
  */
 class media_persistentdocument_preferences extends media_persistentdocument_preferencesbase 
 {
 	/**
-	 * @see f_persistentdocument_PersistentDocumentImpl::getLabel()
-	 *
-	 * @return String
+	 * Define the label of the tree node of the document.
+	 * By default, this method returns the label property value.
+	 * @return string
 	 */
-	public function getLabel()
+	public function getTreeNodeLabel()
 	{
-		return f_Locale::translateUI(parent::getLabel());
-	}	
+		return LocaleService::getInstance()->trans('m.media.bo.general.module-name', array('ucf'));
+	}
 }

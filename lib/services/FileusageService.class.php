@@ -14,6 +14,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 	 */
 	private $_filePropertyNames = array();
 	private $_fileDocumentPropertyNames = array();
+	private $_fileFunctionNames = array();
 
 	/**
 	 * @return media_FileusageService
@@ -110,6 +111,11 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 			}
 		}
 		
+		if (count($this->_fileFunctionNames[$modelName]) > 0)
+		{
+			$usagesArray = $document->getDocumentService()->buildFileUsage($document, $usagesArray);
+		}
+		
 		return $usagesArray;	
 	}
 
@@ -130,7 +136,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 	{
 		$this->generateFilePropertyNamesForModel($model);
 		$modelName = $model->getName();
-		return (count($this->_filePropertyNames[$modelName]) + count($this->_fileDocumentPropertyNames[$modelName])) > 0;
+		return (count($this->_filePropertyNames[$modelName]) + count($this->_fileDocumentPropertyNames[$modelName]) + count($this->_fileFunctionNames[$modelName])) > 0;
 	}
 
 	/**
@@ -164,6 +170,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 			}
 			$this->_filePropertyNames[$model->getName()] = $xhtmlPropertyNames;		
 			$this->_fileDocumentPropertyNames[$model->getName()] = $documentPropertyNames;
+			$this->_fileFunctionNames[$model->getName()] = (f_util_ClassUtils::methodExists($model->getDocumentService(), 'buildFileUsage')) ? array(true) : array();
 		}
 	}
 	

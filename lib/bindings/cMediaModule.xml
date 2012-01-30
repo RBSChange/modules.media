@@ -57,8 +57,8 @@
 						for (var i = 0; i < val.length; i++)
 						{
 							var label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:label");
+							label.appendChild(document.createTextNode(val[i]));
 							lst.appendChild(label);
-							label.value = val[i];
 						}
 						this.removeAttribute("hidden");
 					}

@@ -15,7 +15,7 @@
 			<parameter name="url" type="String">
 				<constraints>url:true</constraints>
 			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
+			<parameter name="documenturl" type="modules_generic/Document" moduleselector="website" allow="hasUrl" />
 		</parameters>
 		<xul>
 			<javascript>
@@ -65,7 +65,6 @@
 		cache="true" cache-key="cmpref" cache-deps="[modules_media/media]">
 		<parameters>
 			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
-			
 			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
 			<parameter name="customWidth" type="String" />
 			<parameter name="customHeight" type="String" />
@@ -73,7 +72,7 @@
 			<parameter name="url" type="String">
 				<constraints>url:true</constraints>
 			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
+			<parameter name="documenturl" type="modules_generic/Document" moduleselector="website" allow="hasUrl" />
 		</parameters>
 		<xul>
 			<javascript>

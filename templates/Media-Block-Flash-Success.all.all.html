@@ -1,10 +1,10 @@
 <object tal:repeat="media medias" type="application/x-shockwave-flash" tal:attributes="data media/url; width media/width; height media/height; id media/id; title media/alt">
-  <param name="movie" tal:attributes="value media/url;" />
-  <param name="allowScriptAccess" value="always" />
-  <param name="quality" value="high" />
-  <param name="wmode" value="transparent" tal:condition="configuration/getTransparent" />
-  <tal:block tal:repeat="attribute media"> 
-  	<param tal:condition="php: repeat.attribute.key != 'description'" tal:attributes="name repeat/attribute/key; value attribute;" />
-  </tal:block>
-  <div tal:condition="media/description" tal:content="media/description" />
+	<param name="movie" tal:attributes="value media/url;" />
+	<param name="allowScriptAccess" value="always" />
+	<param name="quality" value="high" />
+	<param name="wmode" value="transparent" tal:condition="configuration/getTransparent" />
+	<tal:block tal:repeat="attribute media"> 
+		<param tal:condition="php: repeat.attribute.key != 'description'" tal:attributes="name repeat/attribute/key; value attribute;" />
+	</tal:block>
+	<div tal:condition="media/description">${media/description}</div>
 </object>

@@ -120,9 +120,9 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 				$size = $size / 1024;
 				$i++;
 			}
-			$res = sprintf("%.2f", $size).' <acronym title="'.f_Locale::translate(self::LOCALE_PATH . ucfirst($iec[$i]) .'-long;').'">';
+			$res = sprintf("%.2f", $size).' <abbr title="'.f_Locale::translate(self::LOCALE_PATH . ucfirst($iec[$i]) .'-long;').'">';
 			$res .= f_Locale::translate(self::LOCALE_PATH .ucfirst($iec[$i]).'-acronym;');
-			$res .= '</acronym>';
+			$res .= '</abbr>';
 			return $res;
 		}
 		return null;
@@ -140,8 +140,8 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 			return '';
 		}
 		$lang = self::getLang($media);
-		$title = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
-		$alt = f_Locale::translate(self::LOCALE_PATH.'Download;') . ' ' . htmlspecialchars(strip_tags($title));
+		$content = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
+		$title = f_Locale::translate(self::LOCALE_PATH.'Download;') . ' ' . htmlspecialchars(strip_tags($content));
 		$html = '<a';
 		
 		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');
@@ -159,8 +159,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 			$attrs['class'] = '"link download"';
 		}
 		
-		$attrs['alt'] = '"' . $alt . '"';
-		$attrs['title'] = '"' . $alt . '"';
+		$attrs['title'] = '"' . $title . '"';
 		
 		if (!$addcmpref)
 		{
@@ -171,7 +170,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 		{
 			$html .= ' ' . $attrName .'=' . $attrValue;
 		}
-		$html .= '>' . $title . "</a>";
+		$html .= '>' . $content . "</a>";
 		return $html;
 	}
 	

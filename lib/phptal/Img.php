@@ -21,7 +21,6 @@
  */
 class PHPTAL_Php_Attribute_CHANGE_img extends PHPTAL_Php_Attribute
 {
-	
 	public function start()
 	{
 		switch (strtolower($this->tag->name))
@@ -37,6 +36,12 @@ class PHPTAL_Php_Attribute_CHANGE_img extends PHPTAL_Php_Attribute
 				break;
 		}
 		$this->tag->attributes[$attribute] = '<?php echo PHPTAL_Php_Attribute_CHANGE_img::renderImg(\'' . $this->expression . '\') ?>';
+		
+		// Always generate the alt atrtibute on img tags.
+		if (strtolower($this->tag->name) == 'img' && !isset($this->tag->attributes['alt']))
+		{
+			$this->tag->attributes['alt'] = '';
+		}
 	}
 	
 	/**

@@ -13,5 +13,7 @@ class media_Setup extends object_InitDataSetup
 			echo "ERROR: " . $e->getMessage() . "\n";
 			Framework::exception($e);
 		}
+		
+		media_ModuleService::getInstance()->addRemoveTmpFilesTask();
 	}
 }

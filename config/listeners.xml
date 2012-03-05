@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <listeners>
-	<listener listenerClass="media_RemoveTmpFilesListener" />
 	<listener listenerClass="media_UpdateUsageListener" />
 	
 	<!-- Sample event if filecontent of media modified

@@ -35,9 +35,20 @@ class media_TmpfileService extends media_FileService
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_media/tmpfile');
+		return $this->getPersistentProvider()->createQuery('modules_media/tmpfile');
 	}
 
+	/**
+	 * Create a query based on 'modules_media/tmpfile' model.
+	 * Only documents that are strictly instance of media_persistentdocument_tmpfile
+	 * (not children) will be retrieved
+	 * @return f_persistentdocument_criteria_Query
+	 */
+	public function createStrictQuery()
+	{
+		return $this->getPersistentProvider()->createQuery('modules_media/tmpfile', false);
+	}
+	
 	/**
 	 * @param media_persistentdocument_tmpfile $tmpFile
 	 * @return media_persistentdocument_file
@@ -47,41 +58,93 @@ class media_TmpfileService extends media_FileService
 		$file = media_FileService::getInstance()->getNewDocumentInstance();
 		return $this->pp->mutate($tmpFile, $file);
 	}
-
+	
 	/**
-	 * @param date_Calendar $start
+	 * @param media_persistentdocument_tmpfile $tmpFile
+	 * @throws Exception
+	 */
+	function checkTmpFile($tmpFile)
+	{
+		Framework::fatal(__CLASS__ . ' ' . $tmpFile->getId() . ' ' . $tmpFile->getFilename());
+		
+		$tm = $this->getTransactionManager();
+		try
+		{
+			$tm->beginTransaction();						
+			$rc = RequestContext::getInstance();
+			try
+			{
+				$rc->beginI18nWork($tmpFile->getLang());
+				
+				$containers = $this->getContainers($tmpFile);	
+				if (count($containers) > 0)
+				{
+					$destModelName = 'modules_media/media';
+					$sm = f_persistentdocument_PersistentDocumentModel::getInstance('media', 'securemedia');		
+					foreach ($containers as $rel)
+					{
+						/* @var $rel f_persistentdocument_PersistentRelation */
+						$pdoc = DocumentHelper::getDocumentInstance($rel->getDocumentId1());
+						$prop = $pdoc->getPersistentModel()->getProperty($rel->getName());
+						if ($prop && $prop->getDocumentModel()->isModelCompatible('modules_media/securemedia'))
+						{
+							$destModelName = 'modules_media/securemedia';
+							break;
+						}
+					}
+					
+					$media = $this->transform($tmpFile, $destModelName);
+					if ($media->isModified())
+					{
+						Framework::fatal(__CLASS__ . ' ' . implode(', ', $media->getModifiedPropertyNames()));
+						$media->save();
+					}
+					
+				}
+				elseif ($tmpFile->getTreeId())
+				{
+					$media = $this->transform($tmpFile, 'modules_media/media');
+					$media->save();
+				}
+				else
+				{
+					$this->delete($tmpFile);
+				}							
+				$rc->endI18nWork();
+			}
+			catch (Exception $e)
+			{
+				$rc->endI18nWork($e);
+			}			
+			$tm->commit();
+		} 
+		catch (Exception $e) 
+		{
+			$tm->rollback($e);
+			throw $e;
+		}
+	}
+	
+	/**
+	 * @deprecated
 	 */
 	function cleanOldFiles($start)
 	{
-		$tmpFiles = $this->createQuery()
-		->add(Restrictions::eq('model', 'modules_media/tmpfile'))
-		->add(Restrictions::lt('creationdate', $start))->find();
-
-		$rc = RequestContext::getInstance();
-		foreach ($tmpFiles as $tmpFile)
+		$chunkSize = 100;
+		$startId = 0;
+		$batchPath = 'modules/media/lib/bin/batchCleanTmpFile.php';
+		do
 		{
-			$rc->beginI18nWork($tmpFile->getLang());
-
-			$containers = $this->getContainers($tmpFile);
-			if (count($containers) > 0)
+			$result = f_util_System::execHTTPScript($batchPath, array($chunkSize, $startId));
+			if (is_numeric($result))
 			{
-				if (Framework::isDebugEnabled())
-				{
-					Framework::debug('Convert tmp file : ' . $tmpFile->__toString()." to file");
-				}
-				// tmp file is used in some documents, convert it to file
-				$this->convertToFile($tmpFile);
+				$startId = intval($result);
 			}
 			else
 			{
-				if (Framework::isDebugEnabled())
-				{
-					Framework::debug('Remove tmp file : ' . $tmpFile->__toString());
-				}
-				$this->delete($tmpFile);
+				throw new Exception($result);
 			}
-
-			$rc->endI18nWork();
 		}
+		while ($startId > 0);
 	}
 }

@@ -31,13 +31,13 @@ class transformer_MediaTmpfileToMediaSecuremedia  extends f_persistentdocument_t
                         throw new Exception(__METHOD__ . ' Invalid source file name : ' . $srcPath);
                     }
                     $destPath = $mss->getOriginalPath($sourceDocument);
-                    f_util_FileUtils::mkdir(dirname($destPath));
-                    if (Framework::isInfoEnabled())
-                    {
-                        Framework::info(__METHOD__ . " move ($srcPath => $destPath)");
-                    }                   
+                    f_util_FileUtils::mkdir(dirname($destPath));                  
                     if ($srcPath != $destPath)
                     {    
+                    	if (Framework::isInfoEnabled())
+                    	{
+                    		Framework::info(__METHOD__ . " move ($srcPath => $destPath)");
+                    	}
 	                    rename($srcPath, $destPath);
 	                    f_util_FileUtils::rmdir(dirname($srcPath));                   
 	                } 

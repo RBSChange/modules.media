@@ -18,33 +18,31 @@ class transformer_MediaTmpfileToMediaMedia extends f_persistentdocument_transfor
 		$tfs = media_TmpfileService::getInstance();
 		$ms = media_MediaService::getInstance();
 		$rc = RequestContext::getInstance();
-		foreach ($rc->getSupportedLanguages() as $lang)
+		foreach ($sourceDocument->getI18nInfo()->getLangs() as $lang)
 		{
 			try
 			{
 				$rc->beginI18nWork($lang);
-				if ($sourceDocument->isContextLangAvailable())
+				$srcPath = $tfs->getOriginalPath($sourceDocument);
+				if (!is_readable($srcPath))
 				{
-					$srcPath = $tfs->getOriginalPath($sourceDocument);
-					if (!is_readable($srcPath))
-					{
-						throw new Exception(__METHOD__ . ' Invalid source file name : ' . $srcPath);
-					}
-					$destPath = $ms->getOriginalPath($sourceDocument);
-					f_util_FileUtils::mkdir(dirname($destPath));
+					throw new Exception(__METHOD__ . ' Invalid source file name : ' . $srcPath);
+				}
+				
+				$destPath = $ms->getOriginalPath($sourceDocument);
+				f_util_FileUtils::mkdir(dirname($destPath));
+					
+				if ($srcPath != $destPath)
+				{
 					if (Framework::isInfoEnabled())
 					{
 						Framework::info(__METHOD__ . " move ($srcPath => $destPath)");
 					}
-					
-					if ($srcPath != $destPath)
-					{
-						rename($srcPath, $destPath);
-						f_util_FileUtils::rmdir(dirname($srcPath));
-					}
-					$mediaType = MediaHelper::getMediaTypeByFilename($destDocument->getFilename());
-					$destDocument->setMediatype($mediaType);
+					rename($srcPath, $destPath);
+					f_util_FileUtils::rmdir(dirname($srcPath));
 				}
+				$mediaType = MediaHelper::getMediaTypeByFilename($destDocument->getFilename());
+				$destDocument->setMediatype($mediaType);
 				$rc->endI18nWork();
 			}
 			catch (Exception $e)

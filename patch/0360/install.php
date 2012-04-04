@@ -1,9 +1,9 @@
 <?php
 /**
- * media_patch_0351
+ * media_patch_0360
  * @package modules.media
  */
-class media_patch_0351 extends patch_BasePatch
+class media_patch_0360 extends patch_BasePatch
 {
 
 	/**

@@ -6,6 +6,10 @@
 		<property name="creationdate" labeli18n="modules.uixul.bo.doceditor.property.Creationdate" />
 	</section>
 
+	<section name="localization" linkedtab="localization" labeli18n="modules.uixul.bo.doceditor.section.Localization" image="{IconsBase}/small/translate.png">
+		<property name="languages" type="langs" labeli18n="modules.uixul.bo.doceditor.property.Languages" />
+	</section>
+
 	<section name="content" labeli18n="modules.uixul.bo.doceditor.section.Content" image="{IconsBase}/small/page-content.png">
 		<property name="mimetype" labeli18n="modules.media.bo.doceditor.property.Mimetype" />
 		<property name="size" labeli18n="modules.media.bo.doceditor.property.Size" />
@@ -22,13 +26,5 @@
 	<section name="publication" linkedtab="publication" labeli18n="modules.uixul.bo.doceditor.section.Publication" image="{IconsBase}/small/status.png">
 		<property name="status" labeli18n="modules.uixul.bo.doceditor.property.Status" />
 	</section>
-
-	<section name="localization" linkedtab="localization" labeli18n="modules.uixul.bo.doceditor.section.Localization" image="{IconsBase}/small/translate.png">
-		<property name="languages" type="langs" labeli18n="modules.uixul.bo.doceditor.property.Languages" />
-	</section>
-
-	<section flex="1" name="urlrewriting" linkedtab="redirect"
-		labeli18n="modules.uixul.bo.doceditor.section.Urlrewriting" image="{IconsBase}/small/urlrewriting.png">
-		<property name="currenturl" labeli18n="modules.uixul.bo.doceditor.property.Currenturl" class="link" />
-	</section>
+	
 </panel>

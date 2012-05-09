@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blocks>
-	<block type="modules_media_media" hidden="true" 
-		 label="&amp;modules.media.bo.blocks.Media;">
-	</block>
+	<block type="modules_media_media" hidden="true" label="&amp;modules.media.bo.blocks.Media;" />
 	
-	<block type="modules_media_image" hidden="true" 
-		 label="&amp;modules.media.bo.blocks.Image;"
-		 cache="true" cache-key="cmpref">
+	<block type="modules_media_image" hidden="true" label="&amp;modules.media.bo.blocks.Image;" cache="true" cache-key="cmpref" dropModels="modules_media/image">
 		<parameters>
 			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel=""/>
 			<parameter name="customWidth" type="String" />
@@ -49,13 +45,11 @@
 					}
 					]]></body>
 				</method>
-				
 			</javascript>
 		</xul>
 	</block>
 	
-	<block type="modules_media_flash" hidden="true" label="&amp;modules.media.bo.blocks.Flash;"
-		cache="true" cache-key="cmpref">
+	<block type="modules_media_flash" hidden="true" label="&amp;modules.media.bo.blocks.Flash;" cache="true" cache-key="cmpref" dropModels="modules_media/flash">
 		<parameters>
 			<parameter name="transparent" type="Boolean" default-value="true" />
 		</parameters>

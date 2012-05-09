@@ -9,7 +9,6 @@ class media_MediaService extends media_FileService
 	 */
 	private static $instance;
 
-
 	/**
 	 * @return media_MediaService
 	 */

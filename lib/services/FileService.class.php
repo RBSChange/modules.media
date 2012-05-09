@@ -493,6 +493,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			unset($parameters['download']);
 			$parameters['lang'] = $lang;
 			$parameters['cmpref'] = $documentId;
+			$parameters['forceDownload'] = true;
 			return $urlRewritingService->getActionLinkForWebsite('media', 'Display', $website, $lang, $parameters);
 		}
 		

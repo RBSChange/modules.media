@@ -135,7 +135,7 @@ class media_TmpfileService extends media_FileService
 		$batchPath = 'modules/media/lib/bin/batchCleanTmpFile.php';
 		do
 		{
-			$result = f_util_System::execHTTPScript($batchPath, array($chunkSize, $startId));
+			$result = f_util_System::execScript($batchPath, array($chunkSize, $startId));
 			if (is_numeric($result))
 			{
 				$startId = intval($result);

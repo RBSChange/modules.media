@@ -20,7 +20,7 @@ class media_RemoveTmpFilesTask  extends task_SimpleSystemTask
 				$this->plannedTask->ping();
 			}
 			
-			$result = f_util_System::execHTTPScript($batchPath, array($chunkSize, $startId));			
+			$result = f_util_System::execScript($batchPath, array($chunkSize, $startId));			
 			if (is_numeric($result))
 			{
 				$startId = intval($result);

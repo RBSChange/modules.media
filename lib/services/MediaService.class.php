@@ -136,7 +136,7 @@ class media_MediaService extends media_FileService
 			{
 				case MediaHelper::TYPE_PDF:
 					$pdfExtractor = new indexer_PDFExtractor($media->getDocumentService()->getOriginalPath($media, true));
-					$extractedText = f_util_StringUtils::htmlToText($pdfExtractor->getText(), false);
+					$extractedText = f_util_HtmlUtils::htmlToText($pdfExtractor->getText(), false);
 					break;
 				case MediaHelper::TYPE_DOC:
 				case MediaHelper::TYPE_DOCX:
@@ -146,7 +146,7 @@ class media_MediaService extends media_FileService
 				case MediaHelper::TYPE_ODT:
 				case MediaHelper::TYPE_ODS:
 					$officeExtractor = new indexer_OfficeExtractor($media->getDocumentService()->getOriginalPath($media, true));
-					$extractedText = f_util_StringUtils::htmlToText($officeExtractor->getText(), false);
+					$extractedText = f_util_HtmlUtils::htmlToText($officeExtractor->getText(), false);
 					break;
 			}
 

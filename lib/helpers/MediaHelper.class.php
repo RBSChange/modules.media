@@ -995,24 +995,28 @@ class MediaHelper
 	{
 		switch (strtolower($extension))
 		{
-			case 'gif': 
-				return 'image/gif';
+			case 'gif': return 'image/gif';
 			case 'jpg':
 			case 'jpeg':
 				return 'image/jpeg';
-			case 'png':
-				return 'image/png';
-			case 'pdf':
-				return 'application/pdf';
-			case 'flv':
-				return 'video/x-flv';
-			case 'swf':	
-				return 'application/x-shockwave-flash';
-			case 'mp3':
-				return 'audio/mpeg';
+			case 'png': return 'image/png';
+			case 'ico': return 'image/x-icon';
+			case 'pdf': return 'application/pdf';
+			case 'flv': return 'video/x-flv';
+			case 'swf':	return 'application/x-shockwave-flash';
+			case 'mp3': return 'audio/mpeg';
+			case 'doc': return 'application/msword';
+			case 'docx': return 'application/vnd.openxmlformats-officedocument.WordprocessingML.document'; 
+			case 'xls': return 'application/vnd.ms-excel';
+			case 'xlsx': return 'application/vnd.openxmlformats-officedocument.SpreadsheetML.Sheet';
+			case 'ppt': return 'application/vnd.ms-powerpoint';
+			case 'pptx': return 'application/vnd.openxmlformats-officedocument.presentationml.Presentation';
+			case 'pps': return 'application/vnd.ms-powerpoint';
+			case 'ppsx': return 'application/vnd.openxmlformats-officedocument.presentationml.Slideshow';
 		}
 		return 'application/octet-stream';
 	}
+	
 	/**
 	 * Get the URL of a server icon.
 	 *

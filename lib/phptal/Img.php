@@ -2,25 +2,25 @@
 /**
  * change:img
  * <img change:img="PATH" />
- * @example PATH : front/pixel.gif
- * @example PATH : /media/frontoffice/pixel.gif
  * 
- * @example PATH : back/firefox.png
- * @example PATH : /media/backoffice/firefox.png
+ * Examples de Paths:
+ * PATH: front/pixel.gif
+ * PATH: /media/frontoffice/pixel.gif
  * 
+ * PATH: back/firefox.png
+ * PATH: /media/backoffice/firefox.png
  * 
- * @example PATH : icon/small/media.png
- * @example PATH : /changeicons/small/media.png
+ * PATH: icon/small/media.png
+ * PATH: /changeicons/small/media.png
  * 
- * @example PATH : theme/webfactory/tplOne.png
- * @example PATH : /media/themes/webfactory/tplOne.png
+ * PATH: theme/webfactory/tplOne.png
+ * PATH: /media/themes/webfactory/tplOne.png
  * 
- * @example PATH : http://www.rbschange.fr/media/frontoffice/logo.png
+ * PATH: http://www.rbschange.fr/media/frontoffice/logo.png
  * @package phptal.php.attribute
  */
 class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 {
-	
     /**
      * Called before element printing.
      */
@@ -40,6 +40,12 @@ class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 		}
 		$attr = $this->phpelement->getOrCreateAttributeNode($attribute);
 		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $this->expression . '\') ?>');
+    	
+		// Always generate the alt atrtibute on img tags.
+		if (strtolower($this->tag->name) == 'img')
+		{
+			$this->phpelement->getOrCreateAttributeNode('alt');
+		}
     }
 
     /**

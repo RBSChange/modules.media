@@ -9,7 +9,6 @@ class media_MediaService extends media_FileService
 	 */
 	private static $instance;
 
-
 	/**
 	 * @return media_MediaService
 	 */
@@ -71,10 +70,6 @@ class media_MediaService extends media_FileService
 	 */
 	public final function importFromTempFile($tmpFile)
 	{
-		if (Framework::isDebugEnabled())
-		{
-			Framework::debug(__METHOD__ . " : " . $tmpFile->__toString());
-		}
 		$originalMediaId = intval($tmpFile->getOriginalfileid());
 		if ($originalMediaId > 0)
 		{
@@ -91,11 +86,6 @@ class media_MediaService extends media_FileService
 		$media->setLabel($tmpFile->getVoLabel());
 		$media->setMediatype(MediaHelper::getMediaTypeByFilename($tmpFilePath));
 		$media->setModificationdate(null);
-
-		if (Framework::isDebugEnabled())
-		{
-			Framework::debug(__METHOD__ . " Result : " . $media->__toString() . " : " . $tmpFilePath);
-		}
 		return $media;
 	}
 
@@ -238,7 +228,7 @@ class media_MediaService extends media_FileService
 				$data['content']['previewimgurl']['image'] = '';
 			}
 
-			//$mediaId, $mediaLang, $documentId, $documentLang
+			// $mediaId, $mediaLang, $documentId, $documentLang
 			$mediausagesCount = count($document->getAllUsages());
 			$ls = LocaleService::getInstance();
 			if ($mediausagesCount == 0)

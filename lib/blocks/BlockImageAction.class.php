@@ -2,7 +2,7 @@
 class media_BlockImageAction extends website_BlockAction
 {
 	/**
-	 * @return Array
+	 * @return array
 	 */	
 	public function getCacheDependencies()
 	{
@@ -16,11 +16,9 @@ class media_BlockImageAction extends website_BlockAction
 	}
 
 	/**
-	 * @see website_BlockAction::execute()
-	 *
 	 * @param f_mvc_Request $request
 	 * @param f_mvc_Response $response
-	 * @return String
+	 * @return string
 	 */
 	public function execute($request, $response)
 	{
@@ -66,6 +64,9 @@ class media_BlockImageAction extends website_BlockAction
         return website_BlockView::SUCCESS;
 	}
 	
+	/**
+	 * @return integer[]
+	 */
 	private function getDocumentIds()
 	{
 		$data = $this->findParameterValue('cmpref');

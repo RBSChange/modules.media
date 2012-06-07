@@ -9,7 +9,7 @@
     </head>
     <body>
     	<h1 tal:content="trans:m.media.frontoffice.media-descriptionpage-title,title=media/getTitle,websiteTitle=website/getLabel">${media/getTitle}</h1>
-    	<div>${structure media/getDescriptionAsHtml}</div>
+    	<div>${media/getDescription}</div>
     	<p>
     		<img change:media="document media" />
     	</p>

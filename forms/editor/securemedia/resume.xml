@@ -5,7 +5,6 @@
 		<property name="author" labeli18n="m.uixul.bo.doceditor.property.author" />
 		<property name="creationdate" labeli18n="m.uixul.bo.doceditor.property.creationdate" />
 	</section>
-
 	<section name="content" labeli18n="m.uixul.bo.doceditor.section.content" image="{IconsBase}/small/page-content.png">
 		<property name="mimetype" labeli18n="m.media.bo.doceditor.property.mimetype" />
 		<property name="size" labeli18n="m.media.bo.doceditor.property.size" />
@@ -13,16 +12,13 @@
 		<property name="height" labeli18n="m.media.bo.doceditor.property.height" />
 		<property name="previewimgurl" labeli18n="m.media.bo.doceditor.property.previewimgurl" />
 	</section>
-	
-	<section name="usages" labeli18n="m.media.bo.doceditor.section.usages" image="{IconsBase}/small/search.png"
-		linkedtab="usages" actiontexti18n="m.media.bo.doceditor.section.usages-view">
+	<section name="usages" labeli18n="m.media.bo.doceditor.section.usages" image="{IconsBase}/small/search.png" linkedtab="usages"
+		actiontexti18n="m.media.bo.doceditor.section.usages-view">
 		<property name="mediausages" labeli18n="m.media.bo.doceditor.property.mediausages" />
 	</section>
-
 	<section name="publication" linkedtab="publication" labeli18n="m.uixul.bo.doceditor.section.publication" image="{IconsBase}/small/status.png">
 		<property name="status" labeli18n="m.uixul.bo.doceditor.property.status" />
 	</section>
-
 	<section name="localization" linkedtab="localization" labeli18n="m.uixul.bo.doceditor.section.localization" image="{IconsBase}/small/translate.png">
 		<property name="languages" type="langs" labeli18n="m.uixul.bo.doceditor.property.languages" />
 	</section>

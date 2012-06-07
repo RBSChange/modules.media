@@ -23,11 +23,19 @@ class media_ModuleService extends ModuleBaseService
 	}
 	
 	/**
-	 * @param Integer $documentId
-	 * @return f_persistentdocument_PersistentTreeNode
+	 * @return void
 	 */
-//	public function getParentNodeForPermissions($documentId)
-//	{
-//		// Define this method to handle permissions on a virtual tree node. Example available in list module.
-//	}
+	public function addRemoveTmpFilesTask()
+	{
+		$tasks = task_PlannedtaskService::getInstance()->getBySystemtaskclassname('media_RemoveTmpFilesTask');
+		if (count($tasks) == 0)
+		{
+			$task = task_PlannedtaskService::getInstance()->getNewDocumentInstance();
+			$task->setSystemtaskclassname('media_RemoveTmpFilesTask');
+			$task->setLabel('media_RemoveTmpFilesTask');
+			$task->setMaxduration(2);
+			$task->setMinute(-1);
+			$task->save(ModuleService::getInstance()->getSystemFolderId('task', 'media'));
+		}
+	}
 }

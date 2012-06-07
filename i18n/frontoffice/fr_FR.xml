@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <i18n baseKey="m.media.frontoffice" lcid="fr_FR">
-  <key id="zoom-click-to-close">cliquez pour fermer</key>
-  <key id="zoom-original">format original</key>
-  <key id="media-descriptionpage-title">Description du média ″{title}″ du site ″{websiteTitle}″</key>
-  <key id="gauge-search-5-0">pertinence 0 sur 5</key>
-  <key id="gauge-search-5-1">pertinence 1 sur 5</key>
-  <key id="gauge-search-5-2">pertinence 2 sur 5</key>
-  <key id="gauge-search-5-3">pertinence 3 sur 5</key>
-  <key id="gauge-search-5-4">pertinence 4 sur 5</key>
-  <key id="gauge-search-5-5">pertinence 5 sur 5</key>
+	<key id="zoom-click-to-close">cliquez pour fermer</key>
+	<key id="zoom-original">format original</key>
+	<key id="media-descriptionpage-title">Description du média ″{title}″ du site ″{websiteTitle}″</key>
+	<key id="gauge-search-5-0">pertinence 0 sur 5</key>
+	<key id="gauge-search-5-1">pertinence 1 sur 5</key>
+	<key id="gauge-search-5-2">pertinence 2 sur 5</key>
+	<key id="gauge-search-5-3">pertinence 3 sur 5</key>
+	<key id="gauge-search-5-4">pertinence 4 sur 5</key>
+	<key id="gauge-search-5-5">pertinence 5 sur 5</key>
+	<key id="broken-image">cette image n'existe plus</key>
 </i18n>

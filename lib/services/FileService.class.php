@@ -39,6 +39,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
+	 * @param f_persistentdocument_PersistentDocument $document (Read only)
+	 * @param array $defaultSynchroConfig string : string[]
+	 * @return array string : string[]
+	 */
+	public function getI18nSynchroConfig($document, $defaultSynchroConfig)
+	{
+		return array();
+	}
+	
+	/**
 	 * @param media_persistentdocument_file $document
 	 * @param Integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
 	 * @return void
@@ -493,6 +503,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 			unset($parameters['download']);
 			$parameters['lang'] = $lang;
 			$parameters['cmpref'] = $documentId;
+			$parameters['forceDownload'] = true;
 			return $urlRewritingService->getActionLinkForWebsite('media', 'Display', $website, $lang, $parameters);
 		}
 		

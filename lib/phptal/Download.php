@@ -124,9 +124,9 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 				$i++;
 			}
 			$ls = LocaleService::getInstance();
-			$res = sprintf("%.2f", $size).' <acronym title="'.$ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]) .'-long', array('ucf','attr')).'">';
+			$res = sprintf("%.2f", $size).' <abbr title="'.$ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]) .'-long', array('ucf','attr')).'">';
 			$res .= $ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]).'-acronym', array('ucf','attr'));
-			$res .= '</acronym>';
+			$res .= '</abbr>';
 			return $res;
 		}
 		return null;
@@ -144,8 +144,8 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 			return '';
 		}
 		$lang = self::getLang($media);
-		$title = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
-		$alt = LocaleService::getInstance()->transFO(self::LOCALE_PATH.'download', array('ucf', 'attr')) . ' ' . htmlspecialchars(strip_tags($title));
+		$content = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
+		$title = LocaleService::getInstance()->transFO(self::LOCALE_PATH.'download', array('ucf', 'attr')) . ' ' . htmlspecialchars(strip_tags($content));
 		$html = '<a';
 		
 		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');
@@ -163,8 +163,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 			$attrs['class'] = '"link download"';
 		}
 		
-		$attrs['alt'] = '"' . $alt . '"';
-		$attrs['title'] = '"' . $alt . '"';
+		$attrs['title'] = '"' . $title . '"';
 		
 		if (!$addcmpref)
 		{
@@ -175,7 +174,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		{
 			$html .= ' ' . $attrName .'=' . $attrValue;
 		}
-		$html .= '>' . $title . "</a>";
+		$html .= '>' . $content . "</a>";
 		return $html;
 	}
 	

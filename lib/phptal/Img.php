@@ -42,7 +42,7 @@ class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $this->expression . '\') ?>');
     	
 		// Always generate the alt atrtibute on img tags.
-		if (strtolower($this->tag->name) == 'img')
+		if (strtolower($this->phpelement->getLocalName()) == 'img')
 		{
 			$this->phpelement->getOrCreateAttributeNode('alt');
 		}

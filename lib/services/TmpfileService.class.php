@@ -1,26 +1,10 @@
 <?php
 /**
  * @package modules.media
+ * @method media_TmpfileService getInstance()
  */
 class media_TmpfileService extends media_FileService
 {
-	/**
-	 * @var media_TmpfileService
-	 */
-	private static $instance;
-
-	/**
-	 * @return media_TmpfileService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 	/**
 	 * @return media_persistentdocument_tmpfile
 	 */
@@ -86,7 +70,6 @@ class media_TmpfileService extends media_FileService
 					{
 						$media->save();
 					}
-						
 				}
 				elseif ($tmpFile->getTreeId())
 				{

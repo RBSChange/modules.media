@@ -19,7 +19,7 @@ class indexer_OfficeExtractor
 	/**
 	 * Get the text content of a pdf
 	 *
-	 * @return String
+	 * @return string
 	 */
 	public function getText()
 	{

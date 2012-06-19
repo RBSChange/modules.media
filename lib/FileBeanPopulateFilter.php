@@ -7,7 +7,7 @@ class media_FileBeanPopulateFilter implements website_BeanPopulateFilter
 	private $propName;
 
 	/**
-	 * @param String $propName the bean property name to fill with media/file
+	 * @param string $propName the bean property name to fill with media/file
 	 */
 	function __construct($propName)
 	{

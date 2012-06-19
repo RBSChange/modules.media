@@ -15,16 +15,16 @@ class media_DropFileAction extends change_JSONAction
 		$cleanFileName = basename($fileName, $fileExtension);
 		
 		$media = media_MediaService::getInstance()->getNewDocumentInstance();
-    	$media->setLabel(f_util_StringUtils::utf8Encode($cleanFileName));
+		$media->setLabel(f_util_StringUtils::utf8Encode($cleanFileName));
 
-        $media->setNewFileName($tmpFileName, f_util_StringUtils::utf8Encode($fileName));
-        $media->save($parentNode->getId());
-        if ($request->hasParameter('beforeid') ||  $request->hasParameter('afterid'))
-        {
-        	media_MediaService::getInstance()->moveTo($media, $parentNode->getId(), $request->getParameter('beforeid'), $request->getParameter('afterid'));
+		$media->setNewFileName($tmpFileName, f_util_StringUtils::utf8Encode($fileName));
+		$media->save($parentNode->getId());
+		if ($request->hasParameter('beforeid') ||  $request->hasParameter('afterid'))
+		{
+			media_MediaService::getInstance()->moveTo($media, $parentNode->getId(), $request->getParameter('beforeid'), $request->getParameter('afterid'));
 			
-        }
-        $this->logAction($media, array('destinationlabel' => $parentNode->getLabel()));
+		}
+		$this->logAction($media, array('destinationlabel' => $parentNode->getLabel()));
 		return $this->sendJSON(array('dropfileid' => $media->getId(), 'label' => $media->getLabel()));
 	}
 	
@@ -90,7 +90,7 @@ class media_DropFileAction extends change_JSONAction
 	}
 	
 	/**
-	 * @return Boolean
+	 * @return boolean
 	 */
 	protected function isDocumentAction()
 	{

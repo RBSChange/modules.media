@@ -1,26 +1,10 @@
 <?php
 /**
  * @package modules.media
+ * @method media_SecuremediaService getInstance()
  */
 class media_SecuremediaService extends media_MediaService
 {
-	/**
-	 * @var media_SecuremediaService
-	 */
-	private static $instance;
-
-	/**
-	 * @return media_SecuremediaService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 	/**
 	 * @return media_persistentdocument_securemedia
 	 */
@@ -30,9 +14,9 @@ class media_SecuremediaService extends media_MediaService
 	}
 
 	/**
-	 * @param Integer $id
-	 * @param String $lang
-	 * @return String
+	 * @param integer $id
+	 * @param string $lang
+	 * @return string
 	 */
 	protected function getAbsoluteFolder($id, $lang = null)
 	{
@@ -40,16 +24,15 @@ class media_SecuremediaService extends media_MediaService
 	}
 
 	/**
-	 * @param Integer $id
-	 * @param String $lang
-	 * @return String
+	 * @param integer $id
+	 * @param string $lang
+	 * @return string
 	 */
 	protected function getFormattedAbsoluteFolder($id, $lang = null)
 	{
 		return PROJECT_HOME.'/securemedia/formatted/'.$this->getRelativeFolder($id, $lang);
 	}
 
-	
 	/**
 	 * @param website_UrlRewritingService $urlRewritingService
 	 * @param media_persistentdocument_securemedia $document
@@ -73,7 +56,7 @@ class media_SecuremediaService extends media_MediaService
 	/**
 	 * Compute access using the registered strategies.
 	 * @param media_persistentdocument_securemedia $media
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public function hasAccess($media)
 	{
@@ -95,7 +78,7 @@ class media_SecuremediaService extends media_MediaService
 
 	/**
 	 * @param media_persistentdocument_securemedia $media
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public function hasBoAccess($media)
 	{

@@ -1,26 +1,10 @@
 <?php
 /**
  * @package modules.media
+ * @method media_PreferencesService getInstance()
  */
 class media_PreferencesService extends f_persistentdocument_DocumentService
 {
-	/**
-	 * @var media_PreferencesService
-	 */
-	private static $instance;
-
-	/**
-	 * @return media_PreferencesService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 	/**
 	 * @return media_persistentdocument_preferences
 	 */
@@ -35,9 +19,9 @@ class media_PreferencesService extends f_persistentdocument_DocumentService
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_media/preferences');
+		return $this->getPersistentProvider()->createQuery('modules_media/preferences');
 	}
-    
+	
 	/**
 	 * @var media_persistentdocument_preferences
 	 */
@@ -48,30 +32,30 @@ class media_PreferencesService extends f_persistentdocument_DocumentService
 	 */
 	private function getPreferenceDocument()
 	{
-	    if ($this->preference === null)
-	    {
-	        $preference = $this->createQuery()->findUnique();
-	        if ($preference === null)
-	        {
-	            $preference = $this->getNewDocumentInstance();
-	            $this->save($preference);
-	        }
-	        $this->preference = $preference;
-	    }
-	    return $this->preference;
+		if ($this->preference === null)
+		{
+			$preference = $this->createQuery()->findUnique();
+			if ($preference === null)
+			{
+				$preference = $this->getNewDocumentInstance();
+				$this->save($preference);
+			}
+			$this->preference = $preference;
+		}
+		return $this->preference;
 	}
 	
 	/**
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public function useFileNameAsAlt()
 	{
-	    return $this->getPreferenceDocument()->getUsefilenameasalt();
+		return $this->getPreferenceDocument()->getUsefilenameasalt();
 	}
 	
 	/**
 	 * @param media_persistentdocument_preferences $document
-	 * @param Integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
+	 * @param integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
 	 * @return void
 	 */
 	protected function preSave($document, $parentNodeId = null)

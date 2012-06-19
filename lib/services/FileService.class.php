@@ -1,26 +1,10 @@
 <?php
 /**
  * @package modules.media
+ * @method media_FileService getInstance()
  */
 class media_FileService extends f_persistentdocument_DocumentService
 {
-	/**
-	 * @var media_FileService
-	 */
-	private static $instance;
-	
-	/**
-	 * @return media_FileService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-	
 	/**
 	 * @return media_persistentdocument_file
 	 */
@@ -35,7 +19,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_media/file');
+		return $this->getPersistentProvider()->createQuery('modules_media/file');
 	}
 	
 	/**
@@ -50,7 +34,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param media_persistentdocument_file $document
-	 * @param Integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
+	 * @param integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
 	 * @return void
 	 */
 	protected function preSave($document, $parentNodeId = null)
@@ -128,7 +112,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param media_persistentdocument_file $document
-	 * @param Integer $parentNodeId Parent node ID where to save the document.
+	 * @param integer $parentNodeId Parent node ID where to save the document.
 	 * @return void
 	 */
 	protected function postSave($document, $parentNodeId = null)
@@ -335,9 +319,9 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param Integer $id
-	 * @param String lang
-	 * @return String
+	 * @param integer $id
+	 * @param string lang
+	 * @return string
 	 */
 	public final function getRelativeFolder($id, $lang = null)
 	{
@@ -404,9 +388,9 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param Integer $id
-	 * @param String $lang
-	 * @return String
+	 * @param integer $id
+	 * @param string $lang
+	 * @return string
 	 */
 	protected function getAbsoluteFolder($id, $lang = null)
 	{
@@ -414,9 +398,9 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param Integer $id
-	 * @param String $lang
-	 * @return String
+	 * @param integer $id
+	 * @param string $lang
+	 * @return string
 	 */
 	protected function getFormattedAbsoluteFolder($id, $lang = null)
 	{
@@ -447,8 +431,8 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param String $mediaFileName
-	 * @return String
+	 * @param string $mediaFileName
+	 * @return string
 	 */
 	protected function convertMediaFileNameToUrl($fileName)
 	{
@@ -462,8 +446,8 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param String $mediaFileName
-	 * @return String
+	 * @param string $mediaFileName
+	 * @return string
 	 */
 	protected function convertMediaFileNameToAbsoluteUrl($fileName)
 	{
@@ -583,7 +567,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 * @param media_persistentdocument_file $document
 	 * @param string $lang
 	 * @param array $parameters
-	 * @return String
+	 * @return string
 	 */
 	public function generateAbsoluteUrl($document, $lang, $parameters)
 	{
@@ -606,7 +590,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param media_persistentdocument_file $file
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public function hasAccess($file)
 	{
@@ -615,7 +599,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param media_persistentdocument_file $file
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public function hasBoAccess($file)
 	{
@@ -634,7 +618,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param Integer $fileId
+	 * @param integer $fileId
 	 * @return media_persistentdocument_file
 	 */
 	private function resolveFileDocumentInstance($fileId)
@@ -674,16 +658,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 		}
 		try
 		{
-			$this->tm->beginTransaction();
+			$this->getTransactionManager()->beginTransaction();
 			if ($media->addUsage($mediaLang, $documentId, $documentLang))
 			{
-				$this->pp->updateDocument($media);
+				$this->getPersistentProvider()->updateDocument($media);
 			}
-			$this->tm->commit();
+			$this->getTransactionManager()->commit();
 		}
 		catch (Exception $e)
 		{
-			$this->tm->rollBack($e);
+			$this->getTransactionManager()->rollBack($e);
 		}
 	}
 	
@@ -701,16 +685,16 @@ class media_FileService extends f_persistentdocument_DocumentService
 		
 		try
 		{
-			$this->tm->beginTransaction();
+			$this->getTransactionManager()->beginTransaction();
 			if ($media->removeUsage($mediaLang, $documentId, $documentLang))
 			{
-				$this->pp->updateDocument($media);
+				$this->getPersistentProvider()->updateDocument($media);
 			}
-			$this->tm->commit();
+			$this->getTransactionManager()->commit();
 		}
 		catch (Exception $e)
 		{
-			$this->tm->rollBack($e);
+			$this->getTransactionManager()->rollBack($e);
 		}
 	}
 	

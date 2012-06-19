@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <panel>
 	<section labeli18n="m.uixul.bo.doceditor.fieldsgroup.title">
-		<field name="label"/>
-		<field name="title"/>
-		<field name="description"/>
-		<field name="credit"/>
+		<field name="label" />
+		<field name="title" />
+		<field name="description" />
+		<field name="credit" />
 	</section>
-	
 	<section labeli18n="m.media.bo.doceditor.fieldsgroup.file-update">
-		<field name="i18ntmpfile" id="media_media_localization_i18ntmpfile" anonid="field_i18ntmpfile"
-			   type="document" allowfile="true" 
-			   labeli18n="m.media.bo.doceditor.field.new-file"
-			   hidehelp="true" />
-	</section>				
+		<field name="i18ntmpfile" id="media_media_localization_i18ntmpfile" anonid="field_i18ntmpfile" type="document" allowfile="true" labeli18n="m.media.bo.doceditor.field.new-file" hidehelp="true" />
+	</section>
 </panel>

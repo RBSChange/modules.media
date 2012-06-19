@@ -1,27 +1,10 @@
 <?php
 /**
- * @package modules.media.lib.services
+ * @package modules.media
+ * @method media_ModuleService getInstance()
  */
 class media_ModuleService extends ModuleBaseService
 {
-	/**
-	 * Singleton
-	 * @var media_ModuleService
-	 */
-	private static $instance = null;
-
-	/**
-	 * @return media_ModuleService
-	 */
-	public static function getInstance()
-	{
-		if (is_null(self::$instance))
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-	
 	/**
 	 * @return void
 	 */

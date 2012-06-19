@@ -19,7 +19,7 @@ class media_CropDialogJSONAction extends change_JSONAction
 	}
 	
 	/**
-	 * @return Boolean true
+	 * @return boolean true
 	 */
 	protected function isDocumentAction()
 	{

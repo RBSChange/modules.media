@@ -9,9 +9,9 @@ class transformer_MediaTmpfileToMediaSecuremedia extends f_persistentdocument_tr
 	}
 	
 	/**
-     * @param media_persistentdocument_tmpfile $sourceDocument
-     * @param media_persistentdocument_securemedia $destDocument
-     */
+	 * @param media_persistentdocument_tmpfile $sourceDocument
+	 * @param media_persistentdocument_securemedia $destDocument
+	 */
 	public function transform($sourceDocument, &$destDocument)
 	{
 		parent::transform($sourceDocument, $destDocument);

@@ -10,7 +10,7 @@ abstract class media_DisplaySecuremediaStrategy
 	
 	/**
 	 * @param media_persistentdocument_securemedia $media
-	 * @return Integer {OK | KO | NOT_CONCERNED}
+	 * @return integer {OK | KO | NOT_CONCERNED}
 	 */
 	public abstract function canDisplayMedia($media);
 }

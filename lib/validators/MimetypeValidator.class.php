@@ -75,7 +75,7 @@ class validation_MimetypeValidator extends validation_ValidatorImpl
 	}
 
 	/**
-	 * @return Boolean
+	 * @return boolean
 	 */
 	protected function canBeReversed()
 	{

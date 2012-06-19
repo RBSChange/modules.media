@@ -2,9 +2,8 @@
 
 class PHPTAL_Php_Attribute_CHANGE_Gauge extends ChangeTalAttribute 
 {
-
 	/**
-	 * @return String
+	 * @return string
 	 */
 	protected function getDefaultParameterName()
 	{
@@ -42,7 +41,7 @@ class PHPTAL_Php_Attribute_CHANGE_Gauge extends ChangeTalAttribute
 		}
 		else
 		{
-			$attributes['alt'] = LocaleService::getInstance()->transFO($params['baseLocalKey'] . $value, array('ucf'));
+			$attributes['alt'] = LocaleService::getInstance()->trans($params['baseLocalKey'] . $value, array('ucf'));
 		}
 		
 		$attributes['title'] = $attributes['alt'];

@@ -2,7 +2,7 @@
 class media_FormatterHelper
 {
 	/**
-	 * @param String $encodedformat for example:
+	 * @param string $encodedformat for example:
 	 * - 126/0/fr/Deux%20jours%20%C3%A0%20tuer;maxh=128,maxw=128.jpg
 	 * - 126/0/fr/Deux%20jours%20%C3%A0%20tuer;h=578,w=434.jpg
 	 * @throws Exception

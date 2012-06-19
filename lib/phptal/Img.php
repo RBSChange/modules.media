@@ -21,12 +21,12 @@
  */
 class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 {
-    /**
-     * Called before element printing.
-     */
-    public function before(PHPTAL_Php_CodeWriter $codewriter)
-    {
-        switch (strtolower($this->phpelement->getLocalName()))
+	/**
+	 * Called before element printing.
+	 */
+	public function before(PHPTAL_Php_CodeWriter $codewriter)
+	{
+		switch (strtolower($this->phpelement->getLocalName()))
 		{
 			case 'img' :
 			case 'input' :
@@ -40,25 +40,25 @@ class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 		}
 		$attr = $this->phpelement->getOrCreateAttributeNode($attribute);
 		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $this->expression . '\') ?>');
-    	
+		
 		// Always generate the alt atrtibute on img tags.
 		if (strtolower($this->phpelement->getLocalName()) == 'img')
 		{
 			$this->phpelement->getOrCreateAttributeNode('alt');
 		}
-    }
+	}
 
-    /**
-     * Called after element printing.
-     */
-    public function after(PHPTAL_Php_CodeWriter $codewriter)
-    {
-       //NOTHING
-    }
-    	
+	/**
+	 * Called after element printing.
+	 */
+	public function after(PHPTAL_Php_CodeWriter $codewriter)
+	{
+	   //NOTHING
+	}
+		
 	/**
 	 * @param array $params
-	 * @return String
+	 * @return string
 	 */
 	public static function renderImg($url)
 	{

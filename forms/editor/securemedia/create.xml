@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <panel>
 	<section labeli18n="m.uixul.bo.doceditor.fieldsgroup.title">
-		<field name="tmpfile" id="media_media_create_tmpfile" anonid="field_tmpfile"
-			   type="document" allowfile="true" labeli18n="m.media.bo.general.file" 
-			   hidehelp="true" required="true" />
-		<field name="label"/>
-		<field name="title"/>
+		<field name="tmpfile" id="media_media_create_tmpfile" anonid="field_tmpfile" type="document" allowfile="true" labeli18n="m.media.bo.general.file" hidehelp="true" required="true" />
+		<field name="label" />
+		<field name="title" />
 	</section>
 	<xul>
 		<javascript>
@@ -13,7 +11,6 @@
 				var me = this
 				this.fields['tmpfile'].addEventListener('fieldValueLabelModified', function (event) {me.updateLabel(event);}, true);
 			]]></constructor>
-			
 			<method name="updateLabel">
 				<parameter name="event" />
 				<body><![CDATA[
@@ -22,7 +19,7 @@
 					this.fields['label'].value = label;
 					this.fields['title'].value = label;
 				]]></body>
-			</method>	
+			</method>
 		</javascript>
-	</xul>	
+	</xul>
 </panel>

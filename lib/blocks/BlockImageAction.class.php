@@ -3,7 +3,7 @@ class media_BlockImageAction extends website_BlockAction
 {
 	/**
 	 * @return array
-	 */	
+	 */
 	public function getCacheDependencies()
 	{
 		$deps = array($this->getDocumentIdParameter());
@@ -61,7 +61,7 @@ class media_BlockImageAction extends website_BlockAction
 			Framework::warn(__METHOD__ . ' Invalid media ' . $e->getMessage()); 
 			return website_BlockView::NONE;
 		}
-        return website_BlockView::SUCCESS;
+		return website_BlockView::SUCCESS;
 	}
 	
 	/**

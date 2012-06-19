@@ -37,7 +37,7 @@ class media_InitializeUsagesPanelAction extends change_JSONAction
 			$docName = $matches[2];
 			$docInfo = array('l' => $doc->getLabel(), 'i' => $doc->getId(),
 				'm' => $modelName, 'e' => $docEditorService->getEditModuleName($doc),
-				't' => $ls->transBO('m.'.$moduleName.'.document.'.$docName.'.document-name').' ('.$ls->transBO('m.'.$moduleName.'.bo.general.module-name').')');
+				't' => $ls->trans('m.'.$moduleName.'.document.'.$docName.'.document-name').' ('.$ls->trans('m.'.$moduleName.'.bo.general.module-name').')');
 			if ($lang != "")
 			{
 				$docInfo['l'] = $doc->getLabelForLang($lang);

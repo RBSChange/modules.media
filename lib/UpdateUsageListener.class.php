@@ -11,7 +11,7 @@ class media_UpdateUsageListener
 			{
 				$usagesArray = $mfus->buildDocumentUsage($document);
 				media_FileusageService::getInstance()->updateUsagesByDocument($document, $usagesArray);
-			}			
+			}
 		}
 	}
 	
@@ -26,7 +26,7 @@ class media_UpdateUsageListener
 			{
 				$usagesArray = $mfus->buildDocumentUsage($document);
 				media_FileusageService::getInstance()->updateUsagesByDocument($document, $usagesArray);
-			}			
+			}
 		}
 
 	}	
@@ -39,10 +39,10 @@ class media_UpdateUsageListener
 			
 			$mfus = media_FileusageService::getInstance();
 			if ($mfus->hasFileTypeProperties($document))
-			{				
+			{
 				$usagesArray = $mfus->buildDocumentUsage($document);
 				media_FileusageService::getInstance()->updateUsagesByDocument($document, $usagesArray);
-			}			
+			}
 		}
 	}
 	
@@ -63,8 +63,8 @@ class media_UpdateUsageListener
 					$usagesArray = $mfus->buildDocumentUsage($document);
 				}
 				media_FileusageService::getInstance()->updateUsagesByDocument($document, $usagesArray);
-			}				
-		}		
+			}
+		}
 	}
 	
 	public function onPersistentDocumentDeprecated($sender, $params)
@@ -77,7 +77,7 @@ class media_UpdateUsageListener
 			{
 				$usagesArray = array();
 				media_FileusageService::getInstance()->updateUsagesByDocument($document, $usagesArray);
-			}				
-		}			
+			}
+		}
 	}
 }

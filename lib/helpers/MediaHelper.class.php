@@ -1530,7 +1530,7 @@ class MediaHelper
 
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @param String $class
+	 * @param string $class
 	 * @return array
 	 */
 	static function getAdditionnalDownloadAttributes($media, $class)
@@ -1570,7 +1570,7 @@ interface f_DownloadAttributeBuilder
 {
 	/**
 	 * @param f_persistentdocument_PersistentDocument $media
-	 * @param String $class
+	 * @param string $class
 	 * @return array<String, String>
 	 */
 	function getAttributes($media, $class);

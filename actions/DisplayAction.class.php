@@ -20,8 +20,8 @@ class media_DisplayAction extends change_Action
 		catch (Exception $e)
 		{
 			//Invalid Media
-        	Framework::exception($e);
-        	f_web_http_Header::setStatus(404);
+			Framework::exception($e);
+			f_web_http_Header::setStatus(404);
 			return change_View::NONE;
 		}
 		
@@ -40,7 +40,7 @@ class media_DisplayAction extends change_Action
 	 * @param media_persistentdocument_media $media
 	 * @param change_Context $context
 	 * @param Request$request
-	 * @return String
+	 * @return string
 	 */
 	protected function displayMedia($media, $context, $request)
 	{
@@ -144,7 +144,7 @@ class media_DisplayAction extends change_Action
 	private function dispatchDownloadEvent($media)
 	{
 		f_event_EventManager::dispatchEvent(// event name
-        'mediaDownloaded', // sender
+		'mediaDownloaded', // sender
 		$this, // event parameters
 		array('document' => $media , 'mediaId' => $media->getId()));
 	}
@@ -153,7 +153,7 @@ class media_DisplayAction extends change_Action
 	 * @param media_persistentdocument_file $media
 	 * @param change_Context $context
 	 * @param change_Request $request
-	 * @return Boolean true if the display is permitted (true by default)
+	 * @return boolean true if the display is permitted (true by default)
 	 */
 	protected function hasAccess($media, $context, $request)
 	{

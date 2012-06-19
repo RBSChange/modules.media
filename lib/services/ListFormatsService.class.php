@@ -1,30 +1,13 @@
 <?php
 /**
  * @package modules.media
+ * @method media_ListFormatsService getInstance()
  */
 class media_ListFormatsService extends change_BaseService implements list_ListItemsService
 {
 	/**
-	 * @var media_ListFormatsService
-	 */
-	private static $instance;
-	
-	/**
-	 * @return media_ListFormatsService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-	/**
 	 * Returns an array of available formats for the media module.
-	 *
-	 * @return array
+	 * @return list_Item[]
 	 */
 	public function getItems()
 	{

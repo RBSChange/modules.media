@@ -1,21 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <rights>
 	<actions>
 		<document name="rootfolder">
 			<action name="DropFile" />
 		</document>
 		<document name="folder">
-			<action name="DropFile" />			
-		</document>		
+			<action name="DropFile" />
+		</document>
 		<document name="media">
 			<action name="Transform" />
 			<action name="CropDialog" />
-			<action name="Crop" />		
-		</document>		
+			<action name="Crop" />
+		</document>
 		<document name="securemedia">
 			<action name="Transform" />
 			<action name="CropDialog" />
 			<action name="Crop" />
-		</document>		
+		</document>
 		<action name="DownloadMedia" />
 		<action name="SecureMediaDisplay" />
 		<action name="BoDisplay" />
@@ -70,7 +71,7 @@
 		</role>
 		<role name="User">
 			<permission name="List.*" />
-		</role>		
+		</role>
 		<frontendrole name="SecureMediaDisplay">
 			<permission name="SecureMediaDisplay" />
 		</frontendrole>

@@ -82,128 +82,128 @@ class media_persistentdocument_file extends media_persistentdocument_filebase
 		parent::setInfo(serialize($this->info[$lang]));
 	}
 	
-    /**
-     * @var String
-     */
-    private $newFileName;
+	/**
+	 * @var String
+	 */
+	private $newFileName;
 
-    /**
-     * @param String $tempFilePath
-     * @param String $realFileName
-     */
-    public function setNewFileName($tempFilePath, $realFileName = null)
-    {
-        $this->newFileName = $tempFilePath;
-        if ($realFileName !== null)
-        {
-            $this->setFilename($realFileName);
-        }
-    }
+	/**
+	 * @param string $tempFilePath
+	 * @param string $realFileName
+	 */
+	public function setNewFileName($tempFilePath, $realFileName = null)
+	{
+		$this->newFileName = $tempFilePath;
+		if ($realFileName !== null)
+		{
+			$this->setFilename($realFileName);
+		}
+	}
 
-    /**
-     * @return String
-     */
-    public function getNewFileName ()
-    {
-        return $this->newFileName;
-    }
-    
-    public function setAllUsages($referenceInfos)
-    {
-    	if (f_util_ArrayUtils::isEmpty($referenceInfos))
-    	{
-    		$this->setUsageinfo(null);
-    	}
-    	else
-    	{
-    		$this->setUsageinfo(serialize($referenceInfos));
-    	}
-    }
-    
-    public function getAllUsages()
-    {
-    	$data = $this->getUsageinfo();
-    	if (!is_null($data))
-    	{
-    		return unserialize($data);
-    	}
-    	return array();
-    }
-    
-    /**
-     * @return integer
-     */
-    public function countReferences()
-    {
-    	return count($this->getAllUsages());
-    }
+	/**
+	 * @return string
+	 */
+	public function getNewFileName ()
+	{
+		return $this->newFileName;
+	}
+	
+	public function setAllUsages($referenceInfos)
+	{
+		if (f_util_ArrayUtils::isEmpty($referenceInfos))
+		{
+			$this->setUsageinfo(null);
+		}
+		else
+		{
+			$this->setUsageinfo(serialize($referenceInfos));
+		}
+	}
+	
+	public function getAllUsages()
+	{
+		$data = $this->getUsageinfo();
+		if (!is_null($data))
+		{
+			return unserialize($data);
+		}
+		return array();
+	}
+	
+	/**
+	 * @return integer
+	 */
+	public function countReferences()
+	{
+		return count($this->getAllUsages());
+	}
 
-    /**
-     * @param String $mediaLang
-     * @param Integer $documentId
-     * @param String $documentLang
-     * @return boolean
-     */
-    public function addUsage($mediaLang, $documentId, $documentLang)
-    {
-    	$key = media_MediaUsageHelper::buildKey($this->getId(), $mediaLang, $documentId, $documentLang);
-    	$usages = $this->getAllUsages();
-    	if (!isset($usages[$key]))
-    	{
-    		if (Framework::isInfoEnabled())
-    		{
-    			Framework::info(__METHOD__ . ' : ' . $key);
-    		}
-    		$usages[$key] = media_MediaUsageHelper::buildValue($this->getId(), $mediaLang, $documentId, $documentLang);
-    		$this->setAllUsages($usages);
-    		return true;
-    	}
-    	return false;
-    }
+	/**
+	 * @param string $mediaLang
+	 * @param integer $documentId
+	 * @param string $documentLang
+	 * @return boolean
+	 */
+	public function addUsage($mediaLang, $documentId, $documentLang)
+	{
+		$key = media_MediaUsageHelper::buildKey($this->getId(), $mediaLang, $documentId, $documentLang);
+		$usages = $this->getAllUsages();
+		if (!isset($usages[$key]))
+		{
+			if (Framework::isInfoEnabled())
+			{
+				Framework::info(__METHOD__ . ' : ' . $key);
+			}
+			$usages[$key] = media_MediaUsageHelper::buildValue($this->getId(), $mediaLang, $documentId, $documentLang);
+			$this->setAllUsages($usages);
+			return true;
+		}
+		return false;
+	}
 
-    /**
-     * @param String $mediaLang
-     * @param Integer $documentId
-     * @param String $documentLang
-     * @return boolean
-     */
-    public function removeUsage($mediaLang, $documentId, $documentLang)
-    {
-    	$key = media_MediaUsageHelper::buildKey($this->getId(), $mediaLang, $documentId, $documentLang);
-    	$usages = $this->getAllUsages();
-    	if (isset($usages[$key]))
-    	{
-    	    if (Framework::isInfoEnabled())
-    		{
-    			Framework::info(__METHOD__ . ' : ' . $key);
-    		}
-    		
-    		$newUsage = array();
-    		foreach ($usages as $oldkey => $value) 
-    		{
-    			if ($oldkey !== $key) {$newUsage[$oldkey] = $value;}
-    		}
-    		$this->setAllUsages($newUsage);
-    		return true;
-    	}
-    	return false;
-    }
+	/**
+	 * @param string $mediaLang
+	 * @param integer $documentId
+	 * @param string $documentLang
+	 * @return boolean
+	 */
+	public function removeUsage($mediaLang, $documentId, $documentLang)
+	{
+		$key = media_MediaUsageHelper::buildKey($this->getId(), $mediaLang, $documentId, $documentLang);
+		$usages = $this->getAllUsages();
+		if (isset($usages[$key]))
+		{
+			if (Framework::isInfoEnabled())
+			{
+				Framework::info(__METHOD__ . ' : ' . $key);
+			}
+			
+			$newUsage = array();
+			foreach ($usages as $oldkey => $value) 
+			{
+				if ($oldkey !== $key) {$newUsage[$oldkey] = $value;}
+			}
+			$this->setAllUsages($newUsage);
+			return true;
+		}
+		return false;
+	}
 
-    public function addDownloadAttributes(&$attributes)
-    {
-    	$class = isset($attributes['class']) ? $attributes['class'] : null;
-    	$attrs = MediaHelper::getAdditionnalDownloadAttributes($this, $class);
-    	$attributes = array_merge($attributes, $attrs);
-    }
-    
+	public function addDownloadAttributes(&$attributes)
+	{
+		$class = isset($attributes['class']) ? $attributes['class'] : null;
+		$attrs = MediaHelper::getAdditionnalDownloadAttributes($this, $class);
+		$attributes = array_merge($attributes, $attrs);
+	}
+	
  	/**
  	 * @return string
  	 */
-    public function getPath()
-    {
-    	return $this->getDocumentService()->getOriginalPath($this);
-    }
-    
+	public function getPath()
+	{
+		return $this->getDocumentService()->getOriginalPath($this);
+	}
+	
 	private $tmpFileId;
 	
 	public function getTmpfile()

@@ -30,7 +30,7 @@ class media_CropAction extends change_JSONAction
 			default:
 				return $this->sendJSONError('Invalid media extension :' . $extension, false);
 		}
-				
+		
 		$targetHeight = $request->getParameter("h");
 		$targetWidth = $request->getParameter("w");
 		$targetX = $request->getParameter("x");
@@ -82,11 +82,11 @@ class media_CropAction extends change_JSONAction
 			$ms->save($newMedia, $ms->getParentOf($media)->getId());
 			$this->logAction($newMedia);
 			return $this->sendJSON(array('id' => $newMedia->getId()));
-		}	
+		}
 	}
-	
+
 	/**
-	 * @return Boolean true
+	 * @return boolean true
 	 */
 	protected function isDocumentAction()
 	{

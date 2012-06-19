@@ -7,7 +7,7 @@ class media_DisplaySecuremediaDefaultStrategy extends media_DisplaySecuremediaSt
 {
 	/**
 	 * @param media_persistentdocument_securemedia $media
-	 * @return Integer
+	 * @return integer
 	 */
 	public function canDisplayMedia($media)
 	{

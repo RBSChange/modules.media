@@ -1,32 +1,16 @@
 <?php
 /**
  * @package modules.media
+ * @method media_FileusageService getInstance()
  */
 class media_FileusageService extends f_persistentdocument_DocumentService
 {
-	/**
-	 * @var media_FileusageService
-	 */
-	private static $instance;
-		
 	/**
 	 * @var array<$modelName, array<$propertyName, $gettername>>
 	 */
 	private $_filePropertyNames = array();
 	private $_fileDocumentPropertyNames = array();
 	private $_fileFunctionNames = array();
-
-	/**
-	 * @return media_FileusageService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
 
 	/**
 	 * @return media_persistentdocument_fileusage
@@ -42,7 +26,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_media/fileusage');
+		return $this->getPersistentProvider()->createQuery('modules_media/fileusage');
 	}
 
 	/**
@@ -182,7 +166,7 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 	{
 		try 
 		{
-			$this->tm->beginTransaction();
+			$this->getTransactionManager()->beginTransaction();
 			$doDelete = f_util_ArrayUtils::isEmpty($usagesArray);	
 			$fileUsage = $this->createQuery()->add(Restrictions::eq('documentid', $document->getId()))->findUnique();
 			$removeUsage = array();
@@ -234,11 +218,11 @@ class media_FileusageService extends f_persistentdocument_DocumentService
 				}
 			}
 			
-			$this->tm->commit();
+			$this->getTransactionManager()->commit();
 		}
 		catch (Exception $e)
 		{
-			$this->tm->rollBack($e);
+			$this->getTransactionManager()->rollBack($e);
 		}
 	}
 }

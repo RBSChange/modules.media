@@ -15,8 +15,8 @@ class media_BlockMediaAction extends website_BlockAction
 	 */
 	public function getCacheKeyParameters($request)
 	{
-	    $keys = array($this->findParameterValue(change_Request::DOCUMENT_ID));
-	    $keys['lang'] = $this->getLang();
+		$keys = array($this->findParameterValue(change_Request::DOCUMENT_ID));
+		$keys['lang'] = $this->getLang();
 		return $keys;
 	}
 	
@@ -25,7 +25,7 @@ class media_BlockMediaAction extends website_BlockAction
 	 *
 	 * @param f_mvc_Request $request
 	 * @param f_mvc_Response $response
-	 * @return String
+	 * @return string
 	 */
 	public function execute($request, $response)
 	{
@@ -34,7 +34,7 @@ class media_BlockMediaAction extends website_BlockAction
 		{
 			return website_BlockView::NONE;
 		}
-        $request->setAttribute("media", $media);
-        return website_BlockView::SUCCESS;
-    }
+		$request->setAttribute("media", $media);
+		return website_BlockView::SUCCESS;
+	}
 }

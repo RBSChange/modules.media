@@ -4,10 +4,10 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 	const LOCALE_PATH =  'm.media.download.';
 
 	/**
-     * Called before element printing.
-     */
-    public function before(PHPTAL_Php_CodeWriter $codewriter)
-    {
+	 * Called before element printing.
+	 */
+	public function before(PHPTAL_Php_CodeWriter $codewriter)
+	{
 		$expressions = $codewriter->splitExpression($this->expression);
 		$media = 'null';
 		$class = 'null';
@@ -34,11 +34,11 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		$codewriter->doEchoRaw('PHPTAL_Php_Attribute_CHANGE_Download::render('.$media.', '.$class.')');
 	}
 	
-    /**
-     * Called after element printing.
-     */
-    public function after(PHPTAL_Php_CodeWriter $codewriter)
-    {
+	/**
+	 * Called after element printing.
+	 */
+	public function after(PHPTAL_Php_CodeWriter $codewriter)
+	{
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @param String $lang
+	 * @param string $lang
 	 */
 	public static function getContent($media, $lang)
 	{
@@ -66,15 +66,15 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 
 		if ($media->getTitle())
 		{
-		    $filename = $media->getTitle();
+			$filename = $media->getTitle();
 		}
 		elseif ($media->getFilename())
 		{
-		    $filename = $media->getFilename();
+			$filename = $media->getFilename();
 		}
 		else
 		{
-		    $filename = $media->getVoFilename();
+			$filename = $media->getVoFilename();
 		}
 
 		$path = $media->getDocumentService()->getOriginalPath($media, true);
@@ -83,14 +83,14 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		// #7824 - intcours - display extension for "unknown" files :
 		if (strtolower($type) == 'media')
 		{
-    		if ($media->getFilename())
-    		{
-    		    $type = f_util_FileUtils::getFileExtension($media->getFilename());
-    		}
-    		else
-    		{
-    		    $type = f_util_FileUtils::getFileExtension($media->getVoFilename());
-    		}    		
+			if ($media->getFilename())
+			{
+				$type = f_util_FileUtils::getFileExtension($media->getFilename());
+			}
+			else
+			{
+				$type = f_util_FileUtils::getFileExtension($media->getVoFilename());
+			}
 		}
 
 		$rc->endI18nWork();
@@ -124,8 +124,8 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 				$i++;
 			}
 			$ls = LocaleService::getInstance();
-			$res = sprintf("%.2f", $size).' <abbr title="'.$ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]) .'-long', array('ucf','attr')).'">';
-			$res .= $ls->transFO(self::LOCALE_PATH . strtolower($iec[$i]).'-acronym', array('ucf','attr'));
+			$res = sprintf("%.2f", $size).' <abbr title="'.$ls->trans(self::LOCALE_PATH . strtolower($iec[$i]) .'-long', array('ucf','attr')).'">';
+			$res .= $ls->trans(self::LOCALE_PATH . strtolower($iec[$i]).'-acronym', array('ucf','attr'));
 			$res .= '</abbr>';
 			return $res;
 		}
@@ -134,8 +134,8 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @param String $class
-	 * @return String
+	 * @param string $class
+	 * @return string
 	 */
 	public static function render($media, $class, $addcmpref = false)
 	{
@@ -145,7 +145,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		}
 		$lang = self::getLang($media);
 		$content = f_util_StringUtils::ucfirst(self::getContent($media, $lang));
-		$title = LocaleService::getInstance()->transFO(self::LOCALE_PATH.'download', array('ucf', 'attr')) . ' ' . htmlspecialchars(strip_tags($content));
+		$title = LocaleService::getInstance()->trans(self::LOCALE_PATH.'download', array('ucf', 'attr')) . ' ' . htmlspecialchars(strip_tags($content));
 		$html = '<a';
 		
 		$attrs = array("href" => '"' . self::getUrl($media, $lang) . '"');

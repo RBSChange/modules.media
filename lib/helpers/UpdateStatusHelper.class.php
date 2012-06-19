@@ -69,6 +69,6 @@ class media_UpdateStatusHelper
 		{
 			$document->setPublicationstatus('PUBLICATED');
 			$document->getDocumentService()->publishDocument($document, array());
-		}	
+		}
 	}
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <blocks>
 	<block type="modules_media_media" hidden="true" labeli18n="m.media.bo.blocks.media" />
 	<block type="modules_media_image" hidden="true" labeli18n="m.media.bo.blocks.image" cache="true" cache-key="cmpref" dropModels="modules_media/image">
@@ -51,8 +51,7 @@
 			<parameter name="transparent" type="Boolean" default-value="true" />
 		</parameters>
 	</block>
-	<block type="modules_media_imageList" labeli18n="m.media.bo.blocks.imagelist" icon="list-block" cache="true" cache-key="cmpref"
-		cache-deps="[modules_media/media]">
+	<block type="modules_media_imageList" labeli18n="m.media.bo.blocks.imagelist" icon="list-block" cache="true" cache-key="cmpref" cache-deps="[modules_media/media]">
 		<parameters>
 			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
 			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel="" />

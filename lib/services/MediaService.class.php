@@ -1,26 +1,10 @@
 <?php
 /**
  * @package modules.media
+ * @method media_MediaService getInstance()
  */
 class media_MediaService extends media_FileService
 {
-	/**
-	 * @var media_MediaService
-	 */
-	private static $instance;
-
-	/**
-	 * @return media_MediaService
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === null)
-		{
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
 	/**
 	 * @return media_persistentdocument_media
 	 */
@@ -35,12 +19,12 @@ class media_MediaService extends media_FileService
 	 */
 	public function createQuery()
 	{
-		return $this->pp->createQuery('modules_media/media');
+		return $this->getPersistentProvider()->createQuery('modules_media/media');
 	}
 
 	/**
 	 * @param media_persistentdocument_media $document
-	 * @param Integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
+	 * @param integer $parentNodeId Parent node ID where to save the document (optionnal => can be null !).
 	 * @return void
 	 */
 	protected function preSave($document, $parentNodeId = null)
@@ -93,7 +77,7 @@ class media_MediaService extends media_FileService
 	 * @param media_persistentdocument_media $document
 	 * @param string $lang
 	 * @param array $parameters
-	 * @return String
+	 * @return string
 	 */
 	public function generateAbsoluteUrl($document, $lang, $parameters)
 	{
@@ -102,7 +86,7 @@ class media_MediaService extends media_FileService
 
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @return String
+	 * @return string
 	 */
 	public function getTextForIndexer($media)
 	{
@@ -156,7 +140,7 @@ class media_MediaService extends media_FileService
 
 	/**
 	 * @param media_persistentdocument_media $media
-	 * @return Boolean
+	 * @return boolean
 	 */
 	private function putExtractedTextInCache($media)
 	{
@@ -233,7 +217,7 @@ class media_MediaService extends media_FileService
 			$ls = LocaleService::getInstance();
 			if ($mediausagesCount == 0)
 			{
-				$mediausages = $ls->transBO('m.media.bo.doceditor.property.mediausages-not-found');
+				$mediausages = $ls->trans('m.media.bo.doceditor.property.mediausages-not-found');
 			}
 			else
 			{
@@ -381,7 +365,7 @@ class media_MediaService extends media_FileService
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param Array $attributes
-	 * @return String
+	 * @return string
 	 */
 	private function renderFlashTag($document, $attributes)
 	{

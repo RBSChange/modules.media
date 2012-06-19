@@ -6,9 +6,9 @@ class media_PHPTAL_CHANGE
 	 */
 	public static function addAttributes($namespaceCHANGE)
 	{
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('download', 30));             
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('media', 32));  	
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('img', 32));
-        $namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('gauge', 32));
+		$namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('download', 30));			 
+		$namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('media', 32));  	
+		$namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeSurround('img', 32));
+		$namespaceCHANGE->addAttribute(new PHPTAL_NamespaceAttributeReplace('gauge', 32));
 	}
 }

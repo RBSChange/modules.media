@@ -23,7 +23,7 @@ class media_TransformAction extends change_JSONAction
 				break;
 		}
 		return $this->sendJSON(array('message' => 
-			LocaleService::getInstance()->transBO('m.media.bo.actions.transform' . strtolower($way). '-success')));
+		LocaleService::getInstance()->trans('m.media.bo.actions.transform' . strtolower($way). '-success')));
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class media_TransformAction extends change_JSONAction
 				$documentService->transform($document, "modules_media/securemedia");
 				$this->logAction($document);
 			}
-		}		
+		}
 	}
 	
 	/**
@@ -55,11 +55,11 @@ class media_TransformAction extends change_JSONAction
 				$documentService->transform($document, "modules_media/media");
 				$this->logAction($document);
 			}
-		}		
+		}
 	}	
 	
 	/**
-	 * @return Boolean true
+	 * @return boolean true
 	 */
 	protected function isDocumentAction()
 	{

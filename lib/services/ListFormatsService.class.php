@@ -2,7 +2,7 @@
 /**
  * @package modules.media
  */
-class media_ListFormatsService extends BaseService implements list_ListItemsService
+class media_ListFormatsService extends change_BaseService implements list_ListItemsService
 {
 	/**
 	 * @var media_ListFormatsService

@@ -19,9 +19,9 @@ class media_GenerateFormatedAction extends change_Action
 		{
 			$format = $request->getParameter('format');	
 		}
-		   
-		try 
-		{   
+		
+		try
+		{
 			if (Framework::isInfoEnabled())
 			{
 				Framework::info(__METHOD__ . ':' . $format);

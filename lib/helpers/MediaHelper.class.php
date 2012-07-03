@@ -1183,27 +1183,14 @@ class MediaHelper
 		{
 			return self::$formats[$key];
 		}
-		$cacheFile = f_util_FileUtils::buildCachePath('mediaformat', basename($key));
-		f_util_FileUtils::mkdir(dirname($cacheFile));
-		if (!file_exists($cacheFile))
+		
+		$formats = website_StyleService::getInstance()->getImageFormats($stylesheet);
+		foreach ($formats as $n => $f)
 		{
-			$formats = website_StyleService::getInstance()->getImageFormats($stylesheet);
-			if (isset($formats[$formatName]))
-			{
-				$format = $formats[$formatName];
-			}
-			else 
-			{
-				$format = array();
-			}
-			f_util_FileUtils::write($cacheFile, '<?php $format = '.var_export($format, true).';', f_util_FileUtils::OVERRIDE);
+			self::$formats[$stylesheet.$n.$id] = $f;
 		}
-		else
-		{
-			include($cacheFile);
-		}
-		self::$formats[$key] = $format;
-		return $format;
+		if (!isset(self::$formats[$key])) {self::$formats[$key] = array();}
+		return self::$formats[$key];
 	}
 
 	private static $gifAnimList = array();
@@ -1549,7 +1536,7 @@ class MediaHelper
 					}
 					else
 					{
-						throw new ConfigurationException("Bad modules/media/additionnalDownloadAttributesBuilders : class $builderName does not exists");
+						Framework::error("Bad modules/media/additionnalDownloadAttributesBuilders : class $builderName does not exists");
 					}
 				}
 			}

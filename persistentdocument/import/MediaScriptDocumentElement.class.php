@@ -30,7 +30,7 @@ class media_MediaScriptDocumentElement extends import_ScriptDocumentElement
 
 		if (isset($properties['path']))
 		{
-			$ressourcePath = f_util_FileUtils::buildWebeditPath($properties['path']);
+			$ressourcePath = f_util_FileUtils::buildProjectPath($properties['path']);
 			$fileName = basename($ressourcePath);
 			$properties['filename'] = $fileName;
 			$properties['mediatype'] = MediaHelper::getMediaTypeByFilename($fileName);

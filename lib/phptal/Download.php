@@ -98,7 +98,7 @@ class PHPTAL_Php_Attribute_CHANGE_Download extends PHPTAL_Php_Attribute
 		$langString = null;
 		if ($lang !=  $rc->getLang())
 		{
-			$langString = f_Locale::translate( '&modules.uixul.bo.languages.' . ucfirst($lang) . ';' ). ', ';
+			$langString = LocaleService::getInstance()->trans( 'm.uixul.bo.languages.' . strtolower($lang), array('ucf')). ', ';
 		}
 		
 		$res = $filename . ' - ' . strtoupper($type) . ' (' . $langString;

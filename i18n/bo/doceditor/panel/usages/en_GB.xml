@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.doceditor.panel.usages" lcid="en_GB">
-  <key id="column-actions">actions</key>
-  <key id="column-label">label</key>
-  <key id="column-type">type</key>
-  <key id="locate">locate</key>
+	<key id="column-actions">actions</key>
+	<key id="column-label">label</key>
+	<key id="column-type">type</key>
+	<key id="locate">locate</key>
 </i18n>

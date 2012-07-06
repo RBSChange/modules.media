@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.error" lcid="de_DE">
-  <key id="partial-file">Die Datei wurde nur teilweise übertragen</key>
-  <key id="no-file">keine übertragene Datei</key>
-  <key id="no-id">kein Benutzername übertragen</key>
-  <key id="cannot-write">die Datei kann nicht auf die Platte geschrieben werden</key>
-  <key id="unknown">unbekannter Fehler</key>
-  <key id="cannot-move">die Datei kann nicht gespeichert werden</key>
-  <key id="max-size">die Datei überschreitet die angegebene Maximalgrösse von {size}Mo</key>
+	<key id="partial-file">Die Datei wurde nur teilweise übertragen</key>
+	<key id="no-file">keine übertragene Datei</key>
+	<key id="no-id">kein Benutzername übertragen</key>
+	<key id="cannot-write">die Datei kann nicht auf die Platte geschrieben werden</key>
+	<key id="unknown">unbekannter Fehler</key>
+	<key id="cannot-move">die Datei kann nicht gespeichert werden</key>
+	<key id="max-size">die Datei überschreitet die angegebene Maximalgrösse von {size}Mo</key>
 </i18n>

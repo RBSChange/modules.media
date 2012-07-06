@@ -11,7 +11,8 @@ class media_DisplayMediaDescriptionAction extends media_DisplayAction
 	protected function displayMedia ($media, $context, $request)
 	{
 		$this->setContentType("text/html");
-		$template = TemplateLoader::getInstance()->setPackageName("modules_media")->setDirectory("templates")->load("Media-MediaDescription");
+		$template = change_TemplateLoader::getNewInstance()->setExtension('html')
+			->load('modules', 'media', 'templates', 'Media-MediaDescription');
 		$template->setAttribute("media", $media);
 		$website = website_WebsiteService::getInstance()->getCurrentWebsite();
 		$template->setAttribute("website", $website);

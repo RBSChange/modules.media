@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.general" lcid="fr_FR">
-  <key id="module-name">médiathèque</key>
-  <key id="tree-root-name">médiathèque</key>
-  <key id="system-folder-name">médiathèque</key>
-  <key id="uploading">transfert de fichier</key>
-  <key id="close">fermer</key>
-  <key id="file">fichier</key>
-  <key id="progress">progression</key>
-  <key id="imagesetblockwidth">l'image définit la largeur du bloc</key>
-  <key id="formats">formats d'image</key>
-  <key id="selectmedia">sélectionner le nouveau fichier</key>
-  <key id="mediafile">fichier Média</key>
-  <key id="doupdate">mettre à jour</key>
-  <key id="docancel">annuler</key>
-  <key id="update-success">mise à jour effectuée avec succès.</key>
-  <key id="preview">Aperçu</key>
+	<key id="module-name">médiathèque</key>
+	<key id="tree-root-name">médiathèque</key>
+	<key id="system-folder-name">médiathèque</key>
+	<key id="uploading">transfert de fichier</key>
+	<key id="close">fermer</key>
+	<key id="file">fichier</key>
+	<key id="progress">progression</key>
+	<key id="imagesetblockwidth">l'image définit la largeur du bloc</key>
+	<key id="formats">formats d'image</key>
+	<key id="selectmedia">sélectionner le nouveau fichier</key>
+	<key id="mediafile">fichier Média</key>
+	<key id="doupdate">mettre à jour</key>
+	<key id="docancel">annuler</key>
+	<key id="update-success">mise à jour effectuée avec succès.</key>
+	<key id="preview">Aperçu</key>
 </i18n>

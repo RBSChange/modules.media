@@ -2,18 +2,18 @@
 	codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0"
 	tal:attributes="width width; height height; id id;"
 	align="middle">
-    <param name="allowScriptAccess" value="always" />
+	<param name="allowScriptAccess" value="always" />
 	<param name="movie" tal:attributes="value data;" />
-    <param name="quality" value="high" />
+	<param name="quality" value="high" />
 	<tal:block tal:on-error="" tal:condition="transparent">
 		<param name="wmode" value="transparent" />
 	</tal:block>
-    <embed
-        tal:attributes="src data; width width; height height; name id;"
-        quality="high"
-        align="middle"
-        allowScriptAccess="sameDomain"
-        type="application/x-shockwave-flash"
-        pluginspage="http://www.macromedia.com/go/getflashplayer" />
+	<embed
+		tal:attributes="src data; width width; height height; name id;"
+		quality="high"
+		align="middle"
+		allowScriptAccess="sameDomain"
+		type="application/x-shockwave-flash"
+		pluginspage="http://www.macromedia.com/go/getflashplayer" />
 	${alt}
 </object>

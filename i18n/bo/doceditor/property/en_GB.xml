@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.doceditor.property" lcid="en_GB">
-  <key id="width">width</key>
-  <key id="height">height</key>
-  <key id="mediausages">Number of references</key>
-  <key id="mediausages-not-found">none</key>
-  <key id="mimetype">Mime type</key>
-  <key id="previewimgurl">Preview</key>
-  <key id="previewimgurl-download">Download…</key>
-  <key id="size">size</key>
+	<key id="width">width</key>
+	<key id="height">height</key>
+	<key id="mediausages">Number of references</key>
+	<key id="mediausages-not-found">none</key>
+	<key id="mimetype">Mime type</key>
+	<key id="previewimgurl">Preview</key>
+	<key id="previewimgurl-download">Download…</key>
+	<key id="size">size</key>
 </i18n>

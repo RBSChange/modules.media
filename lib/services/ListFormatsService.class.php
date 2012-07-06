@@ -15,7 +15,7 @@ class media_ListFormatsService extends change_BaseService implements list_ListIt
 		$formats = website_StyleService::getInstance()->getImageFormats('modules.media.frontoffice');
 		foreach (array_keys($formats) as $formatName)
 		{
-			$items[] = new list_Item(f_Locale::translateUI('&modules.media.bo.general.format.' . ucfirst($formatName) .';'), 'modules.media.frontoffice/' . $formatName);
+			$items[] = new list_Item(LocaleService::getInstance()->trans('m.media.bo.general.format.' . strtolower($formatName), array('ucf')), 'modules.media.frontoffice/' . $formatName);
 		}
 		return $items;
 	}

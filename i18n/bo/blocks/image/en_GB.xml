@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.blocks.image" lcid="en_GB">
-  <key id="customheight">Height</key>
-  <key id="customheight-help">Maximum height of image.</key>
-  <key id="customwidth">Width</key>
-  <key id="customwidth-help">Maximum width of image.</key>
-  <key id="documenturl">link to a document</key>
-  <key id="documenturl-help">Select the document of your choice to generate a link to this document. This will deactivate the zoom functionality.</key>
-  <key id="format">Format</key>
-  <key id="format-help">Choose a predefined image format.</key>
-  <key id="url">link</key>
-  <key id="url-help">Enter an address (URL) to generate a link to this address. This will deactivate the zoom functionality.</key>
-  <key id="zoom">zoom</key>
-  <key id="zoom-help">Activate zoom when possible</key>
+	<key id="customheight">Height</key>
+	<key id="customheight-help">Maximum height of image.</key>
+	<key id="customwidth">Width</key>
+	<key id="customwidth-help">Maximum width of image.</key>
+	<key id="documenturl">link to a document</key>
+	<key id="documenturl-help">Select the document of your choice to generate a link to this document. This will deactivate the zoom functionality.</key>
+	<key id="format">Format</key>
+	<key id="format-help">Choose a predefined image format.</key>
+	<key id="url">link</key>
+	<key id="url-help">Enter an address (URL) to generate a link to this address. This will deactivate the zoom functionality.</key>
+	<key id="zoom">zoom</key>
+	<key id="zoom-help">Activate zoom when possible</key>
 </i18n>

@@ -147,9 +147,9 @@
 				</xul:columns>
 				<xul:rows>
 					<xul:row class="head" anonid="head-row">
-						<xul:label name="l" value="${trans:m.media.bo.doceditor.panel.usages.Column-label,ucf,attr}" />
-						<xul:label name="t" value="${trans:m.media.bo.doceditor.panel.usages.Column-type,ucf,attr}" />
-						<xul:label name="actionrow" value="${trans:m.media.bo.doceditor.panel.usages.Column-actions,ucf,attr}" />
+						<xul:label name="l" value="${trans:m.media.bo.doceditor.panel.usages.column-label,ucf,attr}" />
+						<xul:label name="t" value="${trans:m.media.bo.doceditor.panel.usages.column-type,ucf,attr}" />
+						<xul:label name="actionrow" value="${trans:m.media.bo.doceditor.panel.usages.column-actions,ucf,attr}" />
 					</xul:row>
 				</xul:rows>
 			</xul:grid>
@@ -158,8 +158,8 @@
 				<xul:label value="" />
 				<xul:label value="" />
 				<xul:toolbar class="action">
-					<xul:toolbarbutton action="edit" image="{IconsBase}/small/edit.png" tooltiptext="${trans:m.uixul.bo.actions.Edit,ucf,attr}" />
-					<xul:toolbarbutton action="locate" image="{IconsBase}/small/search.png" tooltiptext="${trans:m.media.bo.doceditor.panel.usages.Locate,ucf,attr}" />
+					<xul:toolbarbutton action="edit" image="{IconsBase}/small/edit.png" tooltiptext="${trans:m.uixul.bo.actions.edit,ucf,attr}" />
+					<xul:toolbarbutton action="locate" image="{IconsBase}/small/search.png" tooltiptext="${trans:m.media.bo.doceditor.panel.usages.locate,ucf,attr}" />
 				</xul:toolbar>
 			</xul:row>
 		</content>

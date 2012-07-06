@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.general.column" lcid="en_GB">
-  <key id="title">alternative text</key>
-  <key id="countreferences">number of references</key>
+	<key id="title">alternative text</key>
+	<key id="countreferences">number of references</key>
 </i18n>

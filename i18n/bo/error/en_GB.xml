@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.error" lcid="en_GB">
-  <key id="partial-file">the file was only partially transfered</key>
-  <key id="no-file">no file transmitted</key>
-  <key id="no-id">no ID transmitted</key>
-  <key id="cannot-write">the file cannot be written to the disk</key>
-  <key id="unknown">unknown error</key>
-  <key id="cannot-move">the file cannot be saved</key>
-  <key id="max-size">the file exceeds the specified size limit of {size}Mb</key>
+	<key id="partial-file">the file was only partially transfered</key>
+	<key id="no-file">no file transmitted</key>
+	<key id="no-id">no ID transmitted</key>
+	<key id="cannot-write">the file cannot be written to the disk</key>
+	<key id="unknown">unknown error</key>
+	<key id="cannot-move">the file cannot be saved</key>
+	<key id="max-size">the file exceeds the specified size limit of {size}Mb</key>
 </i18n>

@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.document.securemedia" lcid="de_DE">
-  <key id="document-name">gesichertes Medium</key>
-  <key id="edition-form-title">Eigenschaften gesichertes Medium</key>
-  <key id="label">kompletter Titel</key>
-  <key id="label-help">kompletter Titel des Mediums</key>
-  <key id="title">kurzer Alternativinhalt</key>
-  <key id="title-help">kurzer an Stelle des Mediums angezeigter Alternativinhalt (max. 60 Zeichen)</key>
-  <key id="description">langer Alternativinhalt</key>
-  <key id="description-help">langer an Stelle des Mediums angezeigter Alternativinhalt</key>
-  <key id="credit">Kredit</key>
-  <key id="credit-help">Kredit oder Copyright</key>
-  <key id="warnselectmedia">Bitte wählen Sie eine Datei</key>
+	<key id="document-name">gesichertes Medium</key>
+	<key id="edition-form-title">Eigenschaften gesichertes Medium</key>
+	<key id="label">kompletter Titel</key>
+	<key id="label-help">kompletter Titel des Mediums</key>
+	<key id="title">kurzer Alternativinhalt</key>
+	<key id="title-help">kurzer an Stelle des Mediums angezeigter Alternativinhalt (max. 60 Zeichen)</key>
+	<key id="description">langer Alternativinhalt</key>
+	<key id="description-help">langer an Stelle des Mediums angezeigter Alternativinhalt</key>
+	<key id="credit">Kredit</key>
+	<key id="credit-help">Kredit oder Copyright</key>
+	<key id="warnselectmedia">Bitte wählen Sie eine Datei</key>
 </i18n>

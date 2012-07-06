@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.document.preferences" lcid="en_GB">
-  <key id="usefilenameasalt">Use the filename as the title</key>
-  <key id="usefilenameasalt-help">Use the filename as the title and alternative description of the media.</key>
-  <key id="document-name">preferences</key>
-  <key id="edition-form-title">"Media library" modules settings</key>
+	<key id="usefilenameasalt">Use the filename as the title</key>
+	<key id="usefilenameasalt-help">Use the filename as the title and alternative description of the media.</key>
+	<key id="document-name">preferences</key>
+	<key id="edition-form-title">"Media library" modules settings</key>
 </i18n>

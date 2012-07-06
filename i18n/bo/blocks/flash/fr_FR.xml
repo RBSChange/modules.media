@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.blocks.flash" lcid="fr_FR">
-  <key id="transparent">fond transparent</key>
-  <key id="wmode-help">Active la transparence du flash (conséquence dépend du fichier flash utilisé)</key>
+	<key id="transparent">fond transparent</key>
+	<key id="wmode-help">Active la transparence du flash (conséquence dépend du fichier flash utilisé)</key>
 </i18n>

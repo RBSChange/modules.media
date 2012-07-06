@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.errors" lcid="de_DE">
-  <key id="modules-media-getpreferencesdocument">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Präferenzen öffnen″</key>
-  <key id="modules-media-editlocale">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Lokale bearbeiten″</key>
-  <key id="modules-media-order">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Elementenreihenfolge ändern″</key>
-  <key id="modules-media-transform-media">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″In nicht gesichertes Medium umwandeln″</key>
-  <key id="modules-media-transform-securemedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″In gesichertes Medium umwandeln″</key>
-  <key id="modules-media-updatemedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Medium ändern″</key>
-  <key id="modules-media-upload">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Herunterladen″</key>
-  <key id="modules-media-downloadmedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Medium herunterladen″</key>
-  <key id="modules-media-enabled">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Modulzugang″</key>
+	<key id="modules-media-getpreferencesdocument">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Präferenzen öffnen″</key>
+	<key id="modules-media-editlocale">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Lokale bearbeiten″</key>
+	<key id="modules-media-order">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Elementenreihenfolge ändern″</key>
+	<key id="modules-media-transform-media">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″In nicht gesichertes Medium umwandeln″</key>
+	<key id="modules-media-transform-securemedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″In gesichertes Medium umwandeln″</key>
+	<key id="modules-media-updatemedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Medium ändern″</key>
+	<key id="modules-media-upload">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Herunterladen″</key>
+	<key id="modules-media-downloadmedia">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Medium herunterladen″</key>
+	<key id="modules-media-enabled">Sie haben nicht die Rechte folgende Aktion durchzuführen: ″Modulzugang″</key>
 </i18n>

@@ -3,15 +3,14 @@
 	<binding fileName="modules/media/persistentdocument/import/media_binding.xml" />
 	<rootfolder module="media">
 		<folder label="Exemple de media">
-			<media path="modules/media/setup/logo_CHANGE.png" label="RBS Change 4"/>
+			<media path="modules/media/setup/logo_CHANGE.png" label="RBS Change 4" />
 			<folder label="Logos">
-				<media path="modules/media/setup/logo_CHANGE.png" label="Logo RBS Change 4"/>
+				<media path="modules/media/setup/logo_CHANGE.png" label="Logo RBS Change 4" />
 			</folder>
 		</folder>
 	</rootfolder>
-	
 	<systemfolder module="media" relatedmodule="website">
-		<media path="modules/media/setup/logo_rbs.gif" label="Logo RBS"/>
+		<media path="modules/media/setup/logo_rbs.gif" label="Logo RBS" />
 		<media path="modules/media/setup/logo_CHANGE.png" label="Logo RBS Change" />
 	</systemfolder>
 </script>

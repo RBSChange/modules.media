@@ -253,10 +253,8 @@ class MediaHelper
 				break;
 
 			case self::TYPE_FLASH:
-				$templateComponent = TemplateLoader::getInstance()
-				->setpackagename('modules_media')
-				->setMimeContentType('html')
-				->load('Media-Block-Flash-Success');
+				$templateComponent = change_TemplateLoader::getNewInstance()->setExtension('html')
+					->load('modules', 'media', 'templates', 'Media-Block-Flash-Success');
 				$parameters['id'] = 'media-' . $parameters['id'];
 				if ($document->getDescriptionForLang($urlLang))
 				{
@@ -1159,7 +1157,7 @@ class MediaHelper
 		$filename = str_replace('//', '/', self::ROOT_MEDIA_PATH . $filename);
 		// corrects some ugly old paths
 		$filename = str_replace('media/media', 'media', $filename);
-		return f_util_FileUtils::buildWebeditPath($filename);
+		return f_util_FileUtils::buildProjectPath($filename);
 	}
 
 	public static function getFormatPropertiesByName($format, $id = null)

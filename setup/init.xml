@@ -2,14 +2,10 @@
 <script>
 	<binding fileName="modules/list/persistentdocument/import/list_binding.xml" />
 	<binding fileName="modules/media/persistentdocument/import/media_binding.xml" />
-
 	<rootfolder module="preferences">
-		<mediapreferences />
-	</rootfolder>	
-	
+		<mediapreferences/>
+	</rootfolder>
 	<systemfolder module="list" relatedmodule="media">
-		<dynamiclist listid="modules_media/formats" 
-			description="Liste des formats"
-			label="Liste des formats" />
+		<dynamiclist listid="modules_media/formats" description="Liste des formats" label="Liste des formats" />
 	</systemfolder>
 </script>

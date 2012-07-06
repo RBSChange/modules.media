@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.validation.validator.mimetype" lcid="fr_FR">
-  <key id="message">Le fichier ″{field}″ n'est pas de type valide. Le type supporté est : ″{allowedMimes}″.</key>
+	<key id="message">Le fichier ″{field}″ n'est pas de type valide. Le type supporté est : ″{allowedMimes}″.</key>
 </i18n>

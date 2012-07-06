@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.actions" lcid="en_GB">
-  <key id="create_">add</key>
-  <key id="createmedia">Add media</key>
-  <key id="uploadmedia">file update</key>
-  <key id="downloadmedia">download the file</key>
-  <key id="clickfordownloadmedia">click to download the file</key>
-  <key id="uploadmediamessage">Please select only one document.</key>
-  <key id="canceluploadmedia">cancel the update</key>
-  <key id="create-securemedia">Add secure media</key>
-  <key id="create-preferences">Create preferences</key>
-  <key id="transformtosecuremedia">Convert to secure media</key>
-  <key id="transformtomedia">Convert to non-secure media</key>
-  <key id="crop">Crop image</key>
-  <key id="cropimage">crop image</key>
-  <key id="cropped">(Cropped)</key>
-  <key id="transformtomedia-success">Conversion to non-secure media performed successfully.</key>
-  <key id="transformtosecuremedia-success">Conversion to secure media performed successfully.</key>
+	<key id="create_">add</key>
+	<key id="createmedia">Add media</key>
+	<key id="uploadmedia">file update</key>
+	<key id="downloadmedia">download the file</key>
+	<key id="clickfordownloadmedia">click to download the file</key>
+	<key id="uploadmediamessage">Please select only one document.</key>
+	<key id="canceluploadmedia">cancel the update</key>
+	<key id="create-securemedia">Add secure media</key>
+	<key id="create-preferences">Create preferences</key>
+	<key id="transformtosecuremedia">Convert to secure media</key>
+	<key id="transformtomedia">Convert to non-secure media</key>
+	<key id="crop">Crop image</key>
+	<key id="cropimage">crop image</key>
+	<key id="cropped">(Cropped)</key>
+	<key id="transformtomedia-success">Conversion to non-secure media performed successfully.</key>
+	<key id="transformtosecuremedia-success">Conversion to secure media performed successfully.</key>
 </i18n>

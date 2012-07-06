@@ -72,7 +72,7 @@ class media_CropAction extends change_JSONAction
 			$filename = trim($request->getParameter('filename'));
 			if (f_util_StringUtils::isEmpty($filename))
 			{
-				$filename = $media->getLabel(). ' ' . f_Locale::translateUI('&modules.media.bo.actions.Cropped;');
+				$filename = $media->getLabel(). ' ' . LocaleService::getInstance()->trans('m.media.bo.actions.cropped', array('ucf'));
 			}
 			$ms = media_MediaService::getInstance();
 			$newMedia = $ms->getNewDocumentInstance();

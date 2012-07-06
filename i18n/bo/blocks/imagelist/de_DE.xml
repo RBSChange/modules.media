@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.blocks.imagelist" lcid="de_DE">
-  <key id="format">Format</key>
-  <key id="format-help">Wählen Sie ein vorbestimmtes Format</key>
+	<key id="format">Format</key>
+	<key id="format-help">Wählen Sie ein vorbestimmtes Format</key>
 </i18n>

@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.general" lcid="en_GB">
-  <key id="module-name">Media library</key>
-  <key id="tree-root-name">Media library</key>
-  <key id="system-folder-name">Media library</key>
-  <key id="uploading">file upload</key>
-  <key id="close">close</key>
-  <key id="file">file</key>
-  <key id="progress">progress</key>
-  <key id="imagesetblockwidth">the image sets the block width</key>
-  <key id="formats">image formats</key>
-  <key id="selectmedia">select the new file</key>
-  <key id="mediafile">media file</key>
-  <key id="doupdate">update</key>
-  <key id="docancel">cancel</key>
-  <key id="update-success">Update successful.</key>
-  <key id="preview">Preview</key>
+	<key id="module-name">Media library</key>
+	<key id="tree-root-name">Media library</key>
+	<key id="system-folder-name">Media library</key>
+	<key id="uploading">file upload</key>
+	<key id="close">close</key>
+	<key id="file">file</key>
+	<key id="progress">progress</key>
+	<key id="imagesetblockwidth">the image sets the block width</key>
+	<key id="formats">image formats</key>
+	<key id="selectmedia">select the new file</key>
+	<key id="mediafile">media file</key>
+	<key id="doupdate">update</key>
+	<key id="docancel">cancel</key>
+	<key id="update-success">Update successful.</key>
+	<key id="preview">Preview</key>
 </i18n>

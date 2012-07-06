@@ -10,7 +10,7 @@
 			<parameter name="url" type="String">
 				<constraint name="url" />
 			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" moduleselector="website" allow="hasUrl" />
+			<parameter name="documenturl" type="Document" moduleselector="website" allow="hasUrl" document-type="modules_generic/document" />
 		</parameters>
 		<xul>
 			<javascript>
@@ -53,7 +53,7 @@
 	</block>
 	<block type="modules_media_imageList" labeli18n="m.media.bo.blocks.imagelist" icon="list-block" cache="true" cache-key="cmpref" cache-deps="[modules_media/media]">
 		<parameters>
-			<parameter name="cmpref" type="modules_media/media" max-occurs="-1" />
+			<parameter name="cmpref" type="DocumentArray" document-type="modules_media/media" />
 			<parameter name="format" type="String" from-list="modules_media/formats" emptylabel="" />
 			<parameter name="customWidth" type="String" />
 			<parameter name="customHeight" type="String" />
@@ -61,7 +61,7 @@
 			<parameter name="url" type="String">
 				<constraint name="url" />
 			</parameter>
-			<parameter name="documenturl" type="modules_generic/Document" allow="hasUrl" />
+			<parameter name="documenturl" type="Document" allow="hasUrl" document-type="modules_generic/document" />
 		</parameters>
 		<xul>
 			<javascript>

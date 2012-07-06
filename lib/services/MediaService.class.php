@@ -197,7 +197,7 @@ class media_MediaService extends media_FileService
 			$data['content']['previewimgurl'] = array('id' => $document->getId(), 'lang' => $lang);
 			if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
 			{
-				$pixelsLabel = f_Locale::translateUI('&modules.media.doceditor.pixels;');
+				$pixelsLabel = LocaleService::getInstance()->trans('m.media.doceditor.pixels');
 				$data['content']['width'] = $info['width'].' '.$pixelsLabel;
 				$data['content']['height'] = $info['height'].' '.$pixelsLabel;
 				$data['content']['previewimgurl']['image'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
@@ -379,7 +379,8 @@ class media_MediaService extends media_FileService
 			$attributes['description'] = $document->getDescriptionAsHtml();
 		}
 
-		$templateComponent = TemplateLoader::getInstance()->setpackagename('modules_media')->setMimeContentType('html')->load('Media-Block-Flash-Success');
+		$templateComponent = change_TemplateLoader::getNewInstance()->setExtension('html')
+			->load('modules', 'media', 'templates', 'Media-Block-Flash-Success');
 		$templateComponent->setAttribute('medias', array($attributes));
 		$content = $templateComponent->execute();
 		return $content;

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.doceditor.section" lcid="en_GB">
-  <key id="usages">References</key>
-  <key id="usages-view">(See…)</key>
+	<key id="usages">References</key>
+	<key id="usages-view">(See…)</key>
 </i18n>

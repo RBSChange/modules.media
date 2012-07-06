@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.blocks.flash" lcid="de_DE">
-  <key id="transparent">transparenter Hintergrund</key>
-  <key id="wmode-help">transparenter Hintergrund</key>
+	<key id="transparent">transparenter Hintergrund</key>
+	<key id="wmode-help">transparenter Hintergrund</key>
 </i18n>

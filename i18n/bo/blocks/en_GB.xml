@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <i18n baseKey="m.media.bo.blocks" lcid="en_GB">
-  <key id="flash">Flash animation</key>
-  <key id="image">image</key>
-  <key id="imagelist">List of images</key>
-  <key id="media">media</key>
+	<key id="flash">Flash animation</key>
+	<key id="image">image</key>
+	<key id="imagelist">List of images</key>
+	<key id="media">media</key>
 </i18n>

@@ -523,12 +523,9 @@ class media_FileService extends f_persistentdocument_DocumentService
 				return $link;
 			}
 		}
-		else
-		{
-			$link = new f_web_ParametrizedLink($protocol, $host, '/publicmedia/original/' . $this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName));
-			$link->setQueryParameters($parameters);
-			return $link;
-		}
+		$link = new f_web_ParametrizedLink($protocol, $host, '/publicmedia/original/' . $this->getRelativeFolder($documentId, $lang) . rawurlencode($fileName));
+		$link->setQueryParameters($parameters);
+		return $link;
 	}
 
 	/**

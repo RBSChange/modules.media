@@ -55,7 +55,7 @@ class PHPTAL_Php_Attribute_CHANGE_media extends PHPTAL_Php_Attribute
 		$this->doEcho("MediaHelper::getContent($media, $lang, $width, $height, $alt, $format, $contentType, array(".join(",", $attributes)."))");
     }
 
-    public function evaluate($exp)
+    public function evaluate($exp, $stripQuotes = false)
     {
     	$exp = trim(strval($exp));
     	$end = strlen($exp) - 1;

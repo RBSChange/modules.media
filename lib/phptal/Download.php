@@ -41,7 +41,7 @@ class PHPTAL_Php_Attribute_CHANGE_download extends PHPTAL_Php_Attribute
 	/**
 	 * @param media_persistentdocument_media $media
 	 */
-	public function getLang($media)
+	public static function getLang($media)
 	{
 		$lang = RequestContext::getInstance()->getLang();
 		if ($media->isLangAvailable($lang))

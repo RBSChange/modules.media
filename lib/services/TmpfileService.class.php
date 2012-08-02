@@ -65,8 +65,6 @@ class media_TmpfileService extends media_FileService
 	 */
 	function checkTmpFile($tmpFile)
 	{
-		Framework::fatal(__CLASS__ . ' ' . $tmpFile->getId() . ' ' . $tmpFile->getFilename());
-		
 		$tm = $this->getTransactionManager();
 		try
 		{
@@ -96,7 +94,6 @@ class media_TmpfileService extends media_FileService
 					$media = $this->transform($tmpFile, $destModelName);
 					if ($media->isModified())
 					{
-						Framework::fatal(__CLASS__ . ' ' . implode(', ', $media->getModifiedPropertyNames()));
 						$media->save();
 					}
 					

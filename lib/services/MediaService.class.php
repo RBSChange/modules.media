@@ -53,8 +53,8 @@ class media_MediaService extends media_FileService
 
 		$tmpFileName = $document->getNewFileName();
 		if ($tmpFileName !== null && is_file($tmpFileName))
-		{
-			$document->setMediatype(MediaHelper::getMediaTypeByFilename($document->getFilename()));
+		{			
+			$document->setMediatype(MediaHelper::getMediaTypeByFilename($document->getFilename() ? $document->getFilename() : basename($tmpFileName)));
 		}
 		else if ($document->isPropertyModified('title'))
 		{

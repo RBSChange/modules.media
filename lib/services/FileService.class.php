@@ -290,10 +290,51 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 * @param media_persistentdocument_file $document
 	 * @return void
 	 */
+	protected function preDeleteLocalized($document)
+	{
+		$fileName = $document->getFilename();
+		if ($fileName === null) {return;}
+		
+		$rc = RequestContext::getInstance();
+		$lang = $rc->getLang();	
+		
+		$path = $this->getAbsoluteFolder($document->getId(), $lang) . $fileName;
+		$document->setNewFileName($path);
+	}
+	
+	/**
+	 * @param media_persistentdocument_file $document
+	 * @return void
+	 */
 	protected function postDeleteLocalized($document)
 	{
-		$lang = RequestContext::getInstance()->getLang();
-		
+		$rc = RequestContext::getInstance();
+		if ($document->getNewFileName())
+		{			
+			$path = $document->getNewFileName();
+			$voPath = $this->getAbsoluteFolder($document->getId(), $document->getLang());
+			
+			if (!is_dir($voPath) && is_file($path))
+			{
+				
+				try
+				{
+
+					$rc->beginI18nWork($document->getLang());
+					$document->setFilename(basename($path));
+					$document->setModificationdate(null);	
+					$this->save($document);
+					$rc->endI18nWork();
+				}
+				catch (Exception $e)
+				{
+					Framework::exception($e);
+					$rc->endI18nWork();
+				}
+			}
+		}
+	
+		$lang = $rc->getLang();
 		$path = $this->getAbsoluteFolder($document->getId(), $lang);
 		f_util_FileUtils::rmdir($path);
 		

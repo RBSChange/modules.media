@@ -16,6 +16,8 @@
 			<styles properties="actualtype" />
 			<columns>
 				<column name="title" label="Title" flex="2" />
+				<column name="dimensions" label="Dimensions" flex="1" />
+				<column name="weight" label="Weight" flex="1" />
 				<column name="countreferences" label="Countreferences" flex="1" />
 			</columns>
 			<contextactions>
@@ -37,6 +39,8 @@
 			<styles properties="actualtype" />
 			<columns>
 				<column name="title" label="Title" flex="2" />
+				<column name="dimensions" label="Dimensions" flex="1" />
+				<column name="weight" label="Weight" flex="1" />
 				<column name="countreferences" label="Countreferences" flex="1" />
 			</columns>
 			<contextactions>
@@ -55,6 +59,8 @@
 			<styles properties="actualtype" />
 			<columns>
 				<column name="title" label="Title" flex="2" />
+				<column name="dimensions" label="Dimensions" flex="1" />
+				<column name="weight" label="Weight" flex="1" />
 				<column name="countreferences" label="Countreferences" flex="1" />
 			</columns>
 			<drops>

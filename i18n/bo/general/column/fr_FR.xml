@@ -2,4 +2,6 @@
 <i18n baseKey="m.media.bo.general.column" lcid="fr_FR">
   <key id="title">texte alternatif</key>
   <key id="countreferences">nombre de références</key>
+  <key id="dimensions">dimensions</key>
+  <key id="weight">poids</key>
 </i18n>

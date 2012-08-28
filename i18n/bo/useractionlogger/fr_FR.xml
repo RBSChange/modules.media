@@ -58,4 +58,6 @@
   <key id="log-saveredirectinfo-securemedia">log-saveredirectinfo-securemedia</key>
   <key id="saveredirectinfo-media">saveredirectinfo.media {lang} {documentlabel}</key>
   <key id="log-saveredirectinfo-media">log saveredirectinfo media</key>
+  <key id="delete-systemfolder">delete.systemfolder {documentlabel}</key>
+  <key id="log-delete-systemfolder">log delete systemfolder</key>
 </i18n>

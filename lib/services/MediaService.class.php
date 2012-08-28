@@ -228,7 +228,7 @@ class media_MediaService extends media_FileService
 			$data['content']['previewimgurl'] = array('id' => $document->getId(), 'lang' => $lang);
 			if ($document->getMediatype() == MediaHelper::TYPE_IMAGE)
 			{
-				$pixelsLabel = f_Locale::translateUI('&modules.media.doceditor.pixels;');
+				$pixelsLabel = LocaleService::getInstance()->transBO('m.media.bo.doceditor.pixels');
 				$data['content']['width'] = $info['width'].' '.$pixelsLabel;
 				$data['content']['height'] = $info['height'].' '.$pixelsLabel;
 				$data['content']['previewimgurl']['image'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
@@ -278,7 +278,10 @@ class media_MediaService extends media_FileService
 		{
 			$nodeAttributes['countreferences'] =  $document->countReferences();
 		}
-
+		
+		$infos = ($document->getFilename()) ? $document->getInfo() : $document->getInfoForLang($document->getLang());
+		$nodeAttributes['weight'] = $infos['size'];
+		
 		switch ($document->getMediatype())
 		{
 			case MediaHelper::TYPE_IMAGE:
@@ -294,11 +297,13 @@ class media_MediaService extends media_FileService
 				}
 				if ($treeType == 'wlist')
 				{
+					$pixelsLabel = LocaleService::getInstance()->transBO('m.media.bo.doceditor.pixels');
+					$nodeAttributes['dimensions'] = $infos['width'] . ' x ' . $infos['height'] . ' ' . $pixelsLabel;
 					$nodeAttributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
-					->setQueryParameter('cmpref', $document->getId())
-					->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
-					->setQueryParameter('lang', RequestContext::getInstance()->getLang())
-					->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
+						->setQueryParameter('cmpref', $document->getId())
+						->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')
+						->setQueryParameter('lang', RequestContext::getInstance()->getLang())
+						->setQueryParameter('time', date_Calendar::now()->getTimestamp())->getUrl();
 				}
 				break;
 					

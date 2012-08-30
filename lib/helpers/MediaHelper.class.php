@@ -911,7 +911,7 @@ class MediaHelper
 	/**
 	 * @param f_persistentdocument_PersistentDocument $document
 	 */
-	private function setFileNameHeader($document, $filename, &$header, $inline = true)
+	private static function setFileNameHeader($document, $filename, &$header, $inline = true)
 	{
 		$disposition = ($inline) ? "inline" : "attachment";
 

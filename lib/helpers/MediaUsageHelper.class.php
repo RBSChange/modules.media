@@ -74,7 +74,7 @@ class media_MediaUsageHelper
 	 * @param array<> $usagesArray
 	 * @return array<>
 	 */
-	private function parseMediasBlock($matchInfo, $documentId, $lang, $usagesArray)
+	private static function parseMediasBlock($matchInfo, $documentId, $lang, $usagesArray)
 	{	   
 		$attributes = self::parseAttributes(trim($matchInfo));
 		$type = $attributes['type'];
@@ -125,10 +125,10 @@ class media_MediaUsageHelper
 	 * @param string $matchInfo
 	 * @param integer $documentId
 	 * @param string $lang
-	 * @param array<> $usagesArray
-	 * @return array<>
+	 * @param array $usagesArray
+	 * @return array
 	 */
-	private function parseMediasTags($matchInfo, $documentId, $lang, $usagesArray)
+	private static function parseMediasTags($matchInfo, $documentId, $lang, $usagesArray)
 	{	   
 		$attributes = self::parseAttributes(trim($matchInfo));
 		

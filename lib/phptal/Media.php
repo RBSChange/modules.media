@@ -78,6 +78,5 @@ class PHPTAL_Php_Attribute_CHANGE_Media extends PHPTAL_Php_Attribute
 	 */
 	public function after(PHPTAL_Php_CodeWriter $codewriter)
 	{
-	  
 	}
 }

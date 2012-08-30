@@ -38,7 +38,7 @@ class media_MediaService extends media_FileService
 		$tmpFileName = $document->getNewFileName();
 		if ($tmpFileName !== null && is_file($tmpFileName))
 		{
-			$document->setMediatype(MediaHelper::getMediaTypeByFilename($document->getFilename()));
+			$document->setMediatype(MediaHelper::getMediaTypeByFilename($document->getFilename() ? $document->getFilename() : basename($tmpFileName)));
 		}
 		else if ($document->isPropertyModified('title'))
 		{
@@ -250,6 +250,9 @@ class media_MediaService extends media_FileService
 			$attributes['countreferences'] =  strval($document->countReferences());
 		}
 
+		$infos = ($document->getFilename()) ? $document->getInfo() : $document->getInfoForLang($document->getLang());
+		$attributes['weight'] = $infos['size'];
+		
 		switch ($document->getMediatype())
 		{
 			case MediaHelper::TYPE_IMAGE:
@@ -268,6 +271,8 @@ class media_MediaService extends media_FileService
 				}
 				if ($mode & DocumentHelper::MODE_CUSTOM)
 				{
+					$pixelsLabel = LocaleService::getInstance()->trans('m.media.bo.doceditor.pixels');
+					$attributes['dimensions'] = $infos['width'] . ' x ' . $infos['height'] . ' ' . $pixelsLabel;
 					$attributes['thumbnailsrc'] = LinkHelper::getUIActionLink('media', 'BoDisplay')
 						->setQueryParameter('cmpref', $document->getId())
 						->setQueryParameter('format', 'modules.uixul.backoffice/thumbnaillistitem')

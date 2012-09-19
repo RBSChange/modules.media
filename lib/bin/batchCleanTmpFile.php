@@ -1,14 +1,6 @@
 <?php
-if (count($_POST['argv']) === 2)
-{
-	$chunckSize = intval($_POST['argv'][0]);
-	$startId = intval($_POST['argv'][1]);	
-}
-else
-{
-	$chunckSize = 100;
-	$startId = 0;	
-}
+$arguments = isset($arguments) ? $arguments : array();
+list($chunckSize, $startId) = $arguments;
 
 $start = date_Calendar::getInstance()->sub(date_Calendar::HOUR, 2)->toString();
 $mtfs = media_TmpfileService::getInstance();

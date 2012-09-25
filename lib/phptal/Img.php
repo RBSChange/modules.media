@@ -38,24 +38,34 @@ class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 				$attribute = 'image';
 				break;
 		}
+		
+		$expressions = $codewriter->splitExpression($this->expression);
+		$url = array_shift($expressions);
+		
+		if (count($expressions) > 0)
+		{
+			Framework::info('More than url parameter are passed to change:img. Additional parameters are ignored');
+		}
+		
 		$attr = $this->phpelement->getOrCreateAttributeNode($attribute);
-		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $this->expression . '\') ?>');
+		$attr->setValueEscaped('<?php echo PHPTAL_Php_Attribute_CHANGE_Img::renderImg(\'' . $url . '\') ?>');
 		
 		// Always generate the alt atrtibute on img tags.
 		if (strtolower($this->phpelement->getLocalName()) == 'img')
 		{
 			$this->phpelement->getOrCreateAttributeNode('alt');
 		}
+	
 	}
-
+	
 	/**
 	 * Called after element printing.
 	 */
 	public function after(PHPTAL_Php_CodeWriter $codewriter)
 	{
-	   //NOTHING
+		//NOTHING
 	}
-		
+	
 	/**
 	 * @param array $params
 	 * @return string
@@ -66,6 +76,6 @@ class PHPTAL_Php_Attribute_CHANGE_Img extends PHPTAL_Php_Attribute
 		{
 			return $url;
 		}
-		return  MediaHelper::getStaticUrl($url);	
+		return MediaHelper::getStaticUrl($url);
 	}
 }

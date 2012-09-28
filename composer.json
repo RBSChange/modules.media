@@ -1,0 +1,6 @@
+{
+	"name": "rbschange/media",
+	"description": "RBS Change Media module",
+	"type": "rbschange-compatibility-module",
+	"license":"AGPL-3.0"
+}

@@ -4,5 +4,5 @@
 		<property name="label" default-value="media" />
 		<property name="usefilenameasalt" type="Boolean" default-value="false" />
 	</properties>
-	<statuses default="PUBLICATED" />
+	<statuses default="PUBLISHED" />
 </document>

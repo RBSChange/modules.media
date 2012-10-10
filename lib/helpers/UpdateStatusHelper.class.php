@@ -55,7 +55,7 @@ class media_UpdateStatusHelper
 				try
 				{
 					$rc->beginI18nWork($lang);
-					$document->setPublicationstatus('PUBLICATED');
+					$document->setPublicationstatus('PUBLISHED');
 					$document->getDocumentService()->publishDocument($document, array());
 					$rc->endI18nWork();
 				}
@@ -67,7 +67,7 @@ class media_UpdateStatusHelper
 		}
 		else
 		{
-			$document->setPublicationstatus('PUBLICATED');
+			$document->setPublicationstatus('PUBLISHED');
 			$document->getDocumentService()->publishDocument($document, array());
 		}
 	}

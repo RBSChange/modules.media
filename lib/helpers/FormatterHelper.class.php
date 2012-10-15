@@ -20,8 +20,13 @@ class media_FormatterHelper
 			RequestContext::getInstance()->beginI18nWork($lang);
 			$media = DocumentHelper::getDocumentInstance($mediaId);
 			
+			if (!($media instanceof media_persistentdocument_file))
+			{
+				throw new Exception("Document is not an instance of file");
+			}
+			
 			$fileName = $media->getDocumentService()->getOriginalPath($media, false);
-			if (! is_readable($fileName))
+			if (!is_readable($fileName))
 			{
 				throw new Exception("Unable to read : $fileName");
 			}
@@ -95,14 +100,14 @@ class media_FormatterHelper
 		while (is_numeric($datas[$i]))
 		{
 			$partId .= $datas[$i];
-			$i ++;
+			$i++;
 		}
 		$mediaId = intval($partId);
 		$lang = $datas[$i];
 		
 		$mediaFileName = $datas[$i + 1];
 		$matches = array();
-		if (! preg_match('/^.*;(([a-z]+=[0-9]+){1}(,[a-z]+=[0-9]+)*)\.[a-zA-Z]+$/', $mediaFileName, $matches))
+		if (!preg_match('/^.*;(([a-z]+=[0-9]+){1}(,[a-z]+=[0-9]+)*)\.[a-zA-Z]+$/', $mediaFileName, $matches))
 		{
 			throw new Exception("Unknown formatted media format: $mediaFileName");
 		}
@@ -165,7 +170,7 @@ class media_FormatterHelper
 		if (f_util_ArrayUtils::isNotEmpty($format))
 		{
 			$key = self::generateFormatKey($format);
-			if (! f_util_StringUtils::isEmpty($key))
+			if (!f_util_StringUtils::isEmpty($key))
 			{
 				return $key;
 			}
@@ -350,7 +355,7 @@ class media_ImagickResizerFormatter extends media_ResizerFormatter
 			}
 			
 			if ($formatable === true && $imagik->getImageWidth() > 0)
-			{			
+			{
 				list ($width, $height) = $this->computeImageSize($imagik->getImageWidth(), $imagik->getImageHeight(), $formatSizeInfo);
 				if ($width != $imagik->getImageWidth() || $height != $imagik->getImageHeight())
 				{
@@ -360,9 +365,9 @@ class media_ImagickResizerFormatter extends media_ResizerFormatter
 						if ($vi['versionNumber'] >= 1591) //ImageMagick 6.3.7 
 						{
 							$imagik = $imagik->coalesceImages();
-							foreach ($imagik as $frame) 
+							foreach ($imagik as $frame)
 							{
-							   $frame->thumbnailImage($width, $height, true);
+								$frame->thumbnailImage($width, $height, true);
 							}
 							f_util_FileUtils::mkdir(dirname($formattedFileName));
 							$imagik->writeImages($formattedFileName, true);
@@ -378,7 +383,7 @@ class media_ImagickResizerFormatter extends media_ResizerFormatter
 					}
 					else
 					{
-						$imagik->thumbnailImage($width, $height, true);	
+						$imagik->thumbnailImage($width, $height, true);
 						f_util_FileUtils::mkdir(dirname($formattedFileName));
 						$imagik->writeImage($formattedFileName);
 						return true;
@@ -518,7 +523,7 @@ class media_GDResizerFormatter extends media_ResizerFormatter
 					{
 						if ($firstHeader + 8 == $secondHeader)
 						{
-							$frameCount ++;
+							$frameCount++;
 						}
 						
 						$contentPosition = $secondHeader + 1;

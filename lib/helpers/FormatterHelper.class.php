@@ -20,6 +20,11 @@ class media_FormatterHelper
 			RequestContext::getInstance()->beginI18nWork($lang);
 			$media = DocumentHelper::getDocumentInstance($mediaId);
 			
+			if (!($media instanceof media_persistentdocument_file))
+			{
+				throw new Exception("Document is not an instance of file");
+			}
+			
 			$fileName = $media->getDocumentService()->getOriginalPath($media, false);
 			if (! is_readable($fileName))
 			{

@@ -280,14 +280,29 @@ class MediaHelper
 		}
 		else
 		{
-			$format = array();
-			if (isset($parameters['attributes']['max-width']) || isset($parameters['attributes']['max-height']))
+		if (isset($parameters['attributes']['max-width']) || isset($parameters['attributes']['max-height']))
 			{
-				$format = array('max-width' => $parameters['attributes']['max-width'], 'max-height' => $parameters['attributes']['max-height']);
+				if (isset($parameters['attributes']['max-width']))
+				{
+					$format['max-width'] = $parameters['attributes']['max-width'];
+				}
+				
+				if (isset($parameters['attributes']['max-height']))
+				{
+					$format['max-height'] = $parameters['attributes']['max-height'];
+				}
 			}
 			else
 			{
-				$format = array('width' => $parameters['width'], 'height' => $parameters['height']);
+				if (isset($parameters['width']))
+				{
+					$format['width'] = $parameters['width'];
+				}
+				
+				if (isset($parameters['height']))
+				{
+					$format['height'] = $parameters['height'];
+				}
 			}
 		}
 		$parameters['url'] = LinkHelper::getDocumentUrl($document, $urlLang, $format);

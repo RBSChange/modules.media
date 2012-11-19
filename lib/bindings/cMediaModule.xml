@@ -4,7 +4,7 @@
 	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">	
 	
 	<binding id="cPreviewImgUrl" extends="layout.cDocumentEditor#cProperty">
-		<implementation>					
+		<implementation>
 			<method name="setValue">
 				<parameter name="val" />
 				<body><![CDATA[
@@ -24,12 +24,12 @@
 			</method>	
 			
 			<method name="download">
-				<body><![CDATA[			
+				<body><![CDATA[
 					var documentId   = this.getAttribute("docid");
 					var documentLang = this.getAttribute("doclang");
 					wToolkit.openlink('media', 'BoDisplay', {cmpref: documentId, lang: documentLang, forceDownload: true});
 				]]></body>
-			</method>	
+			</method>
 		</implementation>
 		<content>
 			<xul:hbox style="padding-bottom:5px">
@@ -40,14 +40,12 @@
 					<xul:label class="text-link" onclick="document.getBindingParent(this).download()" 
 						value="${transui:m.media.bo.doceditor.property.Previewimgurl-download,ucf,attr}"/>
 				</xul:hbox>	
-			</xul:hbox>			
+			</xul:hbox>
 		</content>
 	</binding>
 	
 	<binding id="wMediaModuleList" extends="widgets.cNavigation#cModuleThumbnailList">
 		<implementation>
-			<field name="mUploadCount">0</field>
-			
 			<constructor><![CDATA[
 				var me = this;
 				var thumb = this.listItems;
@@ -55,12 +53,12 @@
 				thumb.addEventListener("dragleave", function (event) {me.onThumbDragLeave(event);}, false);	
 				thumb.addEventListener("dragover", function (event) {me.onThumbDragOver(event);}, false);
 				thumb.addEventListener("drop", function (event) {me.onThumbDrop(event);}, false);	
-            ]]></constructor>
-            
+			]]></constructor>
+			
 			<method name="onDragEnter">
-				<parameter name="event" />		
+				<parameter name="event" />
 				<body><![CDATA[
-					//wCore.debug('wMediaModuleList.onDragEnter');		
+					//wCore.debug('wMediaModuleList.onDragEnter');
 					this.mDropData = null;
 					var dropNodeInfo = event.dataTransfer.mozGetDataAt("application/json-documentidtype-array", 0);
 					if (dropNodeInfo)
@@ -86,11 +84,11 @@
 						this.dragFeedBack = null;
 					}
 					event.preventDefault();
-				]]></body>	
-			</method>	
-												
+				]]></body>
+			</method>
+			
 			<method name="onDrop">
-				<parameter name="event" />			
+				<parameter name="event" />
 				<body><![CDATA[
 					this.onDragLeave(event);
 					//wCore.debug('onDrop');
@@ -139,9 +137,9 @@
 			</method>	
 			
 			<method name="onThumbDragEnter">
-				<parameter name="event" />		
+				<parameter name="event" />
 				<body><![CDATA[
-					//wCore.debug('wMediaModuleList.onThumbDragEnter');		
+					//wCore.debug('wMediaModuleList.onThumbDragEnter');
 					this.mDropData = null;
 					if (event.dataTransfer.types.contains('application/x-moz-file'))
 					{
@@ -152,30 +150,30 @@
 						event.dataTransfer.effectAllowed = 'none';
 					}
 					event.preventDefault();
-				]]></body>	
-			</method>	
+				]]></body>
+			</method>
 				
 			<method name="onThumbDragOver">
-				<parameter name="event" />			
+				<parameter name="event" />
 				<body><![CDATA[
 					if (!event.dataTransfer.types.contains('application/x-moz-file'))
 					{
 						event.dataTransfer.effectAllowed = 'none';
-					}													
+					}
 					event.preventDefault();
 				]]></body>	
 			</method>
-					
+			
 			<method name="onThumbDragLeave">
-				<parameter name="event" />		
+				<parameter name="event" />
 				<body><![CDATA[
 					//wCore.debug('wMediaModuleList.onThumbDragLeave');		
 					event.preventDefault();
-				]]></body>	
+				]]></body>
 			</method>
-					
+			
 			<method name="onThumbDrop">
-				<parameter name="event" />			
+				<parameter name="event" />
 				<body><![CDATA[
 					//wCore.debug('wMediaModuleList.onThumbDrop');
 					if (!event.dataTransfer.types.contains('application/x-moz-file'))
@@ -186,27 +184,40 @@
 					var dropInfo = {parentid: this.mBaseItemData.id, dt: event.dataTransfer, beforeid:false, afterid:false};
 					this.executeDropFileCommand(dropInfo);
 					event.preventDefault();
-				]]></body>	
+				]]></body>
 			</method>
 			
 			<method name="executeDropFileCommand">
 				<parameter name="dropInfo" />
 				<body><![CDATA[
-					//wCore.debug('executeDropFileCommand');
+					this.disabled = true;
 					var dt = dropInfo.dt;
-					var file = null;
+					var files = [];
+					for (var i = 0; i < dt.mozItemCount; i++)
+					{
+						var file = dt.mozGetDataAt("application/x-moz-file", i);
+						if (file instanceof Components.interfaces.nsIFile)
+						{
+							files.push(file);
+						}
+					}
+					
 					var parameters = {lang: Context.W_LANG, cmpref: dropInfo.parentid};
 					if (dropInfo.beforeid) {parameters.beforeid = dropInfo.beforeid;}
 					if (dropInfo.afterid) {parameters.afterid = dropInfo.afterid;}
 					
-					for (var i = 0; i < dt.mozItemCount; i++)
-					{
-						file = dt.mozGetDataAt("application/x-moz-file", i);
-  						if (file instanceof Components.interfaces.nsIFile)
-  						{
-							this.startUploadFile(file, parameters);
-						}							
-					}					
+					getController().alert(files.length + ' fichier à envoyer.');
+					var me = this;
+					wCore.executeOnMethodExists(getController().getElementByAnonid('modalDialogWindow'), "append" , function(dlg) {
+						//wCore.debug('executeDropFileCommand');
+						for (var i = 0; i < files.length; i++)
+						{
+							me.startUploadFile(files[i], parameters);
+						}
+						getController().alert('Envoi terminé.');
+						me.disabled = false;
+						me.loadNode(me.mBaseItemData.id, me.mBaseItemData.modelName);
+					});
 				]]></body>
 			</method>
 			
@@ -215,101 +226,54 @@
 				<parameter name="parameters" />
 				<body><![CDATA[
 					try
-                    {
-                    	if (this.mUploadCount === 0)
-                    	{
-							this.disabled = true;
-						}
-						this.mUploadCount++;
-                     	this.getModule().getController().alert('Envoi de ' + nsIFile.leafName + '...');       	        	
-                    	wCore.debug('startUploadFile : ' + nsIFile.path);
-               	
-        				var muxInput = Components.classes["@mozilla.org/io/multiplex-input-stream;1"].createInstance(Components.interfaces.nsIMultiplexInputStream);
-        				var tmp = null;
-        				var fileInput = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
-        				fileInput.init(nsIFile, 0x01, 0444, tmp);
-        				var fileContent = Components.classes["@mozilla.org/network/buffered-input-stream;1"].createInstance(Components.interfaces.nsIBufferedInputStream);
-        				fileContent.init(fileInput, 4096);
-        				var headerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
-        				
-        				var headerContent = new String();
-        				headerContent += "\r\n";
-        				headerContent += "--111222111\r\nContent-disposition: form-data;name=\"addfile\"\r\n\r\n1";
-        				headerContent += "\r\n" + "--111222111\r\n";
-        				headerContent += "Content-disposition: form-data;name=\"filename\";filename=\"" + nsIFile.leafName + "\"\r\n";
-        				headerContent += "Content-Type: application/octet-stream\r\n";
-        				headerContent += "Content-Length: " + nsIFile.fileSize + "\r\n\r\n";
-        				headerInput.setData(headerContent, headerContent.length);
-        				
-        				var footerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
-        				var footerContent = new String("\r\n--111222111--\r\n");
-        				footerInput.setData(footerContent, footerContent.length);
-        				
-        				muxInput.appendStream(headerInput);
-        				muxInput.appendStream(fileContent);
-        				muxInput.appendStream(footerInput);
-        				
-        				var requestUrl = wCore.buildeServerUrl('media', 'DropFile', parameters)
-        				wCore.debug('startUploadFile.sendTo : ' + requestUrl);
-        				var req = new XMLHttpRequest();
-						req.open('POST', requestUrl, true);
-						var me = this;
-						req.onreadystatechange = function (aEvt) 
-						{  
-							if (req.readyState == 4) {me.onUplodedFile(req);}  
-						};
+					{
+						getController().alert('Envoi de ' + nsIFile.leafName + '...');
+						wCore.debug('startUploadFile : ' + nsIFile.path);
+						
+						var muxInput = Components.classes["@mozilla.org/io/multiplex-input-stream;1"].createInstance(Components.interfaces.nsIMultiplexInputStream);
+						var tmp = null;
+						var fileInput = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
+						fileInput.init(nsIFile, 0x01, 0444, tmp);
+						var fileContent = Components.classes["@mozilla.org/network/buffered-input-stream;1"].createInstance(Components.interfaces.nsIBufferedInputStream);
+						fileContent.init(fileInput, 4096);
+						var headerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+						
+						var headerContent = new String();
+						headerContent += "\r\n";
+						headerContent += "--111222111\r\nContent-disposition: form-data;name=\"addfile\"\r\n\r\n1";
+						headerContent += "\r\n" + "--111222111\r\n";
+						headerContent += "Content-disposition: form-data;name=\"filename\";filename=\"" + nsIFile.leafName + "\"\r\n";
+						headerContent += "Content-Type: application/octet-stream\r\n";
+						headerContent += "Content-Length: " + nsIFile.fileSize + "\r\n\r\n";
+						headerInput.setData(headerContent, headerContent.length);
+						
+						var footerInput = Components.classes["@mozilla.org/io/string-input-stream;1"].createInstance(Components.interfaces.nsIStringInputStream);
+						var footerContent = new String("\r\n--111222111--\r\n");
+						footerInput.setData(footerContent, footerContent.length);
+						
+						muxInput.appendStream(headerInput);
+						muxInput.appendStream(fileContent);
+						muxInput.appendStream(footerInput);
+						
+						var requestUrl = wCore.buildeServerUrl('media', 'DropFile', parameters)
+						wCore.debug('startUploadFile.sendTo : ' + requestUrl);
+						var req = new XMLHttpRequest();
+						req.open('POST', requestUrl, false);
 						req.setRequestHeader("Content-Length", (muxInput.available()-2));
 						req.setRequestHeader("Content-Type", "multipart/form-data; boundary=111222111");
-    				    req.send(muxInput);
-    				}
-    				catch (e)
-                    {
-                        wCore.error("startUploadFile", [nsIFile], e);
-                        this.mUploadCount--;
-                    	if (this.mUploadCount === 0)
-                    	{
-							this.disabled = false;
-							this.refreshOnDrop();
-						}
-                    }
-                ]]></body>
-			</method>
-			
-			<method name="onUplodedFile">
-				<parameter name="req" />
-				<body><![CDATA[
-					this.mUploadCount--;
-					try
-                    {    
+						req.send(muxInput);
 						var result = wCore.parseJSON(req.responseText);
-                    	if (result.status == 'OK')
-                    	{
-                    		this.getModule().getController().alert(result.contents.label + ' OK!');
-                    	}
-                    	else
-                    	{
-                    		this.getModule().getController().alert(result.contents.errorMessage);
-                    	}
-    				}
-    				catch (e)
-                    {
-                        wCore.error("onUplodedFile", [req], e);
-                    }
-                    
-                	if (this.mUploadCount === 0)
-                	{
-						this.disabled = false;
-						this.refreshOnDrop();
+						if (result.status != 'OK')
+						{
+							getController().alert(' -> Erreur : '+result.contents.errorMessage);
+						}
 					}
-                ]]></body>
-             </method>	
-             
-             <method name="refreshOnDrop">
-             	<body><![CDATA[
-             		this.getModule().getController().alert('Envoi terminé.');
-             		this.loadNode(this.mBaseItemData.id, this.mBaseItemData.modelName)
-                ]]></body>
-             </method>	             				
+					catch (e)
+					{
+						wCore.error("startUploadFile", [nsIFile], e);
+					}
+				]]></body>
+			</method>
 		</implementation>
 	</binding>
 </bindings>

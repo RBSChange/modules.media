@@ -4,18 +4,18 @@
 			<action name="DropFile" />
 		</document>
 		<document name="folder">
-			<action name="DropFile" />			
-		</document>		
+			<action name="DropFile" />
+		</document>
 		<document name="media">
 			<action name="Transform" />
 			<action name="CropDialog" />
-			<action name="Crop" />		
-		</document>		
+			<action name="Crop" />
+		</document>
 		<document name="securemedia">
 			<action name="Transform" />
 			<action name="CropDialog" />
 			<action name="Crop" />
-		</document>		
+		</document>
 		<action name="DownloadMedia" />
 		<action name="SecureMediaDisplay" />
 		<action name="BoDisplay" />
@@ -35,9 +35,7 @@
 			<permission name="Rename.*" />
 			<permission name="PutInTrash.*" />
 			<permission name="Delete.*" />
-			<permission name="Insert.media" />
-			<permission name="Insert.securemedia" />
-			<permission name="Insert.folder" />
+			<permission name="Insert.*" />
 			<permission name="Update.*" />
 			<permission name="Activate.*" />
 			<permission name="Transform.media" />
@@ -71,7 +69,7 @@
 		</role>
 		<role name="User">
 			<permission name="List.*" />
-		</role>		
+		</role>
 		<frontendrole name="SecureMediaDisplay">
 			<permission name="SecureMediaDisplay" />
 		</frontendrole>

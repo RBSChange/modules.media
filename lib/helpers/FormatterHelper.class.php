@@ -111,6 +111,10 @@ class media_FormatterHelper
 		{
 			throw new Exception("Unknown formatted media format: $mediaFileName");
 		}
+		if (isset($datas[$i + 2]))
+		{
+			throw new Exception("Bad URL format: ".$encodedformat);
+		}
 		$stringFormat = $matches[1];
 		foreach (explode(',', $stringFormat) as $formatInfo)
 		{

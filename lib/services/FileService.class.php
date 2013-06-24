@@ -76,6 +76,17 @@ class media_FileService extends f_persistentdocument_DocumentService
 			{
 				$filename = $document->getFilename();
 			}
+
+			// If filename begins with a dot, remove it to avoid creation of some files like ".htaccess" in media/original.
+			if (strpos($filename, '.') === 0)
+			{
+				while (strpos($filename, '.') === 0)
+				{
+					$filename = substr($filename, 1);
+				}
+				$document->setFilename(f_util_StringUtils::utf8Encode($filename));
+			}
+
 			if (defined('NODE_NAME'))
 			{
 				$document->setNode(NODE_NAME);
@@ -125,10 +136,11 @@ class media_FileService extends f_persistentdocument_DocumentService
 		}
 		return $info;
 	}
-	
+
 	/**
 	 * @param media_persistentdocument_file $document
 	 * @param Integer $parentNodeId Parent node ID where to save the document.
+	 * @throws IOException
 	 * @return void
 	 */
 	protected function postSave($document, $parentNodeId = null)
@@ -223,6 +235,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	/**
 	 * @param string $path
 	 * @param string $extension
+	 * @return string|null
 	 */
 	public static function getMimetype($path, $extension = null)
 	{
@@ -322,7 +335,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 
 					$rc->beginI18nWork($document->getLang());
 					$document->setFilename(basename($path));
-					$document->setModificationdate(null);	
+					$document->setModificationdate(null);
 					$this->save($document);
 					$rc->endI18nWork();
 				}
@@ -411,7 +424,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	 * @param media_persistentdocument_file $document
 	 * @return string
 	 */
-	public static function getOriginalFolder($document)
+	public function getOriginalFolder($document)
 	{
 		return $this->getAbsoluteFolder($document->getId(), RequestContext::getInstance()->getLang());
 	}
@@ -466,7 +479,9 @@ class media_FileService extends f_persistentdocument_DocumentService
 	
 	/**
 	 * @param media_persistentdocument_file $document
-	 * @param $lang
+	 * @param string $lang
+	 * @param boolean $urlencoded
+	 * @return string
 	 */
 	protected function getAbsoluteFilePath($document, $lang = null, $urlencoded = false)
 	{
@@ -486,10 +501,10 @@ class media_FileService extends f_persistentdocument_DocumentService
 			$fileName = rawurlencode($fileName);
 		return $this->getAbsoluteFolder($document->getId(), $lang) . $fileName;
 	}
-	
+
 	/**
-	 * @param String $mediaFileName
-	 * @return String
+	 * @param string $fileName
+	 * @return string
 	 */
 	protected function convertMediaFileNameToUrl($fileName)
 	{
@@ -503,8 +518,8 @@ class media_FileService extends f_persistentdocument_DocumentService
 	}
 	
 	/**
-	 * @param String $mediaFileName
-	 * @return String
+	 * @param string $fileName
+	 * @return string
 	 */
 	protected function convertMediaFileNameToAbsoluteUrl($fileName)
 	{
@@ -572,6 +587,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	/**
 	 * @param media_persistentdocument_media $document
 	 * @param string $lang
+	 * @return string|false
 	 */
 	private function getFormatedExtension($document, $lang)
 	{
@@ -591,6 +607,7 @@ class media_FileService extends f_persistentdocument_DocumentService
 	/**
 	 * @param integer $id
 	 * @param string $lang
+	 * @return string
 	 */
 	protected function getHostForDocumentId($id, $lang)
 	{

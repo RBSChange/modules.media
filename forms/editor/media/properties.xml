@@ -12,5 +12,38 @@
 			type="document" allowfile="true" hidehelp="true"
 			labeli18n="modules.media.bo.doceditor.field.New-file"
 			/>
-	</section>		
+	</section>
+	<xul>
+		<javascript>
+			<method name="fireUpdateComplete">
+				<parameter name="result" />
+				<body><![CDATA[
+					if (result.status == "OK")
+					{
+						this.modified = false;
+						this.documentEditor.clearTabs();
+						//wCore.debug('onUpdateComplete' + wCore.dump(result));
+						if (this.mDocumentId != result.contents.id)
+						{
+							this.fireInitializeComplete(result);
+							this.showTextMessage("${transui:m.uixul.bo.doceditor.message.Correction-created,ucf,js}");
+						}
+						else
+						{
+							this.fireInitializeComplete(result);
+							this.showTextMessage("${transui:m.uixul.bo.doceditor.message.Document-updated,ucf,js}");
+						}
+
+						// Clear browser's image cache
+						clearImageCache();
+					}
+					else
+					{
+						this.showErrorMessage(result.contents.errorMessage);
+						this.updateCommandsUI();
+					}
+				]]></body>
+			</method>
+		</javascript>
+	</xul>
 </panel>
